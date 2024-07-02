@@ -1,0 +1,340 @@
+{
+  "listSuggestions": [
+    {
+      "name": "John Doe",
+      "age": 25,
+      "gender": "Male",
+      "interests": [
+        "Reading",
+        "Traveling",
+        "Gaming"
+      ],
+      "pictures": [
+        "profile_picture1.jpg",
+        "profile_picture2.jpg",
+        "profile_picture3.jpg"
+      ],
+      "prompts": [
+        {
+          "prompt": "What is your favorite book?",
+          "answer": "To Kill a Mockingbird"
+        },
+        {
+          "prompt": "Where would you like to travel next?",
+          "answer": "Japan"
+        }
+      ],
+      "liked": {
+        "value": false
+      }
+    },
+    {
+      "name": "Jane Smith",
+      "age": 28,
+      "gender": "Female",
+      "interests": [
+        "Cooking",
+        "Hiking",
+        "Photography"
+      ],
+      "pictures": [
+        "profile_picture4.jpg",
+        "profile_picture5.jpg",
+        "profile_picture6.jpg"
+      ],
+      "prompts": [
+        {
+          "prompt": "What is your favorite dish to cook?",
+          "answer": "Lasagna"
+        },
+        {
+          "prompt": "What is your favorite hiking trail?",
+          "answer": "Appalachian Trail"
+        }
+      ],
+      "liked": {
+        "value": false
+      }
+    },
+    {
+      "name": "Alice Johnson",
+      "age": 22,
+      "gender": "Female",
+      "interests": [
+        "Yoga",
+        "Painting",
+        "Dancing"
+      ],
+      "pictures": [
+        "profile_picture7.jpg",
+        "profile_picture8.jpg",
+        "profile_picture9.jpg"
+      ],
+      "prompts": [
+        {
+          "prompt": "What is your favorite yoga pose?",
+          "answer": "Downward Dog"
+        },
+        {
+          "prompt": "What type of dance do you enjoy?",
+          "answer": "Ballet"
+        }
+      ],
+      "liked": {
+        "value": false
+      }
+    },
+    {
+      "name": "Bob Brown",
+      "age": 30,
+      "gender": "Male",
+      "interests": [
+        "Running",
+        "Cycling",
+        "Swimming"
+      ],
+      "pictures": [
+        "profile_picture10.jpg",
+        "profile_picture11.jpg",
+        "profile_picture12.jpg"
+      ],
+      "prompts": [
+        {
+          "prompt": "What is your favorite marathon?",
+          "answer": "Boston Marathon"
+        },
+        {
+          "prompt": "How many miles do you cycle weekly?",
+          "answer": "150 miles"
+        }
+      ],
+      "liked": {
+        "value": false
+      }
+    },
+    {
+      "name": "Charlie Green",
+      "age": 27,
+      "gender": "Male",
+      "interests": [
+        "Gaming",
+        "Coding",
+        "Reading"
+      ],
+      "pictures": [
+        "profile_picture13.jpg",
+        "profile_picture14.jpg",
+        "profile_picture15.jpg"
+      ],
+      "prompts": [
+        {
+          "prompt": "What is your favorite game?",
+          "answer": "The Witcher 3"
+        },
+        {
+          "prompt": "What programming language do you prefer?",
+          "answer": "Python"
+        }
+      ],
+      "liked": {
+        "value": false
+      }
+    },
+    {
+      "name": "Diana Prince",
+      "age": 29,
+      "gender": "Female",
+      "interests": [
+        "Running",
+        "Traveling",
+        "Blogging"
+      ],
+      "pictures": [
+        "profile_picture16.jpg",
+        "profile_picture17.jpg",
+        "profile_picture18.jpg"
+      ],
+      "prompts": [
+        {
+          "prompt": "What is your favorite destination?",
+          "answer": "Paris"
+        },
+        {
+          "prompt": "What inspired you to start blogging?",
+          "answer": "Sharing travel experiences"
+        }
+      ],
+      "liked": {
+        "value": false
+      }
+    },
+    {
+      "name": "Edward Lewis",
+      "age": 24,
+      "gender": "Male",
+      "interests": [
+        "Photography",
+        "Traveling",
+        "Music"
+      ],
+      "pictures": [
+        "profile_picture19.jpg",
+        "profile_picture20.jpg",
+        "profile_picture21.jpg"
+      ],
+      "prompts": [
+        {
+          "prompt": "What type of music do you enjoy?",
+          "answer": "Jazz"
+        },
+        {
+          "prompt": "What is your favorite photo subject?",
+          "answer": "Nature"
+        }
+      ],
+      "liked": {
+        "value": false
+      }
+    },
+    {
+      "name": "Fiona White",
+      "age": 26,
+      "gender": "Female",
+      "interests": [
+        "Reading",
+        "Writing",
+        "Yoga"
+      ],
+      "pictures": [
+        "profile_picture22.jpg",
+        "profile_picture23.jpg",
+        "profile_picture24.jpg"
+      ],
+      "prompts": [
+        {
+          "prompt": "What book are you currently reading?",
+          "answer": "The Great Gatsby"
+        },
+        {
+          "prompt": "What inspires your writing?",
+          "answer": "Life experiences"
+        }
+      ],
+      "liked": {
+        "value": false
+      }
+    },
+    {
+      "name": "George Miller",
+      "age": 31,
+      "gender": "Male",
+      "interests": [
+        "Golfing",
+        "Fishing",
+        "Cooking"
+      ],
+      "pictures": [
+        "profile_picture25.jpg",
+        "profile_picture26.jpg",
+        "profile_picture27.jpg"
+      ],
+      "prompts": [
+        {
+          "prompt": "What is your best golf score?",
+          "answer": "72"
+        },
+        {
+          "prompt": "What is your favorite fish to catch?",
+          "answer": "Trout"
+        }
+      ],
+      "liked": {
+        "value": false
+      }
+    },
+    {
+      "name": "Hannah Clark",
+      "age": 23,
+      "gender": "Female",
+      "interests": [
+        "Singing",
+        "Dancing",
+        "Acting"
+      ],
+      "pictures": [
+        "profile_picture28.jpg",
+        "profile_picture29.jpg",
+        "profile_picture30.jpg"
+      ],
+      "prompts": [
+        {
+          "prompt": "What is your favorite song to sing?",
+          "answer": "Bohemian Rhapsody"
+        },
+        {
+          "prompt": "What is your favorite dance style?",
+          "answer": "Hip Hop"
+        }
+      ],
+      "liked": {
+        "value": false
+      }
+    },
+    {
+      "name": "Ivan Lee",
+      "age": 27,
+      "gender": "Male",
+      "interests": [
+        "Basketball",
+        "Fitness",
+        "Cooking"
+      ],
+      "pictures": [
+        "profile_picture31.jpg",
+        "profile_picture32.jpg",
+        "profile_picture33.jpg"
+      ],
+      "prompts": [
+        {
+          "prompt": "What is your favorite basketball team?",
+          "answer": "Lakers"
+        },
+        {
+          "prompt": "What is your go-to healthy meal?",
+          "answer": "Grilled chicken salad"
+        }
+      ],
+      "liked": {
+        "value": false
+      }
+    },
+    {
+      "name": "Jackie Brown",
+      "age": 30,
+      "gender": "Female",
+      "interests": [
+        "Gardening",
+        "Baking",
+        "Traveling"
+      ],
+      "pictures": [
+        "profile_picture34.jpg",
+        "profile_picture35.jpg",
+        "profile_picture36.jpg"
+      ],
+      "prompts": [
+        {
+          "prompt": "What do you like to bake?",
+          "answer": "Chocolate chip cookies"
+        },
+        {
+          "prompt": "Where have you traveled recently?",
+          "answer": "Italy"
+        }
+      ],
+      "liked": {
+        "value": false
+      }
+    }
+  ]
+}
