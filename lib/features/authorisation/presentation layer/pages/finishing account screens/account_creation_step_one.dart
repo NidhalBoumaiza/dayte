@@ -11,7 +11,9 @@ import '../../widgets/continueButton.dart';
 import 'account_creation_step_two.dart';
 
 class FinishingAccountStepOne extends StatelessWidget {
-  FinishingAccountStepOne({Key? key}) : super(key: key);
+  String phoneNumber;
+
+  FinishingAccountStepOne({super.key, required this.phoneNumber});
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +129,11 @@ class FinishingAccountStepOne extends StatelessWidget {
                             if (_formKey.currentState!.validate()) {
                               navigateToAnotherScreenWithSlideTransitionFromRightToLeft(
                                 context,
-                                FinishingAccountStepTwo(),
+                                FinishingAccountStepTwo(
+                                  name: nameController.text,
+                                  birthday: birthDate!,
+                                  phoneNumber: phoneNumber,
+                                ),
                               );
                             }
                           },

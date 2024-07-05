@@ -12,7 +12,20 @@ import '../../widgets/snackBar.dart';
 import 'account_creation_step_five.dart';
 
 class FinishingAccountStepFour extends StatefulWidget {
-  const FinishingAccountStepFour({Key? key}) : super(key: key);
+  String name;
+  DateTime birthday;
+  String gender;
+  List<String> pictures;
+  String phoneNumber;
+
+  FinishingAccountStepFour({
+    Key? key,
+    required this.name,
+    required this.birthday,
+    required this.gender,
+    required this.pictures,
+    required this.phoneNumber,
+  }) : super(key: key);
 
   @override
   _FinishingAccountStepFourState createState() =>
@@ -126,7 +139,15 @@ class _FinishingAccountStepFourState extends State<FinishingAccountStepFour> {
                           );
                         } else {
                           navigateToAnotherScreenWithSlideTransitionFromRightToLeft(
-                              context, FinishingAccountStepFive());
+                              context,
+                              FinishingAccountStepFive(
+                                name: widget.name,
+                                birthday: widget.birthday,
+                                gender: widget.gender,
+                                pictures: widget.pictures,
+                                interests: _interests,
+                                phoneNumber: widget.phoneNumber,
+                              ));
                         }
                       },
                       width: 0.63.sw,

@@ -9,7 +9,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../../constant.dart';
 import '../../widgets/card_of_pack.dart';
-import '../finishing account screens/account_creation_step_one.dart';
 import '/testStripe/stripe_payment/payment_manager.dart';
 
 class SignupStepFour extends StatefulWidget {
@@ -73,7 +72,7 @@ class _SignupStepFourState extends State<SignupStepFour> {
                     if (widget.isBillingScreen) {
                       handlePayment(9, SqueletteHomeScreen());
                     } else {
-                      handlePayment(9, FinishingAccountStepOne());
+                      // handlePayment(9, FinishingAccountStepOne());
                     }
                   },
                   child: PriceCard(
@@ -108,7 +107,7 @@ class _SignupStepFourState extends State<SignupStepFour> {
                     if (widget.isBillingScreen) {
                       handlePayment(14, SqueletteHomeScreen());
                     } else {
-                      handlePayment(14, FinishingAccountStepOne());
+                      //  handlePayment(14, FinishingAccountStepOne());
                     }
                   },
                   child: PriceCard(
@@ -130,10 +129,10 @@ class _SignupStepFourState extends State<SignupStepFour> {
                 SizedBox(height: 40.h),
                 GestureDetector(
                   onTap: () {
-                    navigateToAnotherScreenWithSlideTransitionFromRightToLeftPushReplacement(
-                      context,
-                      FinishingAccountStepOne(),
-                    );
+                    // navigateToAnotherScreenWithSlideTransitionFromRightToLeftPushReplacement(
+                    //   context,
+                    //   FinishingAccountStepOne(),
+                    // );
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,

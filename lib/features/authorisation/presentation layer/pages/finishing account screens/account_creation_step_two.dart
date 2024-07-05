@@ -11,7 +11,16 @@ import '../../widgets/gender_select.dart';
 import '../../widgets/snackBar.dart';
 
 class FinishingAccountStepTwo extends StatefulWidget {
-  const FinishingAccountStepTwo({Key? key}) : super(key: key);
+  String phoneNumber;
+  String name;
+  DateTime birthday;
+
+  FinishingAccountStepTwo(
+      {Key? key,
+      required this.name,
+      required this.birthday,
+      required this.phoneNumber})
+      : super(key: key);
 
   @override
   _FinishingAccountStepTwoState createState() =>
@@ -181,7 +190,13 @@ class _FinishingAccountStepTwoState extends State<FinishingAccountStepTwo> {
                             );
                           } else {
                             navigateToAnotherScreenWithSlideTransitionFromRightToLeft(
-                                context, FinishingAccountStepThree());
+                                context,
+                                FinishingAccountStepThree(
+                                  name: widget.name,
+                                  birthday: widget.birthday,
+                                  gender: selectedGender,
+                                  phoneNumber: widget.phoneNumber,
+                                ));
                           }
                         },
                         width: MediaQuery.of(context).size.width * 0.63,

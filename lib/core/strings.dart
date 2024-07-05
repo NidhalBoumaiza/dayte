@@ -18,3 +18,6 @@ const String PasswordChangeSucessMessage =
 
 const String SignUpSuccessMessage =
     "Inscription réussie , veuillez vous confirmer votre email puis vous connecter 😊";
+
+const String VerificationCodeSentMessage =
+    "Verification code sent successfully";

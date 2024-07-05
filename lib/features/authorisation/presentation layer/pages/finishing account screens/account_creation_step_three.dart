@@ -16,10 +16,22 @@ import '../../cubit/first image cubit/first_image_cubit.dart';
 import '../../cubit/first image cubit/first_image_state.dart';
 import '../../widgets/add_image.dart';
 import '../../widgets/continueButton.dart';
+import '../../widgets/snackBar.dart';
 import 'account_creation_step_four.dart';
 
 class FinishingAccountStepThree extends StatelessWidget {
-  FinishingAccountStepThree({Key? key}) : super(key: key);
+  String phoneNumber;
+  String name;
+  DateTime birthday;
+  String gender;
+
+  FinishingAccountStepThree(
+      {Key? key,
+      required this.birthday,
+      required this.name,
+      required this.gender,
+      required this.phoneNumber})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -235,20 +247,29 @@ class FinishingAccountStepThree extends StatelessWidget {
                 Center(
                   child: ContinueButton(
                     onpress: () {
-                      // if (context.read<FirstImageCubit>().state.img.length <
-                      //     3) {
-                      //   snackbar(
-                      //       context,
-                      //       1,
-                      //       "Your profile must have at least 3 photos",
-                      //       Colors.redAccent);
-                      // } else {
-                      //   // Get.toNamed("/accountstepfour");
-                      // }
-                      navigateToAnotherScreenWithSlideTransitionFromRightToLeft(
-                        context,
-                        FinishingAccountStepFour(),
-                      );
+                      if (context.read<FirstImageCubit>().state.img.length <
+                          3) {
+                        snackbar(
+                            context,
+                            1,
+                            "Your profile must have at least 3 photos",
+                            Colors.redAccent);
+                      } else {
+                        navigateToAnotherScreenWithSlideTransitionFromRightToLeft(
+                          context,
+                          FinishingAccountStepFour(
+                            birthday: birthday,
+                            name: name,
+                            gender: gender,
+                            pictures: context
+                                    .read<FirstImageCubit>()
+                                    .state
+                                    .croppedImage ??
+                                [],
+                            phoneNumber: phoneNumber,
+                          ),
+                        );
+                      }
                     },
                     width: SizeScreen.width * 0.63,
                     height: SizeScreen.height * 0.062,
