@@ -1,4 +1,6 @@
+import 'package:client/core/utils/navigation_with_transition.dart';
 import 'package:client/core/widgets/reusable_text.dart';
+import 'package:client/features/dates/presentation%20layer/pages/squelette_home_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -170,8 +172,7 @@ class _FinishingAccountStepFiveState extends State<FinishingAccountStepFive> {
                             }
 
                             if (promptNumber >= 3) {
-                              // Handle the completion of prompts and navigate to the next screen.
-                              // Navigator.pushNamed(context, "motherscreen");
+                             navigateToAnotherScreenWithSlideTransitionFromBottomToTopPushReplacement(context, SqueletteHomeScreen());
                             } else {
                               setState(() {
                                 promptNumber++;

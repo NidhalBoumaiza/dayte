@@ -24,128 +24,133 @@ class SignupStepOne extends StatelessWidget {
             backgroundEmpty,
             fit: BoxFit.cover,
           ),
-          Scaffold(
-            resizeToAvoidBottomInset: true,
-            appBar: appBar,
-            backgroundColor: Colors.transparent,
-            body: Padding(
-              padding: EdgeInsets.fromLTRB(28.0.w, 0, 28.w, 40.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 35.h),
-                        Text(
-                          "Enter your mobile number",
-                          style: GoogleFonts.openSans(
-                            color: AppColor.black,
-                            fontSize: 19,
-                            letterSpacing: 0.02,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        SizedBox(height: 18.h),
-                        SizedBox(
-                          height: 55.h,
-                          width: 250.w,
-                          child: InternationalPhoneNumberInput(
-                            initialValue: PhoneNumber(
-                              phoneNumber: '',
-                              dialCode: "+216",
-                              isoCode: "TN",
+          GestureDetector(
+            onTap: (){
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
+            child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              appBar: appBar,
+              backgroundColor: Colors.transparent,
+              body: Padding(
+                padding: EdgeInsets.fromLTRB(28.0.w, 0, 28.w, 40.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 35.h),
+                          Text(
+                            "Enter your mobile number",
+                            style: GoogleFonts.openSans(
+                              color: AppColor.black,
+                              fontSize: 19,
+                              letterSpacing: 0.02,
+                              fontWeight: FontWeight.w600,
                             ),
-                            inputDecoration: InputDecoration(
-                              border: const UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color(
-                                        0xff979797)), // Change the border color here
+                          ),
+                          SizedBox(height: 18.h),
+                          SizedBox(
+                            height: 55.h,
+                            width: 250.w,
+                            child: InternationalPhoneNumberInput(
+                              initialValue: PhoneNumber(
+                                phoneNumber: '',
+                                dialCode: "+216",
+                                isoCode: "TN",
                               ),
-                              focusedBorder: const UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color(
-                                        0xff979797)), // Change the focused border color here
+                              inputDecoration: InputDecoration(
+                                border: const UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color(
+                                          0xff979797)), // Change the border color here
+                                ),
+                                focusedBorder: const UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color(
+                                          0xff979797)), // Change the focused border color here
+                                ),
+                                enabledBorder: const UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color(
+                                          0xff979797)), // Change the enabled border color here
+                                ),
+                                hintText: 'Phone number',
+                                hintStyle: GoogleFonts.roboto(
+                                  color: const Color(0xff979797),
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                              enabledBorder: const UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color(
-                                        0xff979797)), // Change the enabled border color here
-                              ),
-                              hintText: 'Phone number',
-                              hintStyle: GoogleFonts.roboto(
-                                color: const Color(0xff979797),
-                                fontSize: 14.sp,
+                              textStyle: const TextStyle(
+                                color: Color(0xff979797),
+                                fontSize: 14,
                                 fontWeight: FontWeight.w500,
                               ),
+                              isEnabled: true,
+                              onInputChanged: (PhoneNumber number) {
+                                phoneController.text = number.phoneNumber!;
+                              },
+                              selectorConfig: const SelectorConfig(
+                                selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                              ),
+                              spaceBetweenSelectorAndTextField: 0,
+                              ignoreBlank: false,
+                              autoValidateMode: AutovalidateMode.disabled,
+                              selectorTextStyle: const TextStyle(
+                                color: AppColor.black,
+                                fontSize: 14,
+                              ),
+                              formatInput: true,
                             ),
-                            textStyle: const TextStyle(
-                              color: Color(0xff979797),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
-                            isEnabled: true,
-                            onInputChanged: (PhoneNumber number) {
-                              phoneController.text = number.phoneNumber!;
+                          ),
+                          SizedBox(height: 20.h),
+                          GestureDetector(
+                            onTap: () {
+                              Get.back();
                             },
-                            selectorConfig: const SelectorConfig(
-                              selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                            child: ReusableText(
+                              text: "Or connect with social",
+                              textSize: 17.0.sp,
+                              textFontWeight: FontWeight.w700,
+                              textColor: AppColor.red,
                             ),
-                            spaceBetweenSelectorAndTextField: 0,
-                            ignoreBlank: false,
-                            autoValidateMode: AutovalidateMode.disabled,
-                            selectorTextStyle: const TextStyle(
-                              color: AppColor.black,
-                              fontSize: 14,
-                            ),
-                            formatInput: true,
-                          ),
-                        ),
-                        SizedBox(height: 20.h),
-                        GestureDetector(
-                          onTap: () {
-                            Get.back();
-                          },
-                          child: ReusableText(
-                            text: "Or connect with social",
-                            textSize: 17.0.sp,
-                            textFontWeight: FontWeight.w700,
-                            textColor: AppColor.red,
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "By continuing you may receive an SMS for verification. Message and data rates may apply.",
-                        style: GoogleFonts.roboto(
-                          color: const Color(0xff979797),
-                          fontSize: 12.sp,
-                          letterSpacing: 0.02,
-                          fontWeight: FontWeight.w500,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "By continuing you may receive an SMS for verification. Message and data rates may apply.",
+                          style: GoogleFonts.roboto(
+                            color: const Color(0xff979797),
+                            fontSize: 12.sp,
+                            letterSpacing: 0.02,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          textAlign: TextAlign.start,
                         ),
-                        textAlign: TextAlign.start,
-                      ),
-                      const SizedBox(height: 25),
-                      MyCustomButton(
-                        width: double.infinity,
-                        height: 45.h,
-                        function: () {
-                          navigateToAnotherScreenWithSlideTransitionFromRightToLeft(
-                              context,
-                              SignupStepTwo(phoneNumber: phoneController.text));
-                        },
-                        buttonColor: AppColor.red,
-                        text: "Next",
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ],
-                  )
-                ],
+                        const SizedBox(height: 25),
+                        MyCustomButton(
+                          width: double.infinity,
+                          height: 45.h,
+                          function: () {
+                            navigateToAnotherScreenWithSlideTransitionFromRightToLeft(
+                                context,
+                                SignupStepTwo(phoneNumber: phoneController.text));
+                          },
+                          buttonColor: AppColor.red,
+                          text: "Next",
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),

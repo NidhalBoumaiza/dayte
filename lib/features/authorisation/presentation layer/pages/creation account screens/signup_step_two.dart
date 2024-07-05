@@ -54,107 +54,112 @@ class _SignupStepTwoState extends State<SignupStepTwo> {
             backgroundEmpty,
             fit: BoxFit.cover,
           ),
-          Scaffold(
-            appBar: appBar,
-            backgroundColor: Colors.transparent,
-            body: Padding(
-              padding: EdgeInsets.fromLTRB(20.0.w, 0, 20.0.w, 30.h),
-              child: Column(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 40.h),
-                        SizedBox(
-                          width: width * 0.8,
-                          child: Text(
-                            "Enter the 4-digit code sent to you at",
+          GestureDetector(
+            onTap: (){
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
+            child: Scaffold(
+              appBar: appBar,
+              backgroundColor: Colors.transparent,
+              body: Padding(
+                padding: EdgeInsets.fromLTRB(20.0.w, 0, 20.0.w, 30.h),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 40.h),
+                          SizedBox(
+                            width: width * 0.8,
+                            child: Text(
+                              "Enter the 4-digit code sent to you at",
+                              style: GoogleFonts.openSans(
+                                color: const Color(0xff595959),
+                                fontSize: 19,
+                                letterSpacing: 0.02,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 30.h),
+                          Text(
+                            widget.phoneNumber,
                             style: GoogleFonts.openSans(
                               color: const Color(0xff595959),
-                              fontSize: 19,
+                              fontSize: 13,
                               letterSpacing: 0.02,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                        ),
-                        SizedBox(height: 30.h),
-                        Text(
-                          widget.phoneNumber,
-                          style: GoogleFonts.openSans(
-                            color: const Color(0xff595959),
-                            fontSize: 13,
-                            letterSpacing: 0.02,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        SizedBox(height: 7.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: List.generate(4, (index) {
-                            return Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 17.w),
-                              child: SizedBox(
-                                height: height * 0.08,
-                                width: width * 0.1,
-                                child: TextField(
-                                  controller: controllers[index],
-                                  focusNode: focusNodes[index],
-                                  textInputAction: index < 3
-                                      ? TextInputAction.next
-                                      : TextInputAction.done,
-                                  keyboardType: TextInputType.number,
-                                  onChanged: (value) =>
-                                      _handleFocusChange(index, value),
-                                  style: TextStyle(
-                                    color: Color(0xff595959),
-                                    fontSize: 20.sp,
+                          SizedBox(height: 7.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: List.generate(4, (index) {
+                              return Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 17.w),
+                                child: SizedBox(
+                                  height: height * 0.08,
+                                  width: width * 0.1,
+                                  child: TextField(
+                                    controller: controllers[index],
+                                    focusNode: focusNodes[index],
+                                    textInputAction: index < 3
+                                        ? TextInputAction.next
+                                        : TextInputAction.done,
+                                    keyboardType: TextInputType.number,
+                                    onChanged: (value) =>
+                                        _handleFocusChange(index, value),
+                                    style: TextStyle(
+                                      color: Color(0xff595959),
+                                      fontSize: 20.sp,
+                                    ),
+                                    inputFormatters: [
+                                      LengthLimitingTextInputFormatter(1),
+                                      FilteringTextInputFormatter.digitsOnly,
+                                    ],
+                                    textAlign: TextAlign.center,
+                                    decoration: KinputDecoration,
                                   ),
-                                  inputFormatters: [
-                                    LengthLimitingTextInputFormatter(1),
-                                    FilteringTextInputFormatter.digitsOnly,
-                                  ],
-                                  textAlign: TextAlign.center,
-                                  decoration: KinputDecoration,
                                 ),
+                              );
+                            }),
+                          ),
+                          SizedBox(height: 20.h),
+                          InkWell(
+                            onTap: () {
+                              // Handle resend code logic
+                            },
+                            child: Text(
+                              "Resend the code",
+                              style: GoogleFonts.openSans(
+                                color: AppColor.red,
+                                fontSize: 12.sp,
+                                letterSpacing: 0.02,
+                                fontWeight: FontWeight.w600,
                               ),
-                            );
-                          }),
-                        ),
-                        SizedBox(height: 20.h),
-                        InkWell(
-                          onTap: () {
-                            // Handle resend code logic
-                          },
-                          child: Text(
-                            "Resend the code",
-                            style: GoogleFonts.openSans(
-                              color: AppColor.red,
-                              fontSize: 12.sp,
-                              letterSpacing: 0.02,
-                              fontWeight: FontWeight.w600,
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  MyCustomButton(
-                    width: double.infinity,
-                    height: 45.h,
-                    function: () {
-                      // String verificationCode = controllers
-                      //     .map((controller) => controller.text)
-                      //     .join();
-                      // Handle the verification code
-                      navigateToAnotherScreenWithSlideTransitionFromRightToLeft(
-                          context, SignupStepThree());
-                    },
-                    buttonColor: AppColor.red,
-                    text: "Next",
-                    fontWeight: FontWeight.w700,
-                  ),
-                ],
+                    MyCustomButton(
+                      width: double.infinity,
+                      height: 45.h,
+                      function: () {
+                        // String verificationCode = controllers
+                        //     .map((controller) => controller.text)
+                        //     .join();
+                        // Handle the verification code
+                        navigateToAnotherScreenWithSlideTransitionFromRightToLeft(
+                            context, SignupStepThree());
+                      },
+                      buttonColor: AppColor.red,
+                      text: "Next",
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

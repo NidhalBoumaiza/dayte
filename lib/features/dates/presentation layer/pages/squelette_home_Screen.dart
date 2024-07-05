@@ -27,7 +27,7 @@ class SqueletteHomeScreen extends StatelessWidget {
             BlocBuilder<BottomNavigationCubit, int>(
               builder: (context, state) {
                 return SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.88,
+                  height: MediaQuery.of(context).size.height * 0.82,
                   child: bottomNavigationBarScreens[state],
                 );
               },
