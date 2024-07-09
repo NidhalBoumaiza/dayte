@@ -1,15 +1,25 @@
 import 'package:client/core/widgets/reusable_text.dart';
+import 'package:client/features/authorisation/presentation%20layer/widgets/snackBar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../constant.dart';
+import '../../../../core/colors.dart';
+import '../../../../core/utils/navigation_with_transition.dart';
+import '../../../../core/widgets/reusable_circular_progressive_indicator.dart';
+import '../../../authorisation/domain layer/entities/user_entity.dart';
+import '../../../authorisation/presentation layer/bloc/sign_out_bloc/sign_out_bloc.dart';
+import '../../../authorisation/presentation layer/pages/signin_screen.dart';
+import '../bloc/like recommendation cubit/like_recommendation__cubit.dart';
 import '../widgets/interest_widget.dart';
 import '../widgets/profile_image_text.dart';
 
 class ProfileDetailScreen extends StatelessWidget {
-  final Map<String, dynamic> profile;
+  final User profile;
 
   const ProfileDetailScreen({Key? key, required this.profile})
       : super(key: key);
@@ -62,7 +72,8 @@ class ProfileDetailScreen extends StatelessWidget {
                         width: double.infinity,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage("images/1.png"),
+                            image: NetworkImage(
+                                "${dotenv.env['URLIMAGE']}${profile.images![0].image!}"),
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -70,7 +81,7 @@ class ProfileDetailScreen extends StatelessWidget {
                       Positioned(
                         top: SizeScreen.height * 0.59,
                         child: Container(
-                          width: SizeScreen.width * 1,
+                          width: SizeScreen.width,
                           height: 50.h,
                           decoration: const BoxDecoration(
                             color: Colors.white,
@@ -84,27 +95,86 @@ class ProfileDetailScreen extends StatelessWidget {
                       Positioned(
                         right: 23.w,
                         top: SizeScreen.height * 0.56,
-                        child: GestureDetector(
-                          onTap: profile['liked']['value'] == false
-                              ? () {
-                                  // Handle like action
+                        child: BlocConsumer<LikeRecommendationCubit,
+                            LikeRecommendationState>(
+                          listener: (context, state) {
+                            if (state is LikeRecommendationError) {
+                              snackbar(context, 1, state.message, AppColor.red);
+                            } else if (state is LikeRecommendationSuccess) {
+                              snackbar(context, 1, "YAAAAY", Colors.green);
+                            }
+                          },
+                          builder: (context, state) {
+                            if (state is LikeRecommendationUnauthorized) {
+                              BlocProvider.of<SignOutBloc>(context)
+                                  .add(SignOutMyAccountEventPressed());
+                              return BlocConsumer<SignOutBloc, SignOutState>(
+                                  builder: (context, state) {
+                                if (state is SignOutLoading) {
+                                  return ReusablecircularProgressIndicator(
+                                    height: 20.h,
+                                    width: 20.w,
+                                    indicatorColor: primaryColor,
+                                  );
+                                } else {
+                                  return const Text("errrorororororor");
                                 }
-                              : null,
-                          child: Container(
-                            width: 55,
-                            height: 55,
-                            decoration: BoxDecoration(
-                              color: profile['liked']['value'] == false
-                                  ? const Color(0xffAB3333)
-                                  : Colors.grey.withOpacity(0.9),
-                              borderRadius: BorderRadius.circular(100),
-                            ),
-                            child: Icon(
-                              Icons.calendar_month_outlined,
-                              color: Colors.white,
-                              size: 33.sp,
-                            ),
-                          ),
+                              }, listener: (context, state) {
+                                if (state is SignOutSuccess) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                          "Votre session a expiré , veuillez vous reconnecter"),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                  navigateToAnotherScreenWithSlideTransitionFromRightToLeftPushReplacement(
+                                    context,
+                                    SignInScreen(),
+                                  );
+                                } else if (state is SignOutError) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(state.message),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                }
+                              });
+                            } else {
+                              return GestureDetector(
+                                onTap: () {
+                                  print(profile.id);
+                                  // Handle like action
+                                  context
+                                      .read<LikeRecommendationCubit>()
+                                      .likeRecommendationUseCase(profile.id!);
+                                },
+                                // onTap: profile.liked == false
+                                //     ? () {
+                                //   // Handle like action
+                                // }
+                                //     : null,
+                                child: Container(
+                                  width: 55,
+                                  height: 55,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        // profile.liked == false
+                                        //     ? const Color(0xffAB3333)  Colors.grey.withOpacity(0.9)
+                                        //  :
+                                        const Color(0xffAB3333),
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                  child: Icon(
+                                    Icons.calendar_month_outlined,
+                                    color: Colors.white,
+                                    size: 33.sp,
+                                  ),
+                                ),
+                              );
+                            }
+                          },
                         ),
                       ),
                     ],
@@ -116,14 +186,14 @@ class ProfileDetailScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ReusableText(
-                          text: "${profile['name']}, ${profile['age']}",
+                          text: "${profile.name}, ${profile.age}",
                           textSize: 20.sp,
                           textColor: AppColor.black,
                           textFontWeight: FontWeight.w800,
                         ),
                         SizedBox(height: 3.h),
                         ReusableText(
-                          text: "${profile['gender']}",
+                          text: "${profile.gender}",
                           textSize: 10.sp,
                           textColor: AppColor.grey,
                           textFontWeight: FontWeight.w300,
@@ -141,11 +211,11 @@ class ProfileDetailScreen extends StatelessWidget {
                           width: double.infinity,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: profile['interests'].length,
+                            itemCount: profile.interests!.length,
                             itemBuilder: (BuildContext context, int i) {
                               return InterestWidget(
                                 icon: FontAwesomeIcons.book,
-                                interest: "${profile['interests'][i]}",
+                                interest: profile.interests![i],
                               );
                             },
                           ),
@@ -154,24 +224,23 @@ class ProfileDetailScreen extends StatelessWidget {
                         ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: profile['pictures'].length - 1,
-                          itemBuilder: (BuildContext context, int indexx) {
+                          itemCount: profile.images!.length - 1,
+                          itemBuilder: (BuildContext context, int index) {
                             return ProfileImageText(
-                                description: indexx < profile['prompts'].length
-                                    ? profile['prompts'][indexx]['answer']
-                                    : null,
-                                prompt: indexx < profile['prompts'].length
-                                    ? profile['prompts'][indexx]['prompt']
-                                    : null,
-                                img:
-                                    "images/2.png" //profile['pictures'][indexx + 1],
-                                );
+                              description: index < profile.prompts!.length
+                                  ? profile.prompts![index]
+                                  : null,
+                              prompt: index < profile.prompts!.length
+                                  ? profile.prompts![index]
+                                  : null,
+                              img: profile.images![index + 1].image!,
+                            );
                           },
                         ),
                         SizedBox(height: 18.h),
                         Center(
                           child: ReusableText(
-                            text: "${profile['name'].split(" ")[0]}'s profile",
+                            text: "${profile.name!.split(" ")[0]}'s profile",
                             textSize: 14.sp,
                             textColor: AppColor.black,
                             textFontWeight: FontWeight.w900,

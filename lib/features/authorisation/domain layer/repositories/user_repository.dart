@@ -13,7 +13,14 @@ abstract class UserRepository {
 
   Future<Either<Failure, Unit>> finishProfile(User userEntity);
 
-  Future<Either<Failure, User>> login(String email, String password);
+  Future<Either<Failure, User>> login(String phoneNumber, String password);
 
   Future<Either<Failure, User>> getProfile();
+
+  Future<Either<Failure, Unit>> updateLocation(Location location);
+
+  Future<Either<Failure, Unit>> signOut();
+
+  Future<Either<Failure, Unit>> changePassword(
+      String oldPassword, String newPassword, String confirmNewPassword);
 }

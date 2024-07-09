@@ -1,7 +1,7 @@
+import 'package:client/core/utils/navigation_with_transition.dart';
 import 'package:client/core/widgets/reusable_circular_progressive_indicator.dart';
 import 'package:client/core/widgets/reusable_text.dart';
-import 'package:client/features/authorisation/domain%20layer/entities/image_entity.dart';
-import 'package:client/features/authorisation/presentation%20layer/bloc/register_bloc.dart';
+import 'package:client/features/authorisation/presentation%20layer/bloc/register%20bloc/register_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,8 +9,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../constant.dart';
 import '../../../../../core/widgets/reusable_text_field_widget.dart';
-import '../../../domain layer/entities/user_entity.dart';
 import '../../widgets/continueButton.dart';
+import '../creation account screens/signup_step_four.dart';
 
 class FinishingAccountStepFive extends StatefulWidget {
   String name;
@@ -94,7 +94,6 @@ class _FinishingAccountStepFiveState extends State<FinishingAccountStepFive> {
                                     wordSpacing: 0.0,
                                   ),
                                 ),
-
                                 SizedBox(height: 25.h),
                                 ReusableTextFieldWidget(
                                   controller:
@@ -108,19 +107,6 @@ class _FinishingAccountStepFiveState extends State<FinishingAccountStepFive> {
                                     width: 1.2,
                                   ),
                                 ),
-                                // TextFieldWidget(
-                                //   controller: promptControllers[promptNumber - 1],
-                                //   function: (String) {},
-                                //   minLines: 1,
-                                //   maxLines: 3,
-                                //   hint: 'Enter your name...',
-                                //   keyboardType: TextInputType.name,
-                                //   inputdecoration: KinputDecoration.copyWith(
-                                //     hintStyle:
-                                //         TextStyle(color: Colors.grey, fontSize: 15.sp),
-                                //     hintText: "Prompt $promptNumber",
-                                //   ),
-                                // ),
                                 SizedBox(height: 15.h),
                                 ReusableTextFieldWidget(
                                   controller:
@@ -135,19 +121,6 @@ class _FinishingAccountStepFiveState extends State<FinishingAccountStepFive> {
                                     width: 1.2,
                                   ),
                                 ),
-                                // TextFieldWidget(
-                                //   controller: descriptionControllers[promptNumber - 1],
-                                //   function: (String) {},
-                                //   hint: 'Brief description...',
-                                //   minLines: 8,
-                                //   maxLines: 8,
-                                //   keyboardType: TextInputType.name,
-                                //   inputdecoration: KinputDecoration.copyWith(
-                                //     hintStyle:
-                                //         TextStyle(color: Colors.grey, fontSize: 15.sp),
-                                //     hintText: "Brief description...",
-                                //   ),
-                                // ),
                                 SizedBox(height: 15.h),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
@@ -157,20 +130,6 @@ class _FinishingAccountStepFiveState extends State<FinishingAccountStepFive> {
                                         textSize: 16.sp,
                                         textColor: AppColor.red,
                                         textFontWeight: FontWeight.w800),
-                                    // TextWidget(
-                                    //   "/",
-                                    //   AppColor.red,
-                                    //   16.0.sp,
-                                    //   FontWeight.w800,
-                                    //   0.0,
-                                    // ),
-                                    // TextWidget(
-                                    //   "3",
-                                    //   AppColor.red,
-                                    //   16.0.sp,
-                                    //   FontWeight.w800,
-                                    //   0.0,
-                                    // ),
                                   ],
                                 ),
                                 SizedBox(height: 10.h),
@@ -203,25 +162,39 @@ class _FinishingAccountStepFiveState extends State<FinishingAccountStepFive> {
                                         descriptions.add(
                                             descriptionControllers[i].text);
                                       }
-                                      List<ImageEntity> imagesList = [];
-                                      for (int i = 0;
-                                          i < widget.pictures.length;
-                                          i++) {
-                                        imagesList.add(ImageEntity(
-                                            image: widget.pictures[i]));
-                                      }
-                                      User newUser = User(
-                                        name: widget.name,
-                                        dateOfBirth: widget.birthday,
-                                        phoneNumber: widget.phoneNumber,
-                                        description: descriptions,
-                                        prompts: prompts,
-                                        images: imagesList,
-                                        gender: widget.gender,
-                                        interests: widget.interests,
-                                      );
-                                      context.read<RegisterBloc>().add(
-                                          FinishingAccountEvent(user: newUser));
+                                      // TODO IN THE LAST SCREEN
+                                      // List<ImageEntity> imagesList = [];
+                                      // for (int i = 0;
+                                      //     i < widget.pictures.length;
+                                      //     i++) {
+                                      //   imagesList.add(ImageEntity(
+                                      //       image: widget.pictures[i]));
+                                      // }
+                                      // User newUser = User(
+                                      //   name: widget.name,
+                                      //   dateOfBirth: widget.birthday,
+                                      //   phoneNumber: widget.phoneNumber,
+                                      //   description: descriptions,
+                                      //   prompts: prompts,
+                                      //   images: imagesList,
+                                      //   gender: widget.gender,
+                                      //   interests: widget.interests,
+                                      // );
+                                      // context.read<RegisterBloc>().add(
+                                      //     FinishingAccountEvent(user: newUser));
+                                      navigateToAnotherScreenWithSlideTransitionFromRightToLeft(
+                                          context,
+                                          SignupStepFour(
+                                            name: widget.name,
+                                            birthday: widget.birthday,
+                                            isBillingScreen: false,
+                                            phoneNumber: widget.phoneNumber,
+                                            pictures: widget.pictures,
+                                            gender: widget.gender,
+                                            interests: widget.interests,
+                                            descriptions: descriptions,
+                                            prompts: prompts,
+                                          ));
                                     } else {
                                       setState(() {
                                         promptNumber++;

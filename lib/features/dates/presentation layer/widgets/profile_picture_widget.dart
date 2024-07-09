@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class profilePictureWidget extends StatelessWidget {
   late double? widthProfilePic;
@@ -13,7 +14,8 @@ class profilePictureWidget extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: Ink.image(
-          image: AssetImage(img), //NetworkImage("${dotenv.env['URL']}$img"),
+          image: NetworkImage("${dotenv.env['URLIMAGE']}$img"),
+          // AssetImage(img), //NetworkImage("${dotenv.env['URL']}$img"),
           fit: BoxFit.cover,
           width: widthProfilePic,
           height: heightProfilePic,

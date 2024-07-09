@@ -14,7 +14,7 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import '../../../../../constant.dart';
 import '../../../../../core/widgets/reusable_circular_progressive_indicator.dart';
 import '../../../../dates/presentation layer/widgets/text_field.dart';
-import '../../bloc/register_bloc.dart';
+import '../../bloc/register bloc/register_bloc.dart';
 
 class SignupStepOne extends StatelessWidget {
   SignupStepOne({Key? key}) : super(key: key);

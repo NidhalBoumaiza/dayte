@@ -5,6 +5,7 @@ import '../../domain layer/entities/user_entity.dart';
 
 class UserModel extends User {
   UserModel({
+    String? id,
     String? phoneNumber,
     String? password,
     bool? verified,
@@ -18,7 +19,9 @@ class UserModel extends User {
     Location? location,
     String? plan,
     DateTime? endOfPlan,
+    int? age,
   }) : super(
+          id: id,
           phoneNumber: phoneNumber,
           password: password,
           verified: verified,
@@ -32,12 +35,15 @@ class UserModel extends User {
           location: location,
           plan: plan,
           endOfPlan: endOfPlan,
+          age: age,
         );
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      phoneNumber: json['phoneNumber'] as String?,
+      id: json['_id'] as String?,
+      phoneNumber: json['phone_number'] as String?,
       password: json['password'] as String?,
+      age: json['age'] as int?,
       verified: json['verified'] as bool?,
       name: json['name'] as String?,
       dateOfBirth: json['dateOfBirth'] != null
@@ -45,7 +51,7 @@ class UserModel extends User {
           : null,
       gender: json['gender'] as String?,
       interests: (json['interests'] as List<dynamic>?)
-          ?.map((e) => e as String)
+          ?.map((e) => e['name'] as String)
           .toList(),
       prompts:
           (json['prompts'] as List<dynamic>?)?.map((e) => e as String).toList(),

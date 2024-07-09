@@ -42,3 +42,17 @@ final class FinishingAccountEvent extends RegisterEvent {
   @override
   List<Object?> get props => [user];
 }
+
+final class LoginWithPhoneNumberEvent extends RegisterEvent {
+  String password;
+
+  String phoneNumber;
+
+  LoginWithPhoneNumberEvent({
+    required this.phoneNumber,
+    required this.password,
+  });
+
+  @override
+  List<Object?> get props => [phoneNumber, password];
+}

@@ -10,21 +10,42 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../../constant.dart';
 import '../../widgets/card_of_pack.dart';
 import '/testStripe/stripe_payment/payment_manager.dart';
+import 'signup_step_three_location.dart';
 
 class SignupStepFour extends StatefulWidget {
+  String? name;
+  DateTime? birthday;
+  String? gender;
+  List<String>? pictures;
+  List<String>? interests;
+  String? phoneNumber;
   bool isBillingScreen;
+  List<String>? prompts;
+  List<String>? descriptions;
 
-  SignupStepFour({Key? key, required this.isBillingScreen}) : super(key: key);
+  SignupStepFour({
+    Key? key,
+    required this.isBillingScreen,
+    this.pictures,
+    this.phoneNumber,
+    this.gender,
+    this.birthday,
+    this.name,
+    this.descriptions,
+    this.interests,
+    this.prompts,
+  }) : super(key: key);
 
   @override
   State<SignupStepFour> createState() => _SignupStepFourState();
 }
 
 class _SignupStepFourState extends State<SignupStepFour> {
-  @override
+  String plan = "free";
   bool c1 = false;
   bool c2 = false;
 
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Stack(
@@ -72,7 +93,20 @@ class _SignupStepFourState extends State<SignupStepFour> {
                     if (widget.isBillingScreen) {
                       handlePayment(9, SqueletteHomeScreen());
                     } else {
-                      // handlePayment(9, FinishingAccountStepOne());
+                      handlePayment(
+                          9,
+                          SignupStepThree(
+                            isFinishingAccount: true,
+                            pictures: widget.pictures!,
+                            phoneNumber: widget.phoneNumber!,
+                            gender: widget.gender!,
+                            birthday: widget.birthday!,
+                            name: widget.name!,
+                            descriptions: widget.descriptions!,
+                            interests: widget.interests!,
+                            prompts: widget.prompts!,
+                            plan: plan,
+                          ));
                     }
                   },
                   child: PriceCard(
@@ -107,7 +141,20 @@ class _SignupStepFourState extends State<SignupStepFour> {
                     if (widget.isBillingScreen) {
                       handlePayment(14, SqueletteHomeScreen());
                     } else {
-                      //  handlePayment(14, FinishingAccountStepOne());
+                      handlePayment(
+                          14,
+                          SignupStepThree(
+                            pictures: widget.pictures!,
+                            phoneNumber: widget.phoneNumber!,
+                            gender: widget.gender!,
+                            birthday: widget.birthday!,
+                            name: widget.name!,
+                            descriptions: widget.descriptions!,
+                            interests: widget.interests!,
+                            prompts: widget.prompts!,
+                            plan: plan,
+                            isFinishingAccount: true,
+                          ));
                     }
                   },
                   child: PriceCard(
@@ -129,10 +176,20 @@ class _SignupStepFourState extends State<SignupStepFour> {
                 SizedBox(height: 40.h),
                 GestureDetector(
                   onTap: () {
-                    // navigateToAnotherScreenWithSlideTransitionFromRightToLeftPushReplacement(
-                    //   context,
-                    //   FinishingAccountStepOne(),
-                    // );
+                    navigateToAnotherScreenWithSlideTransitionFromRightToLeftPushReplacement(
+                        context,
+                        SignupStepThree(
+                          isFinishingAccount: true,
+                          pictures: widget.pictures!,
+                          phoneNumber: widget.phoneNumber!,
+                          gender: widget.gender!,
+                          birthday: widget.birthday!,
+                          name: widget.name!,
+                          descriptions: widget.descriptions!,
+                          interests: widget.interests!,
+                          prompts: widget.prompts!,
+                          plan: plan,
+                        ));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,

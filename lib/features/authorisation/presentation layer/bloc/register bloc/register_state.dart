@@ -91,3 +91,28 @@ final class FinishingAccountFailure extends RegisterState {
   @override
   List<Object?> get props => [message];
 }
+
+final class LoginWithPhoneNumberLoading extends RegisterState {
+  LoginWithPhoneNumberLoading();
+
+  @override
+  List<Object?> get props => [throw UnimplementedError()];
+}
+
+final class LoginWithPhoneNumberSuccess extends RegisterState {
+  User user;
+
+  LoginWithPhoneNumberSuccess(this.user);
+
+  @override
+  List<Object?> get props => [throw UnimplementedError()];
+}
+
+final class LoginWithPhoneNumberFailure extends RegisterState {
+  final String message;
+
+  LoginWithPhoneNumberFailure(this.message);
+
+  @override
+  List<Object?> get props => [message];
+}

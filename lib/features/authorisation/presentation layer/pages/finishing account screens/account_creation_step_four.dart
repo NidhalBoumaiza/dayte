@@ -33,8 +33,8 @@ class FinishingAccountStepFour extends StatefulWidget {
 }
 
 class _FinishingAccountStepFourState extends State<FinishingAccountStepFour> {
-  final List<String> _interests = [];
-  final List<String> _interestOptions = [
+  final List<String> _selectedInterestIds = [];
+  final List<String> interestOptions = [
     "travelling",
     "music",
     "photography",
@@ -49,12 +49,30 @@ class _FinishingAccountStepFourState extends State<FinishingAccountStepFour> {
     "drawing"
   ];
 
+  Map<String, String> interestsMap = {
+    "666f67f9b3a28407b9f3b7ad": "sport",
+    "668d335bacf669f3d84e202e": "travelling",
+    "668d3369acf669f3d84e2030": "music",
+    "668d338eacf669f3d84e2032": "photography",
+    "668d33a4acf669f3d84e2034": "dancing",
+    "668d33afacf669f3d84e2036": "books",
+    "668d33bcacf669f3d84e2038": "reading",
+    "668d33cbacf669f3d84e203a": "modeling",
+    "668d33e2acf669f3d84e203c": "painting",
+    "668d33ebacf669f3d84e203e": "shopping",
+    "668d33f9acf669f3d84e2040": "animals",
+    "668d3402acf669f3d84e2042": "drawing"
+  };
+
   void _toggleInterest(String interest) {
+    String interestId =
+        interestsMap.entries.firstWhere((entry) => entry.value == interest).key;
+
     setState(() {
-      if (_interests.contains(interest)) {
-        _interests.remove(interest);
+      if (_selectedInterestIds.contains(interestId)) {
+        _selectedInterestIds.remove(interestId);
       } else {
-        _interests.add(interest);
+        _selectedInterestIds.add(interestId);
       }
     });
   }
@@ -102,7 +120,7 @@ class _FinishingAccountStepFourState extends State<FinishingAccountStepFour> {
                           textColor: AppColor.grey,
                         ),
                         SizedBox(height: 30.h),
-                        for (int i = 0; i < _interestOptions.length; i += 3)
+                        for (int i = 0; i < interestOptions.length; i += 3)
                           Column(
                             children: [
                               Row(
@@ -110,9 +128,9 @@ class _FinishingAccountStepFourState extends State<FinishingAccountStepFour> {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   for (int j = 0; j < 3; j++)
-                                    if (i + j < _interestOptions.length)
+                                    if (i + j < interestOptions.length)
                                       _buildInterestButton(
-                                          _interestOptions[i + j]),
+                                          interestOptions[i + j]),
                                 ],
                               ),
                               SizedBox(height: 45.h),
@@ -130,7 +148,7 @@ class _FinishingAccountStepFourState extends State<FinishingAccountStepFour> {
                   Center(
                     child: ContinueButton(
                       onpress: () {
-                        if (_interests.isEmpty) {
+                        if (_selectedInterestIds.isEmpty) {
                           snackbar(
                             context,
                             1,
@@ -145,7 +163,7 @@ class _FinishingAccountStepFourState extends State<FinishingAccountStepFour> {
                                 birthday: widget.birthday,
                                 gender: widget.gender,
                                 pictures: widget.pictures,
-                                interests: _interests,
+                                interests: _selectedInterestIds,
                                 phoneNumber: widget.phoneNumber,
                               ));
                         }
@@ -168,17 +186,21 @@ class _FinishingAccountStepFourState extends State<FinishingAccountStepFour> {
   }
 
   Widget _buildInterestButton(String interest) {
+    String interestId =
+        interestsMap.entries.firstWhere((entry) => entry.value == interest).key;
+
     return GestureDetector(
       onTap: () => _toggleInterest(interest),
       child: GenderSelect(
-        containerWidth: _interests.contains(interest) ? 105.w : 90.w,
+        containerWidth:
+            _selectedInterestIds.contains(interestId) ? 105.w : 90.w,
         containerColor: AppColor.white,
         radious: 5.r,
         function: () {},
-        borderColor: _interests.contains(interest)
+        borderColor: _selectedInterestIds.contains(interestId)
             ? AppColor.red
             : const Color(0xffE8E6EA),
-        checked: _interests.contains(interest)
+        checked: _selectedInterestIds.contains(interestId)
             ? SizedBox(
                 height: 18.h,
                 width: 18.w,
@@ -186,7 +208,9 @@ class _FinishingAccountStepFourState extends State<FinishingAccountStepFour> {
               )
             : const SizedBox(),
         textGender: interest.capitalizeFirstLetter(),
-        textColor: _interests.contains(interest) ? AppColor.red : AppColor.grey,
+        textColor: _selectedInterestIds.contains(interestId)
+            ? AppColor.red
+            : AppColor.grey,
       ),
     );
   }

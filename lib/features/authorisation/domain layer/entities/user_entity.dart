@@ -2,6 +2,8 @@ import 'package:client/features/authorisation/domain%20layer/entities/image_enti
 import 'package:equatable/equatable.dart';
 
 class User extends Equatable {
+  final String? id;
+
   final String? phoneNumber;
   final String? password;
   final bool? verified;
@@ -15,22 +17,24 @@ class User extends Equatable {
   final Location? location;
   final String? plan;
   final DateTime? endOfPlan;
+  final int? age;
 
-  User({
-    this.phoneNumber,
-    this.password,
-    this.verified,
-    this.name,
-    this.dateOfBirth,
-    this.gender,
-    this.interests,
-    this.prompts,
-    this.description,
-    this.images,
-    this.location,
-    this.plan,
-    this.endOfPlan,
-  });
+  User(
+      {this.phoneNumber,
+      this.id,
+      this.password,
+      this.verified,
+      this.name,
+      this.dateOfBirth,
+      this.gender,
+      this.interests,
+      this.prompts,
+      this.description,
+      this.images,
+      this.location,
+      this.plan,
+      this.endOfPlan,
+      this.age});
 
   @override
   List<Object?> get props => [
@@ -47,6 +51,8 @@ class User extends Equatable {
         location,
         plan,
         endOfPlan,
+        age,
+        id,
       ];
 }
 

@@ -104,11 +104,12 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<Either<Failure, User>> login(String email, String password) async {
+  Future<Either<Failure, User>> login(
+      String phoneNumber, String password) async {
     if (await networkInfo.isConnected) {
       try {
         final UserModel userModel =
-            await userRemoteDataSource.login(email, password);
+            await userRemoteDataSource.login(phoneNumber, password);
         await userLocalDataSource.cacheUser(userModel);
         return Right(userModel);
       } on ServerException {
@@ -126,11 +127,69 @@ class UserRepositoryImpl implements UserRepository {
     if (await networkInfo.isConnected) {
       try {
         final UserModel userModel = await userRemoteDataSource.getProfile();
+        print(userModel.phoneNumber);
         return Right(userModel);
       } on ServerException {
         return Left(ServerFailure());
       } on ServerMessageException {
         return Left(ServerMessageFailure());
+      }
+    } else {
+      return Left(OfflineFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> signOut() async {
+    if (await networkInfo.isConnected) {
+      try {
+        await userLocalDataSource.signOut();
+        return const Right(unit);
+      } on ServerException {
+        return Left(ServerFailure());
+      } on ServerMessageException {
+        return Left(ServerMessageFailure());
+      } on UnauthorizedException {
+        return Left(UnauthorizedFailure());
+      }
+    } else {
+      return Left(OfflineFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> updateLocation(Location location) async {
+    if (await networkInfo.isConnected) {
+      try {
+        await userRemoteDataSource.updateLocation(location);
+        return const Right(unit);
+      } on ServerException {
+        return Left(ServerFailure());
+      } on ServerMessageException {
+        return Left(ServerMessageFailure());
+      } on UnauthorizedException {
+        await userLocalDataSource.signOut();
+        return Left(UnauthorizedFailure());
+      }
+    } else {
+      return Left(OfflineFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> changePassword(
+      String oldPassword, String newPassword, String confirmNewPassword) async {
+    if (await networkInfo.isConnected) {
+      try {
+        await userRemoteDataSource.changePassword(
+            oldPassword, newPassword, confirmNewPassword);
+        return const Right(unit);
+      } on ServerException {
+        return Left(ServerFailure());
+      } on ServerMessageException {
+        return Left(ServerMessageFailure());
+      } on UnauthorizedException {
+        return Left(UnauthorizedFailure());
       }
     } else {
       return Left(OfflineFailure());

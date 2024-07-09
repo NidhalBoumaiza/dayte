@@ -4,12 +4,13 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../core/error/failures.dart';
 
-class LoginUserCase {
+class LoginWithPhoneNumberUserCase {
   final UserRepository userRepository;
 
-  LoginUserCase(this.userRepository);
+  LoginWithPhoneNumberUserCase(this.userRepository);
 
-  Future<Either<Failure, User>> call(String email, String password) async {
-    return await userRepository.login(email, password);
+  Future<Either<Failure, User>> call(
+      String phoneNumber, String password) async {
+    return await userRepository.login(phoneNumber, password);
   }
 }

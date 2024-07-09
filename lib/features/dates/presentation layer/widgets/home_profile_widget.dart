@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../constant.dart';
@@ -32,7 +33,8 @@ class ProfileWidget extends StatelessWidget {
           width: 2.8,
         ),
         image: DecorationImage(
-          image: AssetImage(image), //AssetImage(image),
+          image: NetworkImage("${dotenv.env['URLIMAGE']}$image"),
+          // AssetImage(image), //AssetImage(image),
           fit: BoxFit.fitHeight,
         ),
       ),

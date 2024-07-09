@@ -9,6 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../constant.dart';
+import 'login_with_phone_number.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -90,9 +91,8 @@ class _SignInScreenState extends State<SignInScreen> {
                           /// USE PHONE NUMBER
                           GestureDetector(
                             onTap: () async {
-                              ///TODO LATER
-                              //Get.toNamed("/loginwithphonenumber");
-                              // print(dotenv.env['URL']);
+                              navigateToAnotherScreenWithSlideTransitionFromRightToLeft(
+                                  context, LoginWithPhoneNumber());
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,

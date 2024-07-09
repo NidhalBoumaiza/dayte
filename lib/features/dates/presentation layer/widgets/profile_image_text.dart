@@ -2,6 +2,7 @@ import 'dart:core';
 
 import 'package:client/core/widgets/reusable_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileImageText extends StatelessWidget {
@@ -26,7 +27,8 @@ class ProfileImageText extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
-                image: AssetImage(img!), // NetworkImage('$img'),
+                image: NetworkImage("${dotenv.env['URLIMAGE']}$img"),
+                //AssetImage(img!), // NetworkImage('$img'),
                 fit: BoxFit.fill,
               ),
             ),
