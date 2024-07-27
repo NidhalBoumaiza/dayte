@@ -1,5 +1,6 @@
 import 'package:client/core/error/failures.dart';
 import 'package:client/features/authorisation/domain%20layer/entities/user_entity.dart';
+import 'package:client/features/dates/domain%20layer/entities/match_entity.dart';
 import 'package:client/features/dates/domain%20layer/repositories/date_repository.dart';
 import 'package:dartz/dartz.dart';
 
@@ -35,7 +36,7 @@ class DateRepositoryImpl implements DateRepository {
   }
 
   @override
-  Future<Either<Failure, List<User>>> getUserMatches() async {
+  Future<Either<Failure, List<MatchEntity>>> getUserMatches() async {
     if (await networkInfo.isConnected) {
       try {
         final matches = await dateRemoteDataSource.getUserMatches();
@@ -64,6 +65,8 @@ class DateRepositoryImpl implements DateRepository {
         return Left(ServerMessageFailure());
       } on UnauthorizedException {
         return Left(UnauthorizedFailure());
+      } on MatchedException {
+        return Left(MatchedUserFailure());
       }
     } else {
       return Left(OfflineFailure());
@@ -94,6 +97,24 @@ class DateRepositoryImpl implements DateRepository {
     if (await networkInfo.isConnected) {
       try {
         await dateRemoteDataSource.shuffleRecommendations();
+        return const Right(unit);
+      } on ServerException {
+        return Left(ServerFailure());
+      } on ServerMessageException {
+        return Left(ServerMessageFailure());
+      } on UnauthorizedException {
+        return Left(UnauthorizedFailure());
+      }
+    } else {
+      return Left(OfflineFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> cancelDate(String dateId) async {
+    if (await networkInfo.isConnected) {
+      try {
+        await dateRemoteDataSource.cancelDate(dateId);
         return const Right(unit);
       } on ServerException {
         return Left(ServerFailure());

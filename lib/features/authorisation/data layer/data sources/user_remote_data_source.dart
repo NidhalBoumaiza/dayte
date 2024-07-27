@@ -29,6 +29,11 @@ abstract class UserRemoteDataSource {
 
   Future<Unit> changePassword(
       String oldPassword, String newPassword, String confirmNewPassword);
+
+  Future<Unit> forgotPassword(String location);
+
+  Future<Unit> resetPassword(
+      String phoneNumber, String password, String confirmPassword);
 }
 
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {
@@ -236,18 +241,19 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   @override
   Future<Unit> changePassword(
       String oldPassword, String newPassword, String confirmNewPassword) async {
-    final body = {
+    final body = jsonEncode({
       "oldPassword": oldPassword,
       "newPassword": newPassword,
       "newPassword2": confirmNewPassword,
-    };
+    });
 
     dynamic token = await this.token;
 
     final response = await client.patch(
-      Uri.parse("${dotenv.env['URL']}/users/changePassword"),
+      Uri.parse("${dotenv.env['URL']}/user/updatepassword"),
       body: body,
       headers: {
+        "Content-Type": "application/json",
         "Authorization": "Bearer $token",
       },
     );
@@ -255,6 +261,50 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
     return handleResponse(response);
   }
 
+  @override
+  Future<Unit> forgotPassword(String phoneNumber) async {
+    final body = jsonEncode({
+      "phone_number": phoneNumber,
+    });
+
+    dynamic token = await this.token;
+
+    final response = await client.post(
+      Uri.parse("${dotenv.env['URL']}/user/forgotpassword"),
+      body: body,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
+      },
+    );
+
+    return handleResponse(response);
+  }
+
+  @override
+  Future<Unit> resetPassword(
+      String phoneNumber, String password, String confirmPassword) async {
+    final body = jsonEncode({
+      "phone_number": phoneNumber,
+      "password": password,
+      "password2": confirmPassword,
+    });
+
+    dynamic token = await this.token;
+
+    final response = await client.post(
+      Uri.parse("${dotenv.env['URL']}/user/resetpassword"),
+      body: body,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
+      },
+    );
+
+    return handleResponse(response);
+  }
+
+  // TODO OTHERS
   Future<Unit> handleResponse(http.Response response) async {
     final responseBody = jsonDecode(response.body);
     if (response.statusCode == 200 || response.statusCode == 201) {

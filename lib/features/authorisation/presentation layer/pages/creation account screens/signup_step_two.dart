@@ -166,7 +166,10 @@ class _SignupStepTwoState extends State<SignupStepTwo> {
                             } else if (state is ResendVerifactionCodeFailure) {
                               snackbar(context, 1, state.message, AppColor.red);
                             } else if (state is ResendVerifactionCodeSuccess) {
-                              snackbar(context, 1, "Code sent successfully",
+                              snackbar(
+                                  context,
+                                  1,
+                                  "Phone number verified successfully",
                                   Colors.green);
                             }
                           },

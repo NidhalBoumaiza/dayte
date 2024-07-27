@@ -4,6 +4,7 @@ import 'package:meta/meta.dart';
 
 import '../../../../../core/error/failures.dart';
 import '../../../../../core/utils/map_failure_to_message.dart';
+import '../../../../authorisation/domain layer/entities/user_entity.dart';
 import '../../../domain layer/usecases/like_recommendation_use_case.dart';
 
 part 'like_recommendation__state.dart';
@@ -21,6 +22,12 @@ class LikeRecommendationCubit extends Cubit<LikeRecommendationState> {
       (failure) {
         if (failure is UnauthorizedFailure) {
           emit(LikeRecommendationUnauthorized());
+        } else if (failure is MatchedUserFailure) {
+          emit(LikeRecommendationSuccess());
+          emit(ItsAMatch(
+              id: MatchedUserFailure.id,
+              likedUser: MatchedUserFailure.likedUser,
+              likingUser: MatchedUserFailure.likingUser));
         } else {
           emit(LikeRecommendationError(message: mapFailureToMessage(failure)));
         }

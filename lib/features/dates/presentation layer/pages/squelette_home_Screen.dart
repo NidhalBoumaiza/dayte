@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../constant.dart';
 import '../../../../core/utils/platform_checker.dart';
 import '../cubit/bottom_navigation_bar_cubit.dart';
 import '../widgets/reusable_bottom_navigation_bar.dart';
@@ -64,7 +63,5 @@ class _SqueletteHomeScreenState extends State<SqueletteHomeScreen> {
 final bottomNavigationBarScreens = [
   ProfileScreen(),
   PetalsScreen(),
-  DayteScreen(
-    daytes: sampleDaytes,
-  ),
+  DayteScreen(),
 ];

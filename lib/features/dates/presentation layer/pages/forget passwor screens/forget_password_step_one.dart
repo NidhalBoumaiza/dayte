@@ -1,14 +1,19 @@
 import 'package:client/core/utils/navigation_with_transition.dart';
 import 'package:client/core/widgets/reusable_text.dart';
+import 'package:client/features/authorisation/presentation%20layer/widgets/snackBar.dart';
 import 'package:client/features/dates/presentation%20layer/pages/forget%20passwor%20screens/forget_password_step_two.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:client/features/dates/presentation%20layer/widgets/sign_out_logic_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../../../constant.dart';
+import '../../../../../core/strings.dart';
 import '../../../../../core/widgets/my_customed_button.dart';
+import '../../../../../core/widgets/reusable_circular_progressive_indicator.dart';
+import '../../../../authorisation/presentation layer/cubit/forget password cubit/forget_password__cubit.dart';
 import '../../widgets/text_field.dart';
 
 class ForgetPasswordStepOne extends StatelessWidget {
@@ -103,20 +108,49 @@ class ForgetPasswordStepOne extends StatelessWidget {
                     ),
                     SizedBox(height: 420.h),
                     Center(
-                      child: MyCustomButton(
-                        width: double.infinity,
-                        height: 45.h,
-                        function: () {
-                          if (_formKey.currentState!.validate()) {
+                      child: BlocConsumer<ForgetPasswordCubit,
+                          ForgetPasswordState>(
+                        listener: (context, state) {
+                          if (state is ForgetPasswordErreur) {
+                            snackbar(context, 2, state.message, AppColor.red);
+                          } else if (state is ForgetPasswordSuccess) {
+                            snackbar(context, 2, ForgetPasswordSuccessMessage,
+                                Colors.green);
                             navigateToAnotherScreenWithSlideTransitionFromRightToLeft(
                                 context,
                                 ForgetPasswordStepTwo(
                                     phoneNumber: phoneController.text));
                           }
                         },
-                        buttonColor: AppColor.red,
-                        text: "Next",
-                        fontWeight: FontWeight.w700,
+                        builder: (context, state) {
+                          if (state is ForgetPasswordUnauthorised) {
+                            return handleUnauthorizedAccessLogic(context);
+                          } else {
+                            return MyCustomButton(
+                                width: double.infinity,
+                                height: 45.h,
+                                function: state is ForgetPasswordLoading
+                                    ? () {}
+                                    : () {
+                                        if (_formKey.currentState!.validate()) {
+                                          context
+                                              .read<ForgetPasswordCubit>()
+                                              .forgetPassword(
+                                                  phoneController.text);
+                                        }
+                                      },
+                                buttonColor: AppColor.red,
+                                text: "Next",
+                                fontWeight: FontWeight.w700,
+                                widget: state is ForgetPasswordLoading
+                                    ? ReusablecircularProgressIndicator(
+                                        indicatorColor: AppColor.white,
+                                        height: 15,
+                                        width: 15,
+                                      )
+                                    : const SizedBox());
+                          }
+                        },
                       ),
                     ),
                   ],

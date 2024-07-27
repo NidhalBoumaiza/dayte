@@ -3,6 +3,7 @@ import 'package:client/features/authorisation/presentation%20layer/widgets/snack
 import 'package:client/features/dates/presentation%20layer/pages/forget%20passwor%20screens/forget_password_step_three.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../constant.dart';
 import '../../../../../core/widgets/my_customed_button.dart';
+import '../../../../../core/widgets/reusable_circular_progressive_indicator.dart';
+import '../../../../authorisation/presentation layer/bloc/register bloc/register_bloc.dart';
 
 class ForgetPasswordStepTwo extends StatefulWidget {
   final String phoneNumber;
@@ -157,7 +160,9 @@ class _ForgetPasswordStepTwoState extends State<ForgetPasswordStepTwo> {
                           SizedBox(height: 20.h),
                           InkWell(
                             onTap: () {
-                              // Handle resend code logic
+                              context
+                                  .read<RegisterBloc>()
+                                  .add(ResendVerifactionCodeEvent());
                             },
                             child: Text(
                               "Resend the code",
@@ -172,25 +177,66 @@ class _ForgetPasswordStepTwoState extends State<ForgetPasswordStepTwo> {
                         ],
                       ),
                     ),
-                    MyCustomButton(
-                      width: double.infinity,
-                      height: 45.h,
-                      function: () {
-                        String verificationCode = controllers
-                            .map((controller) => controller.text)
-                            .join();
-                        if (verificationCode.length == 4) {
-                          navigateToAnotherScreenWithSlideTransitionFromRightToLeft(
-                              context, ForgetPasswordStepThree());
-                        } else {
-                          snackbar(context, 1, "You have to provide the code !",
-                              AppColor.red);
+                    BlocConsumer<RegisterBloc, RegisterState>(
+                      listener: (context, state) {
+                        if (state is verifyCodeSuccess) {
+                          navigateToAnotherScreenWithSlideTransitionFromBottomToTop(
+                              context,
+                              ForgetPasswordStepThree(
+                                phoneNumber: widget.phoneNumber,
+                              ));
+                        } else if (state is verifyCodeFailure) {
+                          snackbar(context, 1, state.message, AppColor.red);
+                        } else if (state is ResendVerifactionCodeFailure) {
+                          snackbar(context, 1, state.message, AppColor.red);
+                        } else if (state is ResendVerifactionCodeSuccess) {
+                          snackbar(
+                              context,
+                              1,
+                              "Phone number verified successfully",
+                              Colors.green);
                         }
                       },
-                      buttonColor: AppColor.red,
-                      text: "Next",
-                      fontWeight: FontWeight.w700,
+                      builder: (context, state) {
+                        return MyCustomButton(
+                          width: double.infinity,
+                          height: 45.h,
+                          function: () {
+                            String verificationCode = controllers
+                                .map((controller) => controller.text)
+                                .join();
+                            // TODO Handle the verification code
+                            context.read<RegisterBloc>().add(
+                                  VerifyCodeEvent(code: verificationCode),
+                                );
+                          },
+                          buttonColor: AppColor.red,
+                          text: "Next",
+                          fontWeight: FontWeight.w700,
+                          widget: state is verifyCodeLoading
+                              ? ReusablecircularProgressIndicator(
+                                  indicatorColor: Colors.white,
+                                  height: 10,
+                                  width: 10,
+                                )
+                              : null,
+                        );
+                      },
                     ),
+                    BlocBuilder<RegisterBloc, RegisterState>(
+                      builder: (context, state) {
+                        if (state is ResendVerifactionCodeLoading) {
+                          return Center(
+                              child: ReusablecircularProgressIndicator(
+                            indicatorColor: AppColor.red,
+                            height: 15,
+                            width: 15,
+                          ));
+                        } else {
+                          return SizedBox();
+                        }
+                      },
+                    )
                   ],
                 ),
               ),

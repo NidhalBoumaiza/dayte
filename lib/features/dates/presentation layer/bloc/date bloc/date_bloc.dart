@@ -16,6 +16,7 @@ class DateBloc extends Bloc<DateEvent, DateState> {
   DateBloc({required this.getRecommendationUseCase}) : super(DateInitial()) {
     on<DateEvent>((event, emit) {});
     on<GetRecommendationEvent>(_getRecommendation);
+    on<changeIsLikeValue>(_changeIsLikeValue);
   }
 
   void _getRecommendation(
@@ -32,5 +33,20 @@ class DateBloc extends Bloc<DateEvent, DateState> {
       print(recommendations);
       emit(GetRecommendationSuccess(recommendations: recommendations));
     });
+  }
+
+  void _changeIsLikeValue(
+      changeIsLikeValue event, Emitter<DateState> emit) async {
+    if (state is GetRecommendationSuccess) {
+      final currentState = state as GetRecommendationSuccess;
+      final updatedRecommendations = currentState.recommendations.map((user) {
+        if (user.id == event.id) {
+          user.isLiked = true;
+        }
+        return user;
+      }).toList();
+
+      emit(GetRecommendationSuccess(recommendations: updatedRecommendations));
+    }
   }
 }

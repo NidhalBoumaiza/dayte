@@ -23,4 +23,9 @@ abstract class UserRepository {
 
   Future<Either<Failure, Unit>> changePassword(
       String oldPassword, String newPassword, String confirmNewPassword);
+
+  Future<Either<Failure, Unit>> forgotPassword(String phoneNumber);
+
+  Future<Either<Failure, Unit>> resetPassword(
+      String phoneNumber, String password, String confirmPassword);
 }

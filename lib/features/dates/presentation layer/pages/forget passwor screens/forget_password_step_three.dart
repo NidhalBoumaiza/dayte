@@ -1,18 +1,26 @@
 import 'package:client/core/utils/navigation_with_transition.dart';
+import 'package:client/core/widgets/reusable_circular_progressive_indicator.dart';
 import 'package:client/core/widgets/reusable_text.dart';
 import 'package:client/features/authorisation/presentation%20layer/widgets/snackBar.dart';
 import 'package:client/features/dates/presentation%20layer/pages/squelette_home_Screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../../../constant.dart';
+import '../../../../../core/strings.dart';
 import '../../../../../core/widgets/my_customed_button.dart';
+import '../../../../authorisation/presentation layer/cubit/forget password cubit/forget_password__cubit.dart';
+import '../../widgets/sign_out_logic_widget.dart';
 import '../../widgets/text_field.dart';
 
 class ForgetPasswordStepThree extends StatelessWidget {
-  ForgetPasswordStepThree({Key? key}) : super(key: key);
+  final String phoneNumber;
+
+  ForgetPasswordStepThree({Key? key, required this.phoneNumber})
+      : super(key: key);
 
   final TextEditingController newPasswordController = TextEditingController();
 
@@ -86,7 +94,7 @@ class ForgetPasswordStepThree extends StatelessWidget {
                           TextFieldWidget(
                             controller: newPasswordController,
                             function: (String) {},
-                            obsecuretext: false,
+                            obsecuretext: true,
                             hint: 'Password',
                             keyboardType: TextInputType.name,
                             inputdecoration: KinputDecoration.copyWith(
@@ -113,7 +121,7 @@ class ForgetPasswordStepThree extends StatelessWidget {
                           SizedBox(height: 5),
                           TextFieldWidget(
                             controller: confirmNewPasswordController,
-                            obsecuretext: false,
+                            obsecuretext: true,
                             function: (String) {},
                             hint: 'Password',
                             keyboardType: TextInputType.name,
@@ -136,27 +144,60 @@ class ForgetPasswordStepThree extends StatelessWidget {
                     ),
                   ),
                   Center(
-                    child: MyCustomButton(
-                      width: double.infinity,
-                      height: 45.h,
-                      function: () {
-                        if (_formKey.currentState!.validate()) {
-                          if (newPasswordController.text !=
-                              confirmNewPasswordController.text) {
-                            snackbar(
-                                context,
-                                1,
-                                "Your passwords are not matching !",
-                                AppColor.red);
-                          } else {
-                            navigateToAnotherScreenWithSlideTransitionFromBottomToTopPushReplacement(
-                                context, SqueletteHomeScreen());
-                          }
+                    child:
+                        BlocListener<ForgetPasswordCubit, ForgetPasswordState>(
+                      listener: (context, state) {
+                        if (state is ResetPasswordErreur) {
+                          snackbar(context, 2, state.message, AppColor.red);
+                        } else if (state is ResetPasswordSuccess) {
+                          snackbar(context, 2, PasswordResetedSuccessMessage,
+                              Colors.green);
+                          navigateToAnotherScreenWithSlideTransitionFromRightToLeft(
+                              context, SqueletteHomeScreen());
                         }
                       },
-                      buttonColor: AppColor.red,
-                      text: "Submit",
-                      fontWeight: FontWeight.w700,
+                      child:
+                          BlocBuilder<ForgetPasswordCubit, ForgetPasswordState>(
+                        builder: (context, state) {
+                          if (state is ResetPasswordUnauthorised) {
+                            return handleUnauthorizedAccessLogic(context);
+                          } else {
+                            return MyCustomButton(
+                                width: double.infinity,
+                                height: 45.h,
+                                function: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    if (newPasswordController.text !=
+                                        confirmNewPasswordController.text) {
+                                      snackbar(
+                                          context,
+                                          1,
+                                          "Your passwords are not matching !",
+                                          AppColor.red);
+                                    } else {
+                                      context
+                                          .read<ForgetPasswordCubit>()
+                                          .resetPassword(
+                                            phoneNumber,
+                                            newPasswordController.text,
+                                            confirmNewPasswordController.text,
+                                          );
+                                    }
+                                  }
+                                },
+                                buttonColor: AppColor.red,
+                                text: "Reset",
+                                fontWeight: FontWeight.w700,
+                                widget: state is ResetPasswordLoading
+                                    ? ReusablecircularProgressIndicator(
+                                        indicatorColor: AppColor.white,
+                                        height: 15,
+                                        width: 15,
+                                      )
+                                    : const SizedBox());
+                          }
+                        },
+                      ),
                     ),
                   ),
                 ],

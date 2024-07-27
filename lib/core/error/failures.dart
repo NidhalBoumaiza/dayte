@@ -1,6 +1,8 @@
 import 'package:client/core/strings.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../features/authorisation/domain layer/entities/user_entity.dart';
+
 abstract class Failure extends Equatable {}
 
 class OfflineFailure extends Failure {
@@ -40,4 +42,16 @@ class UnauthorizedFailure extends Failure {
 
   @override
   List<Object?> get props => [message];
+}
+
+class MatchedUserFailure extends Failure {
+  static late String id;
+
+  static late User likingUser;
+  static late User likedUser;
+
+  MatchedUserFailure();
+
+  @override
+  List<Object?> get props => [];
 }

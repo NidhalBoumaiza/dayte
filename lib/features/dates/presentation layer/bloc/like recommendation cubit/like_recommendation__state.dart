@@ -31,3 +31,16 @@ final class LikeRecommendationUnauthorized extends LikeRecommendationState {
   @override
   List<Object?> get props => [];
 }
+
+final class ItsAMatch extends LikeRecommendationState {
+  String id;
+
+  User likingUser;
+  User likedUser;
+
+  ItsAMatch(
+      {required this.id, required this.likedUser, required this.likingUser});
+
+  @override
+  List<Object?> get props => [id, likedUser, likingUser];
+}

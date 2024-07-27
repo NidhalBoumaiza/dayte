@@ -1,12 +1,19 @@
+import 'package:client/core/utils/navigation_with_transition.dart';
 import 'package:client/core/widgets/reusable_text.dart';
 import 'package:client/features/authorisation/presentation%20layer/widgets/snackBar.dart';
+import 'package:client/features/dates/presentation%20layer/pages/squelette_home_Screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../../../constant.dart';
+import '../../../../../core/strings.dart';
 import '../../../../../core/widgets/my_customed_button.dart';
+import '../../../../../core/widgets/reusable_circular_progressive_indicator.dart';
+import '../../../../authorisation/presentation layer/cubit/change password cubit/change_password__cubit.dart';
+import '../../widgets/sign_out_logic_widget.dart';
 import '../../widgets/text_field.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
@@ -164,25 +171,59 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     ),
                     SizedBox(height: 240.h),
                     Center(
-                      child: MyCustomButton(
-                        width: double.infinity,
-                        height: 45.h,
-                        function: () {
-                          if (_formKey.currentState!.validate()) {
-                            if (newPassController.text ==
-                                confirmPassController.text) {
-                              ///TODO LATER
-                            } else {
-                              ///TODO LATER
-
-                              snackbar(context, 2, "Passwords do not match",
-                                  AppColor.red);
-                            }
+                      child: BlocConsumer<ChangePasswordCubit,
+                          ChangePasswordState>(
+                        listener: (context, state) {
+                          if (state is ChangePasswordError) {
+                            snackbar(context, 2, state.message, AppColor.red);
+                          } else if (state is ChangePasswordSuccess) {
+                            snackbar(context, 2, PasswordResetedSuccessMessage,
+                                Colors.green);
+                            navigateToAnotherScreenWithSlideTransitionFromBottomToTop(
+                                context, SqueletteHomeScreen());
                           }
                         },
-                        buttonColor: AppColor.red,
-                        text: "Submit",
-                        fontWeight: FontWeight.w700,
+                        builder: (context, state) {
+                          if (state is ChangePasswordUnauthorized) {
+                            return handleUnauthorizedAccessLogic(context);
+                          } else {
+                            return MyCustomButton(
+                              width: double.infinity,
+                              height: 45.h,
+                              function: state is ChangePasswordLoading
+                                  ? () {}
+                                  : () {
+                                      if (_formKey.currentState!.validate()) {
+                                        if (newPassController.text ==
+                                            confirmPassController.text) {
+                                          BlocProvider.of<ChangePasswordCubit>(
+                                                  context)
+                                              .changePassword(
+                                                  oldPassController.text,
+                                                  newPassController.text,
+                                                  confirmPassController.text);
+                                        } else {
+                                          snackbar(
+                                              context,
+                                              2,
+                                              "Passwords do not match",
+                                              AppColor.red);
+                                        }
+                                      }
+                                    },
+                              buttonColor: AppColor.red,
+                              text: "Submit",
+                              fontWeight: FontWeight.w700,
+                              widget: state is ChangePasswordLoading
+                                  ? ReusablecircularProgressIndicator(
+                                      indicatorColor: Colors.white,
+                                      height: 15,
+                                      width: 15,
+                                    )
+                                  : null,
+                            );
+                          }
+                        },
                       ),
                     ),
                   ],

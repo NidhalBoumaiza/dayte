@@ -195,4 +195,42 @@ class UserRepositoryImpl implements UserRepository {
       return Left(OfflineFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, Unit>> forgotPassword(String phoneNumber) async {
+    if (await networkInfo.isConnected) {
+      try {
+        await userRemoteDataSource.forgotPassword(phoneNumber);
+        return const Right(unit);
+      } on ServerException {
+        return Left(ServerFailure());
+      } on ServerMessageException {
+        return Left(ServerMessageFailure());
+      } on UnauthorizedException {
+        return Left(UnauthorizedFailure());
+      }
+    } else {
+      return Left(OfflineFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> resetPassword(
+      String phoneNumber, String password, String confirmPassword) async {
+    if (await networkInfo.isConnected) {
+      try {
+        await userRemoteDataSource.resetPassword(
+            phoneNumber, password, confirmPassword);
+        return const Right(unit);
+      } on ServerException {
+        return Left(ServerFailure());
+      } on ServerMessageException {
+        return Left(ServerMessageFailure());
+      } on UnauthorizedException {
+        return Left(UnauthorizedFailure());
+      }
+    } else {
+      return Left(OfflineFailure());
+    }
+  }
 }

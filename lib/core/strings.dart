@@ -5,13 +5,12 @@ const String ServerFailureMessage =
 
 const String EmptyCacheFailureMessage = "Le cache est vide";
 
-const String OfflineFailureMessage = "Vous n'êtes pas connecté à internet";
-
+const String OfflineFailureMessage = "You are not connected to the internet";
 const String ForgetPasswordSuccessMessage =
-    "Un email de réinitialisation de mot de passe vous a été envoyé";
+    "Verification code sent successfully";
 
 const String PasswordResetedSuccessMessage =
-    "Votre mot de passe a été réinitialisé avec succès";
+    "Your password has been successfully reset";
 
 const String PasswordChangeSucessMessage =
     "Votre mot de passe a été changé avec succès";

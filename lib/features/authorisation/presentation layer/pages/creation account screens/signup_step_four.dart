@@ -7,9 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '/testStripe/stripe_payment/payment_manager.dart';
 import '../../../../../constant.dart';
 import '../../widgets/card_of_pack.dart';
-import '/testStripe/stripe_payment/payment_manager.dart';
 import 'signup_step_three_location.dart';
 
 class SignupStepFour extends StatefulWidget {
@@ -191,21 +191,23 @@ class _SignupStepFourState extends State<SignupStepFour> {
                           plan: plan,
                         ));
                   },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ReusableText(
-                        text: "Try before I pay ",
-                        textSize: 14.0.sp,
-                        textColor: AppColor.grey,
-                        textFontWeight: FontWeight.w500,
-                      ),
-                      SizedBox(
-                        height: 8.h,
-                        child: SvgPicture.string(littleArrow),
-                      )
-                    ],
-                  ),
+                  child: widget.isBillingScreen == true
+                      ? SizedBox()
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            ReusableText(
+                              text: "Try before I pay ",
+                              textSize: 14.0.sp,
+                              textColor: AppColor.grey,
+                              textFontWeight: FontWeight.w500,
+                            ),
+                            SizedBox(
+                              height: 8.h,
+                              child: SvgPicture.string(littleArrow),
+                            )
+                          ],
+                        ),
                 )
               ],
             ),

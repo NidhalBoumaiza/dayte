@@ -20,6 +20,7 @@ class UserModel extends User {
     String? plan,
     DateTime? endOfPlan,
     int? age,
+    bool? isLiked,
   }) : super(
           id: id,
           phoneNumber: phoneNumber,
@@ -36,14 +37,17 @@ class UserModel extends User {
           plan: plan,
           endOfPlan: endOfPlan,
           age: age,
+          isLiked: isLiked,
         );
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
+    print(json);
     return UserModel(
       id: json['_id'] as String?,
       phoneNumber: json['phone_number'] as String?,
       password: json['password'] as String?,
       age: json['age'] as int?,
+      isLiked: json['isLiked'] as bool?,
       verified: json['verified'] as bool?,
       name: json['name'] as String?,
       dateOfBirth: json['dateOfBirth'] != null

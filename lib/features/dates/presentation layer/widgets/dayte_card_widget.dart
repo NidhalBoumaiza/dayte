@@ -10,14 +10,18 @@ class DayteCard extends StatelessWidget {
   void Function() onPress;
   String image;
   String date, time;
+  String? placeName, stateName, countryName;
 
-  DayteCard(
-      {Key? key,
-      required this.image,
-      required this.onPress,
-      required this.date,
-      required this.time})
-      : super(key: key);
+  DayteCard({
+    Key? key,
+    required this.image,
+    required this.onPress,
+    required this.date,
+    required this.time,
+    this.placeName,
+    this.stateName,
+    this.countryName,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +48,7 @@ class DayteCard extends StatelessWidget {
                   borderRadious: 9,
                   borderColor: Colors.transparent,
                   width: 80.w,
-                  image: "images/1.png" // image,
+                  image: image // image,
                   ),
               SizedBox(width: 7.w),
               Padding(
@@ -59,29 +63,47 @@ class DayteCard extends StatelessWidget {
                       textFontWeight: FontWeight.w800,
                     ),
                     SizedBox(height: 4.h),
-                    SizedBox(
-                      width: 95.w,
-                      child: ReusableText(
-                        text: "Huntington Park",
-                        textSize: 13.sp,
-                        textColor: AppColor.black,
-                        textFontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    SizedBox(height: 2.h),
-                    ReusableText(
-                      text: "California",
-                      textSize: 13.sp,
-                      textColor: AppColor.black,
-                      textFontWeight: FontWeight.w400,
-                    ),
-                    SizedBox(height: 2.h),
-                    ReusableText(
-                      text: "USA",
-                      textSize: 13.sp,
-                      textColor: AppColor.black,
-                      textFontWeight: FontWeight.w400,
-                    ),
+                    placeName != null &&
+                            stateName != null &&
+                            countryName != null
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 95.w,
+                                child: ReusableText(
+                                  text: placeName!,
+                                  textSize: 13.sp,
+                                  textColor: AppColor.black,
+                                  textFontWeight: FontWeight.w900,
+                                ),
+                              ),
+                              SizedBox(height: 2.h),
+                              ReusableText(
+                                text: stateName!,
+                                textSize: 13.sp,
+                                textColor: AppColor.black,
+                                textFontWeight: FontWeight.w400,
+                              ),
+                              SizedBox(height: 2.h),
+                              ReusableText(
+                                text: countryName!,
+                                textSize: 13.sp,
+                                textColor: AppColor.black,
+                                textFontWeight: FontWeight.w400,
+                              ),
+                            ],
+                          )
+                        : SizedBox(
+                            width: 95.w,
+                            child: ReusableText(
+                              text: "No location selected yet",
+                              textSize: 13.sp,
+                              textColor: AppColor.black,
+                              textFontWeight: FontWeight.w400,
+                            ),
+                          )
                   ],
                 ),
               ),

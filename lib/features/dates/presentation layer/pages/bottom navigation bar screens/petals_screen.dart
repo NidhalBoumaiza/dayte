@@ -5,16 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../../constant.dart';
-import '../../../../../core/colors.dart';
 import '../../../../../core/utils/navigation_with_transition.dart';
-import '../../../../../core/widgets/reusable_circular_progressive_indicator.dart';
-import '../../../../authorisation/presentation layer/bloc/sign_out_bloc/sign_out_bloc.dart';
-import '../../../../authorisation/presentation layer/pages/signin_screen.dart';
 import '../../../../authorisation/presentation layer/widgets/continueButton.dart';
 import '../../../../authorisation/presentation layer/widgets/snackBar.dart';
 import '../../bloc/date bloc/date_bloc.dart';
 import '../../widgets/home_profile_widget.dart';
 import '../../widgets/shimmer_loading_petals.dart';
+import '../../widgets/sign_out_logic_widget.dart';
 import '../profile_details_screen.dart';
 
 class PetalsScreen extends StatelessWidget {
@@ -54,41 +51,7 @@ class PetalsScreen extends StatelessWidget {
               },
               builder: (context, state) {
                 if (state is GetRecommendationUnauthorized) {
-                  BlocProvider.of<SignOutBloc>(context)
-                      .add(SignOutMyAccountEventPressed());
-                  return BlocConsumer<SignOutBloc, SignOutState>(
-                      builder: (context, state) {
-                    if (state is SignOutLoading) {
-                      return ReusablecircularProgressIndicator(
-                        height: 20.h,
-                        width: 20.w,
-                        indicatorColor: primaryColor,
-                      );
-                    } else {
-                      return const Text("errrorororororor");
-                    }
-                  }, listener: (context, state) {
-                    if (state is SignOutSuccess) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                              "Votre session a expiré , veuillez vous reconnecter"),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                      navigateToAnotherScreenWithSlideTransitionFromRightToLeftPushReplacement(
-                        context,
-                        SignInScreen(),
-                      );
-                    } else if (state is SignOutError) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(state.message),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                    }
-                  });
+                  return handleUnauthorizedAccessLogic(context);
                 } else if (state is GetRecommendationLoading) {
                   return GridView.builder(
                     physics: const NeverScrollableScrollPhysics(),

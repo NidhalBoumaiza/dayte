@@ -19,3 +19,10 @@ class UnauthorizedException implements Exception {
   @override
   List<Object?> get props => [];
 }
+
+class MatchedException implements Exception {
+  const MatchedException();
+
+  @override
+  List<Object?> get props => [];
+}

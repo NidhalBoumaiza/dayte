@@ -18,23 +18,26 @@ class User extends Equatable {
   final String? plan;
   final DateTime? endOfPlan;
   final int? age;
+  bool? isLiked;
 
-  User(
-      {this.phoneNumber,
-      this.id,
-      this.password,
-      this.verified,
-      this.name,
-      this.dateOfBirth,
-      this.gender,
-      this.interests,
-      this.prompts,
-      this.description,
-      this.images,
-      this.location,
-      this.plan,
-      this.endOfPlan,
-      this.age});
+  User({
+    this.phoneNumber,
+    this.id,
+    this.password,
+    this.verified,
+    this.name,
+    this.dateOfBirth,
+    this.gender,
+    this.interests,
+    this.prompts,
+    this.description,
+    this.images,
+    this.location,
+    this.plan,
+    this.endOfPlan,
+    this.age,
+    this.isLiked,
+  });
 
   @override
   List<Object?> get props => [
@@ -53,6 +56,7 @@ class User extends Equatable {
         endOfPlan,
         age,
         id,
+        isLiked,
       ];
 }
 

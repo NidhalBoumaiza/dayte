@@ -1,7 +1,6 @@
 import 'package:client/core/utils/navigation_with_transition.dart';
 import 'package:client/core/widgets/reusable_text.dart';
 import 'package:client/features/authorisation/presentation%20layer/bloc/get%20profile%20bloc/get_profile_bloc.dart';
-import 'package:client/features/authorisation/presentation%20layer/pages/signin_screen.dart';
 import 'package:client/features/dates/presentation%20layer/pages/squelette_home_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,9 +11,8 @@ import '../../../../../constant.dart';
 import '../../../../../core/animation/animation_top.dart';
 import '../../../../../core/widgets/my_customed_button.dart';
 import '../../../../../core/widgets/reusable_circular_progressive_indicator.dart';
-import '../../../../core/colors.dart';
 import '../../../dates/presentation layer/cubit/bottom_navigation_bar_cubit.dart';
-import '../bloc/sign_out_bloc/sign_out_bloc.dart';
+import '../../../dates/presentation layer/widgets/sign_out_logic_widget.dart';
 import '../bloc/update_coordinate_bloc/update_coordinate_bloc.dart';
 
 class ActiveLocationScreen extends StatelessWidget {
@@ -85,41 +83,7 @@ class ActiveLocationScreen extends StatelessWidget {
                   }
                 }, builder: (context, state) {
                   if (state is UpdateCoordinateUnauthorized) {
-                    BlocProvider.of<SignOutBloc>(context)
-                        .add(SignOutMyAccountEventPressed());
-                    return BlocConsumer<SignOutBloc, SignOutState>(
-                        builder: (context, state) {
-                      if (state is SignOutLoading) {
-                        return ReusablecircularProgressIndicator(
-                          height: 20.h,
-                          width: 20.w,
-                          indicatorColor: primaryColor,
-                        );
-                      } else {
-                        return const Text("errrorororororor");
-                      }
-                    }, listener: (context, state) {
-                      if (state is SignOutSuccess) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                                "Votre session a expiré , veuillez vous reconnecter"),
-                            backgroundColor: Colors.red,
-                          ),
-                        );
-                        navigateToAnotherScreenWithSlideTransitionFromRightToLeftPushReplacement(
-                          context,
-                          SignInScreen(),
-                        );
-                      } else if (state is SignOutError) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(state.message),
-                            backgroundColor: Colors.red,
-                          ),
-                        );
-                      }
-                    });
+                    return handleUnauthorizedAccessLogic(context);
                   } else {
                     return MyCustomButton(
                       width: double.infinity,

@@ -14,6 +14,7 @@ import '../../../../../core/widgets/my_customed_button.dart';
 import '../../../../../svgImages.dart';
 import '../../../../authorisation/presentation layer/bloc/get profile bloc/get_profile_bloc.dart';
 import '../../widgets/profile_picture_widget.dart';
+import '../../widgets/sign_out_logic_widget.dart';
 import '../../widgets/text_field.dart';
 import '../my profile screens/edit_profile_screen.dart';
 import '../my profile screens/operation_passwords.dart';
@@ -28,6 +29,9 @@ class ProfileScreen extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(8.w, 10.h, 8.w, 30.h),
         child: BlocBuilder<GetProfileBloc, GetProfileState>(
           builder: (context, state) {
+            if (state is GetProfileUnauthorized) {
+              return handleUnauthorizedAccessLogic(context);
+            }
             if (state is GetProfileSuccess) {
               print(state.user.images![0].image);
             }
