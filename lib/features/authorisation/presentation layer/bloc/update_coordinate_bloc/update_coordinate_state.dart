@@ -34,3 +34,12 @@ final class UpdateCoordinateUnauthorized extends UpdateCoordinateState {
   @override
   List<Object?> get props => [message];
 }
+
+final class EndOfPlanErreur extends UpdateCoordinateState {
+  final String message;
+
+  EndOfPlanErreur({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+}

@@ -34,6 +34,9 @@ abstract class UserRemoteDataSource {
 
   Future<Unit> resetPassword(
       String phoneNumber, String password, String confirmPassword);
+
+  Future<Unit> editProfile(
+      String name, String gender, DateTime dateOfBirth, List<dynamic> images);
 }
 
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {
@@ -213,6 +216,16 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       final errorMessage = responseBody['message'] as String;
       ServerMessageFailure.message = errorMessage;
       throw ServerMessageException();
+    } else if (response.statusCode == 410) {
+      final responseBody = jsonDecode(response.body);
+      final errorMessage = responseBody['message'] as String;
+      UnauthorizedFailure.message = errorMessage;
+      throw UnauthorizedException();
+    } else if (response.statusCode == 405) {
+      final responseBody = jsonDecode(response.body);
+      final errorMessage = responseBody['message'] as String;
+      EndOfPlanFailure.message = errorMessage;
+      throw EndOfPlanException();
     } else {
       throw ServerException();
     }
@@ -222,11 +235,14 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   Future<Unit> updateLocation(Location location) async {
     // 'location': jsonEncode(
     // {"type": "Point", "coordinates": userModel.location!.coordinates})
+    print(
+        "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
     final body = jsonEncode({
       "location": {"type": "Point", "coordinates": location!.coordinates},
     });
     dynamic token = await this.token;
     token ??= "";
+    print("token : $token");
     final response = await client.patch(
       Uri.parse("${dotenv.env['URL']}/user/updatelocation"),
       headers: {
@@ -235,6 +251,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       },
       body: body,
     );
+    print(response);
     return handleResponse(response);
   }
 
@@ -323,6 +340,11 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
 
       UnauthorizedFailure.message = errorMessage;
       throw const UnauthorizedException();
+    } else if (response.statusCode == 405) {
+      final errorMessage = responseBody['message'] as String;
+
+      EndOfPlanFailure.message = errorMessage;
+      throw const EndOfPlanException();
     } else {
       throw ServerException();
     }
@@ -338,6 +360,69 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
     return sharedPreferences.getString('token');
+  }
+
+  @override
+  Future<Unit> editProfile(String name, String gender, DateTime dateOfBirth,
+      List<dynamic> images) async {
+    List<http.MultipartFile> imageParts = [];
+    List<String> oldPics = [];
+    for (var image in images) {
+      if (image is String && image.contains('uploads')) {
+        oldPics.add(image);
+      } else if (image is String) {
+        // Add local file paths
+        var imagePart = await http.MultipartFile.fromPath(
+          'new_pics',
+          image,
+          contentType: MediaType('images',
+              'jpg'), // Assuming all images are jpeg, adjust as needed
+        );
+        imageParts.add(imagePart);
+      }
+    }
+
+    final request = http.MultipartRequest(
+      'PATCH',
+      Uri.parse("${dotenv.env['URL']}/user/updateprofile"),
+    );
+
+    dynamic token = await this.token;
+    print("token : $token");
+    request.headers.addAll({
+      'Content-Type': 'multipart/form-data',
+      'Authorization': 'Bearer $token',
+    });
+
+    request.fields['name'] = name;
+    request.fields['gender'] = gender;
+    request.fields['date_of_birth'] = dateOfBirth.toIso8601String();
+    request.fields['old_pics'] = jsonEncode(oldPics);
+
+    request.files.addAll(imageParts);
+
+    final streamedResponse = await request.send();
+    final response = await http.Response.fromStream(streamedResponse);
+
+    final responseBody = jsonDecode(response.body);
+
+    if (response.statusCode == 200) {
+      return Future.value(unit);
+    } else if (response.statusCode == 400) {
+      final errorMessage = responseBody['message'] as String;
+      ServerMessageFailure.message = errorMessage;
+      throw ServerMessageException();
+    } else if (response.statusCode == 410) {
+      final errorMessage = responseBody['message'] as String;
+      UnauthorizedFailure.message = errorMessage;
+      throw UnauthorizedException();
+    } else if (response.statusCode == 405) {
+      final errorMessage = responseBody['message'] as String;
+      EndOfPlanFailure.message = errorMessage;
+      throw EndOfPlanException();
+    } else {
+      throw ServerException();
+    }
   }
 }
 

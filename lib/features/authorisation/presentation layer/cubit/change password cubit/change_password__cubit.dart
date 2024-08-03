@@ -23,7 +23,10 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
       (failure) {
         if (failure is UnauthorizedFailure) {
           emit(ChangePasswordUnauthorized());
-        } else {
+        } else if (failure is EndOfPlanFailure) {
+          emit(EndOfPlanErreur(mapFailureToMessage(failure)));
+        }
+        else {
           emit(ChangePasswordError(mapFailureToMessage(failure)));
         }
       },

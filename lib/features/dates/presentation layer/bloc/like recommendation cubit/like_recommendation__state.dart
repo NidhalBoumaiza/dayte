@@ -44,3 +44,12 @@ final class ItsAMatch extends LikeRecommendationState {
   @override
   List<Object?> get props => [id, likedUser, likingUser];
 }
+
+final class EndOfPlanErreurr extends LikeRecommendationState {
+  final String message;
+
+  EndOfPlanErreurr({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+}

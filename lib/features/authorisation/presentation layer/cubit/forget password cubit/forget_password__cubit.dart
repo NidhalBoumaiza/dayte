@@ -24,6 +24,8 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
       (failure) {
         if (failure is UnauthorizedFailure) {
           emit(ForgetPasswordUnauthorised());
+        } else if (failure is EndOfPlanFailure) {
+          emit(EndOfPlanErreur(mapFailureToMessage(failure)));
         } else {
           emit(ForgetPasswordErreur(mapFailureToMessage(failure)));
         }

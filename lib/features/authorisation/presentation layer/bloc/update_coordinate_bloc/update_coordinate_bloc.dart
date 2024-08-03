@@ -39,7 +39,10 @@ class UpdateCoordinateBloc
         if (failure is UnauthorizedFailure) {
           emit(UpdateCoordinateUnauthorized(
               message: mapFailureToMessage(failure)));
-        } else {
+        } else if (failure is EndOfPlanFailure) {
+          emit(EndOfPlanErreur(message: mapFailureToMessage(failure)));
+        }
+        else {
           emit(UpdateCoordinateError(message: mapFailureToMessage(failure)));
         }
       },

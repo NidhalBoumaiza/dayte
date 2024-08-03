@@ -26,6 +26,8 @@ class CancelDateCubit extends Cubit<CancelDateState> {
           emit(CancelDateUnauthorised(mapFailureToMessage(failure)));
         } else if (failure is OfflineFailure) {
           emit(CancelDateNetworkErreur(OfflineFailureMessage));
+        } else if (failure is EndOfPlanFailure) {
+          emit(EndOfPlanErreur(mapFailureToMessage(failure)));
         } else {
           emit(CancelDateErreur('An error occurred'));
         }

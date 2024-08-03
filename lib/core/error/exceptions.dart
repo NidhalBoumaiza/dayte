@@ -26,3 +26,10 @@ class MatchedException implements Exception {
   @override
   List<Object?> get props => [];
 }
+
+class EndOfPlanException implements Exception {
+  const EndOfPlanException();
+
+  @override
+  List<Object?> get props => [];
+}

@@ -26,6 +26,8 @@ class DateBloc extends Bloc<DateEvent, DateState> {
     failureOrRecommendations.fold((failure) {
       if (failure is UnauthorizedFailure) {
         emit(GetRecommendationUnauthorized());
+      } else if (failure is EndOfPlanFailure) {
+        emit(EndOfPlanErreur(message: mapFailureToMessage(failure)));
       } else {
         emit(GetRecommendationError(message: mapFailureToMessage(failure)));
       }

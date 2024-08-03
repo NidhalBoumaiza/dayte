@@ -55,3 +55,10 @@ class MatchedUserFailure extends Failure {
   @override
   List<Object?> get props => [];
 }
+
+class EndOfPlanFailure extends Failure {
+  static late String message ;
+  EndOfPlanFailure();
+  @override
+  List<Object?> get props => [message];
+}

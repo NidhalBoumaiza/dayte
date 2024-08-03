@@ -31,3 +31,10 @@ final class ChangePasswordSuccess extends ChangePasswordState {
   @override
   List<Object?> get props => [];
 }
+
+final class EndOfPlanErreur extends ChangePasswordState {
+  final String message;
+  EndOfPlanErreur(this.message);
+  @override
+  List<Object?> get props => [message];
+}

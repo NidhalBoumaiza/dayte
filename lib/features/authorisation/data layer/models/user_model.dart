@@ -50,8 +50,8 @@ class UserModel extends User {
       isLiked: json['isLiked'] as bool?,
       verified: json['verified'] as bool?,
       name: json['name'] as String?,
-      dateOfBirth: json['dateOfBirth'] != null
-          ? DateTime.parse(json['dateOfBirth'] as String)
+      dateOfBirth: json['date_of_birth'] != null
+          ? DateTime.parse(json['date_of_birth'] as String)
           : null,
       gender: json['gender'] as String?,
       interests: (json['interests'] as List<dynamic>?)

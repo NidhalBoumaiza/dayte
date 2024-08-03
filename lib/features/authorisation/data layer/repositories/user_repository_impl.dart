@@ -133,6 +133,10 @@ class UserRepositoryImpl implements UserRepository {
         return Left(ServerFailure());
       } on ServerMessageException {
         return Left(ServerMessageFailure());
+      } on UnauthorizedException {
+        return Left(UnauthorizedFailure());
+      } on EndOfPlanException {
+        return Left(EndOfPlanFailure());
       }
     } else {
       return Left(OfflineFailure());
@@ -170,6 +174,8 @@ class UserRepositoryImpl implements UserRepository {
       } on UnauthorizedException {
         await userLocalDataSource.signOut();
         return Left(UnauthorizedFailure());
+      } on EndOfPlanException {
+        return Left(EndOfPlanFailure());
       }
     } else {
       return Left(OfflineFailure());
@@ -190,6 +196,8 @@ class UserRepositoryImpl implements UserRepository {
         return Left(ServerMessageFailure());
       } on UnauthorizedException {
         return Left(UnauthorizedFailure());
+      } on EndOfPlanException {
+        return Left(EndOfPlanFailure());
       }
     } else {
       return Left(OfflineFailure());
@@ -208,6 +216,8 @@ class UserRepositoryImpl implements UserRepository {
         return Left(ServerMessageFailure());
       } on UnauthorizedException {
         return Left(UnauthorizedFailure());
+      } on EndOfPlanException {
+        return Left(EndOfPlanFailure());
       }
     } else {
       return Left(OfflineFailure());
@@ -228,6 +238,30 @@ class UserRepositoryImpl implements UserRepository {
         return Left(ServerMessageFailure());
       } on UnauthorizedException {
         return Left(UnauthorizedFailure());
+      } on EndOfPlanException {
+        return Left(EndOfPlanFailure());
+      }
+    } else {
+      return Left(OfflineFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> editProfile(
+      String name, String gender, DateTime dateOfBirth, List images) async {
+    if (await networkInfo.isConnected) {
+      try {
+        await userRemoteDataSource.editProfile(
+            name, gender, dateOfBirth, images);
+        return const Right(unit);
+      } on ServerException {
+        return Left(ServerFailure());
+      } on ServerMessageException {
+        return Left(ServerMessageFailure());
+      } on UnauthorizedException {
+        return Left(UnauthorizedFailure());
+      } on EndOfPlanException {
+        return Left(EndOfPlanFailure());
       }
     } else {
       return Left(OfflineFailure());

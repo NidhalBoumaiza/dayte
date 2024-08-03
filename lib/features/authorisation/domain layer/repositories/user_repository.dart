@@ -28,4 +28,7 @@ abstract class UserRepository {
 
   Future<Either<Failure, Unit>> resetPassword(
       String phoneNumber, String password, String confirmPassword);
+
+  Future<Either<Failure, Unit>> editProfile(
+      String name, String gender, DateTime dateOfBirth, List<dynamic> images);
 }

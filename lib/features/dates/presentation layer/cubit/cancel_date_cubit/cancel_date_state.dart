@@ -44,3 +44,12 @@ final class CancelDateNetworkErreur extends CancelDateState {
   @override
   List<Object?> get props => [message];
 }
+
+final class EndOfPlanErreur extends CancelDateState {
+  final String message;
+
+  EndOfPlanErreur(this.message);
+
+  @override
+  List<Object?> get props => [message];
+}

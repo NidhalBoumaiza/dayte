@@ -47,6 +47,8 @@ class PetalsScreen extends StatelessWidget {
               listener: (context, state) {
                 if (state is GetRecommendationError) {
                   snackbar(context, 1, state.message, AppColor.red);
+                } else if (state is EndOfPlanErreur) {
+                  snackbar(context, 1, state.message, AppColor.red);
                 }
               },
               builder: (context, state) {

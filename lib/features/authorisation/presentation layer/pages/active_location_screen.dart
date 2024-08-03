@@ -80,6 +80,13 @@ class ActiveLocationScreen extends StatelessWidget {
                         backgroundColor: Colors.red,
                       ),
                     );
+                  } else if (state is EndOfPlanErreur) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(state.message),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
                   }
                 }, builder: (context, state) {
                   if (state is UpdateCoordinateUnauthorized) {

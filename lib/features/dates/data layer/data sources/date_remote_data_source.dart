@@ -39,6 +39,12 @@ class DateRemoteDataSource {
 
       ServerMessageFailure.message = errorMessage;
       throw ServerMessageException();
+    } else if (response.statusCode == 405) {
+      final responseBody = jsonDecode(response.body);
+      final errorMessage = responseBody['message'] as String;
+
+      EndOfPlanFailure.message = errorMessage;
+      throw const EndOfPlanException();
     } else {
       throw ServerException();
     }
@@ -70,6 +76,12 @@ class DateRemoteDataSource {
 
       ServerMessageFailure.message = errorMessage;
       throw ServerMessageException();
+    } else if (response.statusCode == 405) {
+      final responseBody = jsonDecode(response.body);
+      final errorMessage = responseBody['message'] as String;
+
+      EndOfPlanFailure.message = errorMessage;
+      throw const EndOfPlanException();
     } else {
       throw ServerException();
     }
@@ -105,6 +117,12 @@ class DateRemoteDataSource {
 
       ServerMessageFailure.message = errorMessage;
       throw ServerMessageException();
+    } else if (response.statusCode == 405) {
+      final responseBody = jsonDecode(response.body);
+      final errorMessage = responseBody['message'] as String;
+
+      EndOfPlanFailure.message = errorMessage;
+      throw const EndOfPlanException();
     } else {
       throw ServerException();
     }
@@ -130,6 +148,12 @@ class DateRemoteDataSource {
 
       ServerMessageFailure.message = errorMessage;
       throw ServerMessageException();
+    } else if (response.statusCode == 405) {
+      final responseBody = jsonDecode(response.body);
+      final errorMessage = responseBody['message'] as String;
+
+      EndOfPlanFailure.message = errorMessage;
+      throw const EndOfPlanException();
     } else {
       throw ServerException();
     }
@@ -151,6 +175,12 @@ class DateRemoteDataSource {
 
       ServerMessageFailure.message = errorMessage;
       throw ServerMessageException();
+    } else if (response.statusCode == 405) {
+      final responseBody = jsonDecode(response.body);
+      final errorMessage = responseBody['message'] as String;
+
+      EndOfPlanFailure.message = errorMessage;
+      throw const EndOfPlanException();
     } else {
       throw ServerException();
     }
@@ -177,6 +207,12 @@ class DateRemoteDataSource {
 
       ServerMessageFailure.message = errorMessage;
       throw ServerMessageException();
+    } else if (response.statusCode == 405) {
+      final responseBody = jsonDecode(response.body);
+      final errorMessage = responseBody['message'] as String;
+
+      EndOfPlanFailure.message = errorMessage;
+      throw const EndOfPlanException();
     } else {
       throw ServerException();
     }

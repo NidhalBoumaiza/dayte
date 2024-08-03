@@ -28,6 +28,8 @@ class LikeRecommendationCubit extends Cubit<LikeRecommendationState> {
               id: MatchedUserFailure.id,
               likedUser: MatchedUserFailure.likedUser,
               likingUser: MatchedUserFailure.likingUser));
+        } else if (failure is EndOfPlanFailure) {
+          emit(EndOfPlanErreurr(message: EndOfPlanFailure.message));
         } else {
           emit(LikeRecommendationError(message: mapFailureToMessage(failure)));
         }

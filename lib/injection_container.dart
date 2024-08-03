@@ -5,6 +5,7 @@ import 'package:client/features/authorisation/presentation%20layer/bloc/register
 import 'package:client/features/authorisation/presentation%20layer/cubit/first%20image%20cubit/first_image_cubit.dart';
 import 'package:client/features/authorisation/presentation%20layer/cubit/forget%20password%20cubit/forget_password__cubit.dart';
 import 'package:client/features/dates/domain%20layer/repositories/date_repository.dart';
+import 'package:client/features/dates/domain%20layer/usecases/edit_profile_use_case.dart';
 import 'package:client/features/dates/domain%20layer/usecases/get_recommendation_use_case.dart';
 import 'package:client/features/dates/presentation%20layer/bloc/date%20bloc/date_bloc.dart';
 import 'package:client/features/dates/presentation%20layer/bloc/like%20recommendation%20cubit/like_recommendation__cubit.dart';
@@ -37,12 +38,16 @@ import 'features/dates/domain layer/usecases/cancel_date.dart';
 import 'features/dates/domain layer/usecases/get_user_matches.dart';
 import 'features/dates/domain layer/usecases/like_recommendation_use_case.dart';
 import 'features/dates/presentation layer/cubit/bottom_navigation_bar_cubit.dart';
+import 'features/dates/presentation layer/cubit/edit image/edit_image_cubit.dart';
+import 'features/dates/presentation layer/cubit/edit profile cubit/edit_profile_cubit.dart';
 import 'features/dates/presentation layer/cubit/get matches cubit/get_matches_cubit.dart';
 
 final sl = GetIt.instance;
 
 Future<void> init() async {
   // Bloc
+  sl.registerFactory(() => EditProfileCubit(editProfileUseCase: sl()));
+  sl.registerFactory(() => EditImageCubit());
   sl.registerFactory(() => CancelDateCubit(cancelDateUseCase: sl()));
   sl.registerFactory(() => GetMatchesCubit(getUserMatches: sl()));
   sl.registerFactory(() => ForgetPasswordCubit(
@@ -64,6 +69,7 @@ Future<void> init() async {
       ));
   sl.registerFactory(() => UpdateCoordinateBloc(updateCoordinateUseCase: sl()));
   // Use Cases
+  sl.registerLazySingleton(() => EditProfileUseCase(sl()));
   sl.registerLazySingleton(() => CancelDateUseCase(sl()));
   sl.registerLazySingleton(() => GetUserMatches(sl()));
   sl.registerLazySingleton(() => ForgetPasswordUseCase(sl()));

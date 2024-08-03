@@ -37,3 +37,12 @@ final class GetRecommendationSuccess extends DateState {
   @override
   List<Object?> get props => [recommendations];
 }
+
+final class EndOfPlanErreur extends DateState {
+  final String message;
+
+  EndOfPlanErreur({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+}

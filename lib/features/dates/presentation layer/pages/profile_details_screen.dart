@@ -110,6 +110,13 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                                   backgroundColor: Colors.red,
                                 ),
                               );
+                            } else if (state is EndOfPlanErreurr) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(state.message),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
                             } else if (state is LikeRecommendationSuccess) {
                               setState(() {
                                 widget.profile.isLiked = true;

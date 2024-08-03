@@ -29,6 +29,8 @@ class DateRepositoryImpl implements DateRepository {
         return Left(ServerMessageFailure());
       } on UnauthorizedException {
         return Left(UnauthorizedFailure());
+      } on EndOfPlanException {
+        return Left(EndOfPlanFailure());
       }
     } else {
       return Left(OfflineFailure());
@@ -47,6 +49,8 @@ class DateRepositoryImpl implements DateRepository {
         return Left(ServerMessageFailure());
       } on UnauthorizedException {
         return Left(UnauthorizedFailure());
+      } on EndOfPlanException {
+        return Left(EndOfPlanFailure());
       }
     } else {
       return Left(OfflineFailure());
@@ -67,6 +71,8 @@ class DateRepositoryImpl implements DateRepository {
         return Left(UnauthorizedFailure());
       } on MatchedException {
         return Left(MatchedUserFailure());
+      } on EndOfPlanException {
+        return Left(EndOfPlanFailure());
       }
     } else {
       return Left(OfflineFailure());
@@ -86,6 +92,8 @@ class DateRepositoryImpl implements DateRepository {
         return Left(ServerMessageFailure());
       } on UnauthorizedException {
         return Left(UnauthorizedFailure());
+      } on EndOfPlanException {
+        return Left(EndOfPlanFailure());
       }
     } else {
       return Left(OfflineFailure());
@@ -104,6 +112,8 @@ class DateRepositoryImpl implements DateRepository {
         return Left(ServerMessageFailure());
       } on UnauthorizedException {
         return Left(UnauthorizedFailure());
+      } on EndOfPlanException {
+        return Left(EndOfPlanFailure());
       }
     } else {
       return Left(OfflineFailure());
@@ -122,6 +132,8 @@ class DateRepositoryImpl implements DateRepository {
         return Left(ServerMessageFailure());
       } on UnauthorizedException {
         return Left(UnauthorizedFailure());
+      } on EndOfPlanException {
+        return Left(EndOfPlanFailure());
       }
     } else {
       return Left(OfflineFailure());

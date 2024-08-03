@@ -55,3 +55,12 @@ final class ResetPasswordUnauthorised extends ForgetPasswordState {
   @override
   List<Object?> get props => [];
 }
+
+final class EndOfPlanErreur extends ForgetPasswordState {
+  final String message;
+
+  EndOfPlanErreur(this.message);
+
+  @override
+  List<Object?> get props => [message];
+}

@@ -19,7 +19,7 @@ final class GetMatchesErreur extends GetMatchesState {
   GetMatchesErreur(this.message);
 
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [message];
 }
 
 final class GetMatchesUnauthorized extends GetMatchesState {
@@ -34,4 +34,13 @@ final class GetMatchesSucess extends GetMatchesState {
 
   @override
   List<Object?> get props => [matches];
+}
+
+final class EndOfPlanErreur extends GetMatchesState {
+  final String message;
+
+  EndOfPlanErreur(this.message);
+
+  @override
+  List<Object?> get props => [message];
 }

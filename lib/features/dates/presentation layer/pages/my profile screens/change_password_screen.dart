@@ -181,6 +181,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                 Colors.green);
                             navigateToAnotherScreenWithSlideTransitionFromBottomToTop(
                                 context, SqueletteHomeScreen());
+                          }else if (state is EndOfPlanErreur) {
+                            snackbar(context, 2, state.message, AppColor.red);
                           }
                         },
                         builder: (context, state) {
