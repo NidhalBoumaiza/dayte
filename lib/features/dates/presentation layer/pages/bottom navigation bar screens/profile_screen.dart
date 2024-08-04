@@ -1,3 +1,4 @@
+import 'package:client/core/widgets/reusable_circular_progressive_indicator.dart';
 import 'package:client/core/widgets/reusable_text.dart';
 import 'package:client/features/authorisation/presentation%20layer/bloc/sign_out_bloc/sign_out_bloc.dart';
 import 'package:client/features/authorisation/presentation%20layer/pages/creation%20account%20screens/signup_step_four.dart';
@@ -21,8 +22,19 @@ import '../../widgets/text_field.dart';
 import '../my profile screens/edit_profile_screen.dart';
 import '../my profile screens/operation_passwords.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  @override
+  void initState() {
+    context.read<GetProfileBloc>().add(GetProfile());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +43,20 @@ class ProfileScreen extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(8.w, 10.h, 8.w, 30.h),
         child: BlocBuilder<GetProfileBloc, GetProfileState>(
           builder: (context, state) {
+            if (state is GetProfileLoading) {
+              return Column(
+                children: [
+                  SizedBox(height: SizeScreen.height * 0.4),
+                  Center(
+                    child: ReusablecircularProgressIndicator(
+                      indicatorColor: AppColor.red,
+                      height: 25,
+                      width: 25,
+                    ),
+                  ),
+                ],
+              );
+            }
             if (state is GetProfileUnauthorized) {
               return handleUnauthorizedAccessLogic(context);
             }

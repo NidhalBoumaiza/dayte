@@ -57,8 +57,19 @@ class MatchedUserFailure extends Failure {
 }
 
 class EndOfPlanFailure extends Failure {
-  static late String message ;
+  static late String message;
+
   EndOfPlanFailure();
+
+  @override
+  List<Object?> get props => [message];
+}
+
+class ShuffleFailure extends Failure {
+  static late String message;
+
+  ShuffleFailure();
+
   @override
   List<Object?> get props => [message];
 }

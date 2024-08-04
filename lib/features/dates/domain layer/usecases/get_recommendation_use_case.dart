@@ -9,7 +9,7 @@ class GetRecommendationUseCase {
 
   GetRecommendationUseCase(this.dateRepository);
 
-  Future<Either<Failure, List<User>>> call() async {
-    return await dateRepository.getRecommendations();
+  Future<Either<Failure, List<User>>> call(bool isShuffle) async {
+    return await dateRepository.getRecommendations(isShuffle);
   }
 }

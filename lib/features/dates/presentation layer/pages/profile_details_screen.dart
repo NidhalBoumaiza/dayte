@@ -135,13 +135,6 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                               print(state.id);
                               print(state.likingUser);
                               print(state.likedUser);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                      "You and ${state.likedUser.name} have matched!"),
-                                  backgroundColor: Colors.red,
-                                ),
-                              );
                             }
                           },
                           builder: (context, state) {

@@ -33,3 +33,10 @@ class EndOfPlanException implements Exception {
   @override
   List<Object?> get props => [];
 }
+
+class ShuffleException implements Exception {
+  const ShuffleException();
+
+  @override
+  List<Object?> get props => [];
+}

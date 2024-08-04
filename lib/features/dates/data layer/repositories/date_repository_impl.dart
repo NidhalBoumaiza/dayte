@@ -18,10 +18,11 @@ class DateRepositoryImpl implements DateRepository {
   });
 
   @override
-  Future<Either<Failure, List<User>>> getRecommendations() async {
+  Future<Either<Failure, List<User>>> getRecommendations(bool isShuffle) async {
     if (await networkInfo.isConnected) {
       try {
-        final recommendations = await dateRemoteDataSource.getRecommendations();
+        final recommendations =
+            await dateRemoteDataSource.getRecommendations(isShuffle);
         return Right(recommendations);
       } on ServerException {
         return Left(ServerFailure());
@@ -31,6 +32,8 @@ class DateRepositoryImpl implements DateRepository {
         return Left(UnauthorizedFailure());
       } on EndOfPlanException {
         return Left(EndOfPlanFailure());
+      } on ShuffleException {
+        return Left(ShuffleFailure());
       }
     } else {
       return Left(OfflineFailure());

@@ -46,3 +46,12 @@ final class EndOfPlanErreur extends DateState {
   @override
   List<Object?> get props => [message];
 }
+
+final class ShuffleErreur extends DateState {
+  final String message;
+
+  ShuffleErreur({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+}

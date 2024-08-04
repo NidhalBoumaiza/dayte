@@ -14,6 +14,7 @@ import '../../../../../core/widgets/reusable_circular_progressive_indicator.dart
 import '../../../dates/presentation layer/cubit/bottom_navigation_bar_cubit.dart';
 import '../../../dates/presentation layer/widgets/sign_out_logic_widget.dart';
 import '../bloc/update_coordinate_bloc/update_coordinate_bloc.dart';
+import 'creation account screens/signup_step_four.dart';
 
 class ActiveLocationScreen extends StatelessWidget {
   ActiveLocationScreen({
@@ -87,6 +88,11 @@ class ActiveLocationScreen extends StatelessWidget {
                         backgroundColor: Colors.red,
                       ),
                     );
+                    navigateToAnotherScreenWithSlideTransitionFromRightToLeftPushReplacement(
+                        context,
+                        SignupStepFour(
+                          isBillingScreen: true,
+                        ));
                   }
                 }, builder: (context, state) {
                   if (state is UpdateCoordinateUnauthorized) {

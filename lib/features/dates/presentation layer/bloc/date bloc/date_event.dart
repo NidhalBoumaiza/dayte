@@ -4,8 +4,12 @@ part of 'date_bloc.dart';
 sealed class DateEvent extends Equatable {}
 
 final class GetRecommendationEvent extends DateEvent {
+  late bool isShuffle;
+
+  GetRecommendationEvent({required this.isShuffle});
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [isShuffle];
 }
 
 final class changeIsLikeValue extends DateEvent {

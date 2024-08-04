@@ -15,15 +15,28 @@ class DateRemoteDataSource {
 
   DateRemoteDataSource({required this.client});
 
-  Future<List<UserModel>> getRecommendations() async {
+  Future<List<UserModel>> getRecommendations(bool isShuffle) async {
+    print(isShuffle);
     final token = await this.token;
-    final response = await client.get(
-      Uri.parse("${dotenv.env['URL']}/recommendations/get"),
-      headers: {
-        //'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
-    );
+    dynamic response;
+    if (isShuffle) {
+      response = await client.get(
+        Uri.parse("${dotenv.env['URL']}/recommendations/shuffle"),
+        headers: {
+          //'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+    } else {
+      response = await client.get(
+        Uri.parse("${dotenv.env['URL']}/recommendations/get"),
+        headers: {
+          //'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+    }
+
     print(response.body);
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
@@ -31,9 +44,15 @@ class DateRemoteDataSource {
       return recommendedUsersJson
           .map((json) => UserModel.fromJson(json as Map<String, dynamic>))
           .toList();
+    } else if (response.statusCode == 400 && isShuffle == true) {
+      final responseBody = jsonDecode(response.body);
+      final errorMessage = responseBody['message'] as String;
+
+      ShuffleFailure.message = errorMessage;
+      throw ShuffleException();
     } else if (response.statusCode == 410) {
       throw UnauthorizedException();
-    } else if (response.statusCode == 400) {
+    } else if (response.statusCode == 400 && isShuffle != true) {
       final responseBody = jsonDecode(response.body);
       final errorMessage = responseBody['message'] as String;
 

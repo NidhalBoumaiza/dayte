@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../../../constant.dart';
 import '../../../../../core/utils/navigation_with_transition.dart';
+import '../../../../authorisation/domain layer/entities/user_entity.dart';
 import '../../../../authorisation/presentation layer/widgets/continueButton.dart';
 import '../../../../authorisation/presentation layer/widgets/snackBar.dart';
 import '../../bloc/date bloc/date_bloc.dart';
@@ -46,12 +47,22 @@ class PetalsScreen extends StatelessWidget {
             BlocConsumer<DateBloc, DateState>(
               listener: (context, state) {
                 if (state is GetRecommendationError) {
-                  snackbar(context, 1, state.message, AppColor.red);
+                  snackbar(context, 2, state.message, AppColor.red);
                 } else if (state is EndOfPlanErreur) {
-                  snackbar(context, 1, state.message, AppColor.red);
+                  snackbar(context, 2, state.message, AppColor.red);
+                } else if (state is ShuffleErreur) {
+                  snackbar(context, 2, state.message, AppColor.red);
                 }
               },
               builder: (context, state) {
+                // Retrieve the last successful state
+                final lastSuccessState = context.read<DateBloc>().state;
+                List<User>? recommendations;
+
+                if (lastSuccessState is GetRecommendationSuccess) {
+                  recommendations = lastSuccessState.recommendations;
+                }
+
                 if (state is GetRecommendationUnauthorized) {
                   return handleUnauthorizedAccessLogic(context);
                 } else if (state is GetRecommendationLoading) {
@@ -88,30 +99,86 @@ class PetalsScreen extends StatelessWidget {
                           navigateToAnotherScreenWithSlideTransitionFromRightToLeft(
                             context,
                             ProfileDetailScreen(
-                                profile: state.recommendations[index]),
+                                profile: recommendations![index]),
                           );
                         },
                         child: ProfileWidget(
-                          name:
-                              state.recommendations[index].name!.split(" ")[0],
-                          image: state.recommendations[index].images![0].image!,
+                          name: recommendations![index].name!.split(" ")[0],
+                          image: recommendations[index].images![0].image!,
                           //"images/${index + 1}.png",
-                          age: state.recommendations[index].age.toString(),
+                          age: recommendations[index].age.toString(),
                         ),
-                        //ShimmerLoadingPetals(),
+                      );
+                    },
+                  );
+                } else if (state is EndOfPlanErreur) {
+                  return Column(
+                    children: [
+                      SizedBox(
+                        height: SizeScreen.height * 0.09,
+                      ),
+                      Image.asset("images/Payment.png"),
+                      ReusableText(
+                        text: "You have to renew your plan.",
+                        textSize: 15.sp,
+                        textColor: AppColor.red,
+                        textFontWeight: FontWeight.w500,
+                      ),
+                      SizedBox(
+                        height: SizeScreen.height * 0.12,
+                      ),
+                    ],
+                  );
+                } else if (state is ShuffleErreur) {
+                  return GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      childAspectRatio:
+                          SizeScreen.height * 0.1 / SizeScreen.width * 3,
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 8.0,
+                      mainAxisSpacing: 10.0,
+                    ),
+                    itemCount: recommendationsForShuffleErreur.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return GestureDetector(
+                        onTap: () {
+                          navigateToAnotherScreenWithSlideTransitionFromRightToLeft(
+                            context,
+                            ProfileDetailScreen(
+                                profile:
+                                    recommendationsForShuffleErreur![index]),
+                          );
+                        },
+                        child: ProfileWidget(
+                          name: recommendationsForShuffleErreur![index]
+                              .name!
+                              .split(" ")[0],
+                          image: recommendationsForShuffleErreur[index]
+                              .images![0]
+                              .image!,
+                          //"images/${index + 1}.png",
+                          age: recommendationsForShuffleErreur[index]
+                              .age
+                              .toString(),
+                        ),
                       );
                     },
                   );
                 } else {
                   return SizedBox();
                 }
+                return SizedBox();
               },
             ),
             const SizedBox(height: 10),
             Center(
               child: ContinueButton(
                 onpress: () {
-                  // Get.toNamed("accountsteptwo");
+                  context
+                      .read<DateBloc>()
+                      .add(GetRecommendationEvent(isShuffle: true));
                 },
                 width: 110.w,
                 height: SizeScreen.height * 0.04,

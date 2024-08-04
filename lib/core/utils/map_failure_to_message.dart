@@ -10,9 +10,11 @@ mapFailureToMessage(Failure failure) {
       return ServerMessageFailure.message;
     case UnauthorizedFailure:
       return UnauthorizedFailure.message;
-      case EndOfPlanFailure:
+    case EndOfPlanFailure:
       return EndOfPlanFailure.message;
     case OfflineFailure:
       return OfflineFailure.message;
+    case ShuffleFailure:
+      return ShuffleFailure.message;
   }
 }

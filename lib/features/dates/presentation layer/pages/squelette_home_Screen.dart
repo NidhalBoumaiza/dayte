@@ -20,7 +20,7 @@ class SqueletteHomeScreen extends StatefulWidget {
 class _SqueletteHomeScreenState extends State<SqueletteHomeScreen> {
   @override
   void initState() {
-    context.read<DateBloc>().add(GetRecommendationEvent());
+    context.read<DateBloc>().add(GetRecommendationEvent(isShuffle: false));
     super.initState();
   }
 

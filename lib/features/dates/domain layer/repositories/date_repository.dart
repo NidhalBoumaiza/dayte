@@ -5,7 +5,7 @@ import '../../../../core/error/failures.dart';
 import '../../../authorisation/domain layer/entities/user_entity.dart';
 
 abstract class DateRepository {
-  Future<Either<Failure, List<User>>> getRecommendations();
+  Future<Either<Failure, List<User>>> getRecommendations(bool isShuffle);
 
   Future<Either<Failure, List<MatchEntity>>> getUserMatches();
 

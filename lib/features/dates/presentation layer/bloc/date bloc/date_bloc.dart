@@ -22,17 +22,21 @@ class DateBloc extends Bloc<DateEvent, DateState> {
   void _getRecommendation(
       GetRecommendationEvent event, Emitter<DateState> emit) async {
     emit(GetRecommendationLoading());
-    final failureOrRecommendations = await getRecommendationUseCase();
+    final failureOrRecommendations =
+        await getRecommendationUseCase(event.isShuffle);
     failureOrRecommendations.fold((failure) {
       if (failure is UnauthorizedFailure) {
         emit(GetRecommendationUnauthorized());
       } else if (failure is EndOfPlanFailure) {
         emit(EndOfPlanErreur(message: mapFailureToMessage(failure)));
+      } else if (failure is ShuffleFailure) {
+        emit(ShuffleErreur(message: mapFailureToMessage(failure)));
       } else {
         emit(GetRecommendationError(message: mapFailureToMessage(failure)));
       }
     }, (recommendations) {
       print(recommendations);
+      recommendationsForShuffleErreur = recommendations;
       emit(GetRecommendationSuccess(recommendations: recommendations));
     });
   }
@@ -52,3 +56,5 @@ class DateBloc extends Bloc<DateEvent, DateState> {
     }
   }
 }
+
+late List<User> recommendationsForShuffleErreur;
