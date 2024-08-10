@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../../constant.dart';
 import '../../../../../core/utils/navigation_with_transition.dart';
 import '../../../../authorisation/domain layer/entities/user_entity.dart';
+import '../../../../authorisation/presentation layer/pages/finishing account screens/account_creation_step_one.dart';
 import '../../../../authorisation/presentation layer/widgets/continueButton.dart';
 import '../../../../authorisation/presentation layer/widgets/snackBar.dart';
 import '../../bloc/date bloc/date_bloc.dart';
@@ -47,7 +48,12 @@ class PetalsScreen extends StatelessWidget {
             BlocConsumer<DateBloc, DateState>(
               listener: (context, state) {
                 if (state is GetRecommendationError) {
-                  snackbar(context, 2, state.message, AppColor.red);
+                  if (state.message == "User profile not completed") {
+                    navigateToAnotherScreenWithSlideTransitionFromRightToLeftPushReplacement(
+                        context, FinishingAccountStepOne(phoneNumber: ''));
+                  } else {
+                    snackbar(context, 2, state.message, AppColor.red);
+                  }
                 } else if (state is EndOfPlanErreur) {
                   snackbar(context, 2, state.message, AppColor.red);
                 } else if (state is ShuffleErreur) {

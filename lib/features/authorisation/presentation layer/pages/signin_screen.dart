@@ -3,21 +3,22 @@ import 'dart:convert';
 import 'package:client/core/utils/navigation_with_transition.dart';
 import 'package:client/core/widgets/my_customed_button.dart';
 import 'package:client/features/authorisation/presentation%20layer/pages/creation%20account%20screens/signup_step_one.dart';
+import 'package:client/features/authorisation/presentation%20layer/widgets/snackBar.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:dio/dio.dart';
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-
-import 'package:http/http.dart' as http;
 
 import '../../../../constant.dart';
+import 'active_location_screen.dart';
+import 'finishing account screens/account_creation_step_one.dart';
 import 'login_with_phone_number.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -32,19 +33,18 @@ class _SignInScreenState extends State<SignInScreen> {
   String? accessTokenGoogle;
   String? accessTokenFacebook;
 
-
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  Future<void> _handleGoogleSignIn() async  {
+  Future<void> _handleGoogleSignIn(BuildContext context) async {
     try {
       await _googleSignIn.signOut();
       GoogleSignInAccount? account = await _googleSignIn.signIn();
 
       if (account != null) {
-        GoogleSignInAuthentication authentication = await account.authentication;
+        GoogleSignInAuthentication authentication =
+            await account.authentication;
         accessTokenGoogle = authentication.accessToken;
         print(accessTokenGoogle);
-<<<<<<< HEAD
         var body = jsonEncode({"token": accessTokenGoogle});
 
         setState(() {
@@ -55,9 +55,8 @@ class _SignInScreenState extends State<SignInScreen> {
         // DIO INIT
         Dio dio = Dio();
 
-
-        var response = await dio.post(
-          'http://192.168.1.16:3000/api/v1/user/google/',
+        final response = await dio.post(
+          '${dotenv.env['URL']}/user/google/',
           options: Options(
             headers: {
               'Content-Type': 'application/json',
@@ -68,81 +67,39 @@ class _SignInScreenState extends State<SignInScreen> {
           },
         );
         print(response.data);
+        if (response.statusCode == 200) {
+          final responseBody = jsonDecode(response.data);
+          final token = responseBody['token'];
+          final SharedPreferences sharedPreferences =
+              await SharedPreferences.getInstance();
+          sharedPreferences.setString('token', token);
+          navigateToAnotherScreenWithFadeTransition(
+              context, ActiveLocationScreen());
+        } else if (response.statusCode == 206) {
+          final responseBody = jsonDecode(response.data);
+          final token = responseBody['token'];
+          final SharedPreferences sharedPreferences =
+              await SharedPreferences.getInstance();
+          sharedPreferences.setString('token', token);
+          navigateToAnotherScreenWithSlideTransitionFromRightToLeft(
+              context,
+              FinishingAccountStepOne(
+                phoneNumber: "",
+              ));
+        } else {
+          snackbar(context, 2, response.statusCode, Colors.redAccent);
+        }
         // ✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
         // 9a3da tarja3lek token 3adeya lahne taw twali testaamelha kayeni ay token staamelneha fel login (jwt ya3ni) .. ahawka tjik el token taw ykamel y3amer el info mte3o aadi
         //..........................
         // Handle the response
-=======
-        // var body = jsonEncode({
-        //   "token": accessTokenGoogle,
-        //   "backend": "google-oauth2",
-        //   "grant_type": "convert_token",
-        //change the client_id / client_secret !!!!!!!! 🍑🍑🍑🍑🍑🍑
-        // "client_id": '',
-        // "client_secret":
-        //     'hpvsXP5nIvcOLni0Q6htIBPU1u393uQ9hXyTv9Z0TBcwaZUapG317B9OZslwepFaAF9ro5ys73cmhzQkgBvpd19C8LU48L95nbmLFWXnzgh1asP7hSltqLDyzC4SC0EH'
-        //});
-        //     setState(() {
-        //       isLoading = true;
-        //     });
-        //     print(URL);
-        //     //change the url nidhal !!!! 💀💀💀💀💀💀💀💀💀💀
-        //     var res = await http.post(
-        //       Uri.parse("http://192.168.1.101:8000/auth/convert-token/"),
-        //       headers: {
-        //         'Content-Type': 'application/json; charset=UTF-8',
-        //       },
-        //       body: body,
-        //     );
-        //     print(res.body);
-        //     var decodedBody = jsonDecode(res.body);
-        //     if (res.statusCode == 200) {
-        //       //token = decodedBody["access_token"];
-        //       print(decodedBody);
-        //
-        //       var response = await http.post(
-        //         Uri.parse("$URL/auth/profile_exist/"),
-        //         headers: {
-        //           'Authorization': 'Bearer ${decodedBody["access_token"]}',
-        //         },
-        //       );
-        //       print(response.body);
-        //       print(response.statusCode);
-        //
-        //       if (response.statusCode == 200) {
-        //         saveData("AccessToken", decodedBody["access_token"]);
-        //         saveData("RefreshToken", decodedBody["refresh_token"]);
-        //         navigateToAnotherScreenWithSlideTransitionFromRightToLeftPushReplacement(context, newScreen)
-        //       } else {
-        //         Get.offAllNamed(
-        //           '/SignUpStepOneGoogle',
-        //           arguments: {
-        //             "access_token": decodedBody["access_token"],
-        //             "refresh_token": decodedBody["refresh_token"],
-        //           },
-        //         );
-        //       }
-        //     } else {
-        //       setState(() {
-        //         isLoading = false;
-        //       });
-        //       snackbar(
-        //           context, 1, "Something reallt wrong happened", Colors.redAccent);
-        //     }
-        //   }
-        // } catch (error) {
-        //   print("tnakettttttttttttttttttttttttttttttttttt");
-        //   print(error);
-        // }
->>>>>>> c921712a8a46bf95668618bcfd0103e7d2b60665
       }
     } catch (error) {
       print("Google Sign-In Error: $error");
     }
   }
 
-
-  Future<void> _handleFacebookSignIn() async {
+  Future<void> _handleFacebookSignIn(BuildContext context) async {
     try {
       final LoginResult result = await FacebookAuth.instance.login(
         permissions: ['public_profile'],
@@ -162,7 +119,7 @@ class _SignInScreenState extends State<SignInScreen> {
         Dio dio = Dio();
 
         var response = await dio.post(
-          'http://192.168.1.16:3000/api/v1/user/facebook/',
+          '${dotenv.env['URL']}/user/facebook/',
           options: Options(
             headers: {
               'Content-Type': 'application/json',
@@ -174,6 +131,29 @@ class _SignInScreenState extends State<SignInScreen> {
         );
         print(response.data);
 
+        if (response.statusCode == 200) {
+          final responseBody = jsonDecode(response.data);
+          final token = responseBody['token'];
+          final SharedPreferences sharedPreferences =
+              await SharedPreferences.getInstance();
+          sharedPreferences.setString('token', token);
+          navigateToAnotherScreenWithFadeTransition(
+              context, ActiveLocationScreen());
+        } else if (response.statusCode == 206) {
+          final responseBody = jsonDecode(response.data);
+          final token = responseBody['token'];
+          final SharedPreferences sharedPreferences =
+              await SharedPreferences.getInstance();
+          sharedPreferences.setString('token', token);
+          navigateToAnotherScreenWithSlideTransitionFromRightToLeft(
+              context,
+              FinishingAccountStepOne(
+                phoneNumber: "",
+              ));
+        } else {
+          snackbar(context, 2, response.statusCode, Colors.redAccent);
+        }
+
         // Handle the response
       } else {
         print(result.status);
@@ -183,6 +163,7 @@ class _SignInScreenState extends State<SignInScreen> {
       print("Facebook Sign-In Error: $error");
     }
   }
+
   void saveData(String key, String value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(key, value);
@@ -206,7 +187,8 @@ class _SignInScreenState extends State<SignInScreen> {
               resizeToAvoidBottomInset: true,
               backgroundColor: Colors.transparent,
               body: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30.0.w, vertical: 40.0.h),
+                padding:
+                    EdgeInsets.symmetric(horizontal: 30.0.w, vertical: 40.0.h),
                 child: Column(
                   children: [
                     Expanded(
@@ -230,7 +212,79 @@ class _SignInScreenState extends State<SignInScreen> {
                           MyCustomButton(
                             width: double.infinity,
                             height: 45.h,
-                            function: _handleGoogleSignIn,
+                            function: () async {
+                              try {
+                                await _googleSignIn.signOut();
+                                GoogleSignInAccount? account =
+                                    await _googleSignIn.signIn();
+
+                                if (account != null) {
+                                  GoogleSignInAuthentication authentication =
+                                      await account.authentication;
+                                  accessTokenGoogle =
+                                      authentication.accessToken;
+                                  print(accessTokenGoogle);
+                                  var body =
+                                      jsonEncode({"token": accessTokenGoogle});
+
+                                  setState(() {
+                                    isLoading = true;
+                                  });
+                                  print(111);
+
+                                  // DIO INIT
+                                  Dio dio = Dio();
+
+                                  final response = await dio.post(
+                                    '${dotenv.env['URL']}/user/google/',
+                                    options: Options(
+                                      headers: {
+                                        'Content-Type': 'application/json',
+                                      },
+                                    ),
+                                    data: {
+                                      'token': accessTokenGoogle,
+                                    },
+                                  );
+                                  print(response.data);
+                                  if (response.statusCode == 200) {
+                                    final responseBody =
+                                        jsonDecode(response.data);
+                                    final token = responseBody['token'];
+                                    final SharedPreferences sharedPreferences =
+                                        await SharedPreferences.getInstance();
+                                    sharedPreferences.setString('token', token);
+                                    navigateToAnotherScreenWithFadeTransition(
+                                        context, ActiveLocationScreen());
+                                  } else if (response.statusCode == 206) {
+                                    print(
+                                        "s:kjgbsdlgksbqnerglkjsqerglhsergksrjg");
+                                    print(response.data);
+                                    // final responseBody =
+                                    //     jsonDecode(response.data);
+                                    print("responseBody : ${response.data}");
+                                    final token = response.data['token'];
+                                    final SharedPreferences sharedPreferences =
+                                        await SharedPreferences.getInstance();
+                                    sharedPreferences.setString('token', token);
+                                    navigateToAnotherScreenWithSlideTransitionFromRightToLeft(
+                                        context,
+                                        FinishingAccountStepOne(
+                                          phoneNumber: "",
+                                        ));
+                                  } else {
+                                    snackbar(context, 2, response.statusCode,
+                                        Colors.redAccent);
+                                  }
+                                  // ✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
+                                  // 9a3da tarja3lek token 3adeya lahne taw twali testaamelha kayeni ay token staamelneha fel login (jwt ya3ni) .. ahawka tjik el token taw ykamel y3amer el info mte3o aadi
+                                  //..........................
+                                  // Handle the response
+                                }
+                              } catch (error) {
+                                print("Google Sign-In Error: $error");
+                              }
+                            },
                             buttonColor: AppColor.red,
                             fontWeight: FontWeight.w700,
                             text: "Continue with Google",
@@ -243,7 +297,71 @@ class _SignInScreenState extends State<SignInScreen> {
                           MyCustomButton(
                             width: double.infinity,
                             height: 45.h,
-                            function: _handleFacebookSignIn,
+                            function: () async {
+                              try {
+                                final LoginResult result =
+                                    await FacebookAuth.instance.login(
+                                  permissions: ['public_profile'],
+                                ); // by default we request the email and the public profile
+
+                                if (result.status == LoginStatus.success) {
+                                  final AccessToken accessToken =
+                                      result.accessToken!;
+                                  accessTokenFacebook = accessToken.token;
+
+                                  print(accessTokenFacebook);
+
+                                  setState(() {
+                                    isLoading = true;
+                                  });
+
+                                  // DIO INIT
+                                  Dio dio = Dio();
+
+                                  var response = await dio.post(
+                                    '${dotenv.env['URL']}/user/facebook/',
+                                    options: Options(
+                                      headers: {
+                                        'Content-Type': 'application/json',
+                                      },
+                                    ),
+                                    data: {
+                                      'token': accessTokenFacebook,
+                                    },
+                                  );
+                                  print(response.data);
+
+                                  if (response.statusCode == 200) {
+                                    final token = response.data['token'];
+                                    final SharedPreferences sharedPreferences =
+                                        await SharedPreferences.getInstance();
+                                    sharedPreferences.setString('token', token);
+                                    navigateToAnotherScreenWithFadeTransition(
+                                        context, ActiveLocationScreen());
+                                  } else if (response.statusCode == 206) {
+                                    final token = response.data['token'];
+                                    final SharedPreferences sharedPreferences =
+                                        await SharedPreferences.getInstance();
+                                    sharedPreferences.setString('token', token);
+                                    navigateToAnotherScreenWithSlideTransitionFromRightToLeft(
+                                        context,
+                                        FinishingAccountStepOne(
+                                          phoneNumber: "",
+                                        ));
+                                  } else {
+                                    snackbar(context, 2, response.statusCode,
+                                        Colors.redAccent);
+                                  }
+
+                                  // Handle the response
+                                } else {
+                                  print(result.status);
+                                  print(result.message);
+                                }
+                              } catch (error) {
+                                print("Facebook Sign-In Error: $error");
+                              }
+                            },
                             fontWeight: FontWeight.w700,
                             buttonColor: AppColor.red,
                             text: "Continue with Facebook",
