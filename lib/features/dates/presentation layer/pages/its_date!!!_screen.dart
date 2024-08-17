@@ -86,7 +86,7 @@ class _ItsADateScreenState extends State<ItsADateScreen>
                             borderRadius: BorderRadius.circular(20.w),
                             image: DecorationImage(
                               image: NetworkImage(
-                                  '${dotenv.env["URLIMAGE"]}${widget.likingUser.images?[0].image}'),
+                                  '${widget.likingUser.images?[0].image}'),
                               fit: BoxFit.cover,
                             ),
                             boxShadow: [
@@ -120,7 +120,7 @@ class _ItsADateScreenState extends State<ItsADateScreen>
                             borderRadius: BorderRadius.circular(20.w),
                             image: DecorationImage(
                               image: NetworkImage(
-                                  '${dotenv.env["URLIMAGE"]}${widget.likedUser.images?[0].image}'),
+                                  '${widget.likedUser.images?[0].image}'),
                               fit: BoxFit.cover,
                             ),
                             boxShadow: [

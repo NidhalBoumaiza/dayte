@@ -49,7 +49,7 @@ class AddImage extends StatelessWidget {
                         image: imageString == null
                             ? MemoryImage(image!) as ImageProvider
                             : NetworkImage(
-                                "${dotenv.env['URLIMAGE']}${imageString!}"),
+                                "${imageString!}"),
                         fit: BoxFit.cover,
                       ),
                     ),

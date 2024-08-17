@@ -14,7 +14,7 @@ class profilePictureWidget extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: Ink.image(
-          image: NetworkImage("${dotenv.env['URLIMAGE']}$img"),
+          image: NetworkImage("$img"),
           // AssetImage(img), //NetworkImage("${dotenv.env['URL']}$img"),
           fit: BoxFit.cover,
           width: widthProfilePic,

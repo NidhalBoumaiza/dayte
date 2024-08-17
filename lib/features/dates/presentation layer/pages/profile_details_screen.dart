@@ -76,7 +76,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: NetworkImage(
-                                "${dotenv.env['URLIMAGE']}${widget.profile.images![0].image!}"),
+                                "${widget.profile.images![0].image!}"),
                             fit: BoxFit.fill,
                           ),
                         ),

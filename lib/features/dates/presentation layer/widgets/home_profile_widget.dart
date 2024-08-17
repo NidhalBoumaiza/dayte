@@ -33,7 +33,7 @@ class ProfileWidget extends StatelessWidget {
           width: 2.8,
         ),
         image: DecorationImage(
-          image: NetworkImage("${dotenv.env['URLIMAGE']}$image"),
+          image: NetworkImage("$image"),
           // AssetImage(image), //AssetImage(image),
           fit: BoxFit.fitHeight,
         ),

@@ -27,7 +27,7 @@ class ProfileImageText extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
-                image: NetworkImage("${dotenv.env['URLIMAGE']}$img"),
+                image: NetworkImage("$img"),
                 //AssetImage(img!), // NetworkImage('$img'),
                 fit: BoxFit.fill,
               ),
