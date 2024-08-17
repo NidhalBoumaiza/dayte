@@ -46,6 +46,41 @@
     <key>UIApplicationSupportsIndirectInputEvents</key>
     <true/>
 
+    <!-- URL Schemes -->
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <!-- Google Sign-In -->
+                <string>com.googleusercontent.apps.687373681696-c5bi38lauicrptdi8qh1agjms0a5oe5a</string>
+                <!-- Facebook -->
+                <string>fb297655833175218</string>
+            </array>
+        </dict>
+    </array>
+
+    <!-- Facebook Configuration -->
+    <key>FacebookAppID</key>
+    <string>297655833175218</string>
+    <key>FacebookClientToken</key>
+    <string>fd71f8544d96ef2c14f605bed3cbf1bc</string>
+    <key>FacebookDisplayName</key>
+    <string>dayte</string>
+
+    <!-- Supported URL Schemes -->
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>fbapi</string>
+        <string>fb-messenger-share-api</string>
+    </array>
+
+    <!-- Google Sign-In -->
+    <key>GIDClientID</key>
+    <string>687373681696-c5bi38lauicrptdi8qh1agjms0a5oe5a.apps.googleusercontent.com</string>
+
     <!-- Permissions -->
     <key>NSPhotoLibraryUsageDescription</key>
     <string>We need access to your photo library for uploading photos.</string>
@@ -59,6 +94,8 @@
     <string>We need access to your location to provide location-based services.</string>
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
     <string>We need access to your location to provide location-based services.</string>
+
+    <!-- Allow Arbitrary Loads -->
     <key>NSAppTransportSecurity</key>
     <dict>
         <key>NSAllowsArbitraryLoads</key>
@@ -66,3 +103,4 @@
     </dict>
 </dict>
 </plist>
+

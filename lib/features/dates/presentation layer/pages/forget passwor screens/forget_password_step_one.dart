@@ -106,7 +106,7 @@ class ForgetPasswordStepOne extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 420.h),
+                    SizedBox(height: 380.h),
                     Center(
                       child: BlocConsumer<ForgetPasswordCubit,
                           ForgetPasswordState>(
