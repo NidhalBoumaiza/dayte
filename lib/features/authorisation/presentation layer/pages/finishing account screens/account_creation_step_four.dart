@@ -46,27 +46,36 @@ class _FinishingAccountStepFourState extends State<FinishingAccountStepFour> {
     "painting",
     "shopping",
     "animals",
-    "drawing"
+    "drawing",
+    "gym",
+    "baking",
+    "writing"
   ];
 
   Map<String, String> interestsMap = {
-    "666f67f9b3a28407b9f3b7ad": "sport",
-    "668d335bacf669f3d84e202e": "travelling",
-    "668d3369acf669f3d84e2030": "music",
-    "668d338eacf669f3d84e2032": "photography",
-    "668d33a4acf669f3d84e2034": "dancing",
-    "668d33afacf669f3d84e2036": "books",
-    "668d33bcacf669f3d84e2038": "reading",
-    "668d33cbacf669f3d84e203a": "modeling",
-    "668d33e2acf669f3d84e203c": "painting",
-    "668d33ebacf669f3d84e203e": "shopping",
-    "668d33f9acf669f3d84e2040": "animals",
-    "668d3402acf669f3d84e2042": "drawing"
+    "66c9f75e18e6f43435d2169c": "sport",
+    "66c9f72e18e6f43435d21690": "travelling",
+    "66c9f73418e6f43435d21692": "music",
+    "66c9f74818e6f43435d21694": "photography",
+    "66c9f75018e6f43435d21696": "dancing",
+    "66c9f75518e6f43435d21698": "books",
+    "66c9f75918e6f43435d2169a": "reading",
+    "66c9f76318e6f43435d2169e": "modeling",
+    "66c9f76318e6f43435d2169e": "painting",
+    "66c9f76d18e6f43435d216a2": "shopping",
+    "66c9f77218e6f43435d216a4": "animals",
+    "66c9f77618e6f43435d216a6": "Baking",
+    "66c9f77b18e6f43435d216a8": "gym",
+    "66c9f78118e6f43435d216aa": "writing",
+    "66c9f78618e6f43435d216ac": "drawing"
   };
 
   void _toggleInterest(String interest) {
-    String interestId =
-        interestsMap.entries.firstWhere((entry) => entry.value == interest).key;
+    String interestId = interestsMap.entries
+        .firstWhere(
+            (entry) => entry.value.toLowerCase() == interest.toLowerCase(),
+            orElse: () => MapEntry(interest, interest))
+        .key;
 
     setState(() {
       if (_selectedInterestIds.contains(interestId)) {
@@ -90,7 +99,7 @@ class _FinishingAccountStepFourState extends State<FinishingAccountStepFour> {
             appBar: appBar,
             backgroundColor: Colors.transparent,
             body: Padding(
-              padding: EdgeInsets.fromLTRB(15.w, 40.h, 15.w, 40.h),
+              padding: EdgeInsets.fromLTRB(15.w, 15.h, 15.w, 40.h),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,7 +142,7 @@ class _FinishingAccountStepFourState extends State<FinishingAccountStepFour> {
                                           interestOptions[i + j]),
                                 ],
                               ),
-                              SizedBox(height: 45.h),
+                              SizedBox(height: 40.h),
                             ],
                           ),
                         GestureDetector(
@@ -186,8 +195,11 @@ class _FinishingAccountStepFourState extends State<FinishingAccountStepFour> {
   }
 
   Widget _buildInterestButton(String interest) {
-    String interestId =
-        interestsMap.entries.firstWhere((entry) => entry.value == interest).key;
+    String interestId = interestsMap.entries
+        .firstWhere(
+            (entry) => entry.value.toLowerCase() == interest.toLowerCase(),
+            orElse: () => MapEntry(interest, interest))
+        .key;
 
     return GestureDetector(
       onTap: () => _toggleInterest(interest),

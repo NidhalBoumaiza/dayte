@@ -368,7 +368,8 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
     List<http.MultipartFile> imageParts = [];
     List<String> oldPics = [];
     for (var image in images) {
-      if (image is String && image.contains('uploads')) {
+      if (image is String &&
+          image.contains('https://dayteimages.s3.eu-north-1.amazonaws.com')) {
         oldPics.add(image);
       } else if (image is String) {
         // Add local file paths

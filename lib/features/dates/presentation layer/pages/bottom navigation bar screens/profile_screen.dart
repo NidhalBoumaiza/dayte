@@ -102,6 +102,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         GestureDetector(
                           onTap: () {
                             context.read<EditImageCubit>().clearState();
+                            print(state.user.images);
                             for (var i = 0;
                                 i < state.user.images!.length;
                                 i++) {

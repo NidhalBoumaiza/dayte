@@ -10,7 +10,7 @@ class EditImageCubit extends Cubit<EditImageState> {
   void changeImage(dynamic img, String croppedImage) {
     List<String> splitString = [];
     dynamic image;
-    if (!img.contains("uploads")) {
+    if (!img.contains("https://dayteimages.s3.eu-north-1.amazonaws.com")) {
       splitString = img.split(",");
       image = base64Decode(splitString[1]);
     } else {

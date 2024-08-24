@@ -173,8 +173,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                         height: SizeScreen.height * 0.138,
                                         width: SizeScreen.width * 0.28,
                                         imageString: state.img.isNotEmpty &&
-                                                state.img[0]
-                                                    .contains("uploads\\")
+                                                state.img[0].contains(
+                                                    "https://dayteimages.s3.eu-north-1.amazonaws.com")
                                             ? state.img[0]
                                             : null,
                                         image: state.img.isNotEmpty
@@ -200,8 +200,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                         height: SizeScreen.height * 0.138,
                                         width: SizeScreen.width * 0.28,
                                         imageString: state.img.length > 1 &&
-                                                state.img[1]
-                                                    .contains("uploads\\")
+                                                state.img[1].contains(
+                                                    "https://dayteimages.s3.eu-north-1.amazonaws.com")
                                             ? state.img[1]
                                             : null,
                                         image: state.img.length > 1
@@ -227,8 +227,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                         height: SizeScreen.height * 0.138,
                                         width: SizeScreen.width * 0.28,
                                         imageString: state.img.length > 2 &&
-                                                state.img[2]
-                                                    .contains("uploads\\")
+                                                state.img[2].contains(
+                                                    "https://dayteimages.s3.eu-north-1.amazonaws.com")
                                             ? state.img[2]
                                             : null,
                                         image: state.img.length > 2
@@ -260,8 +260,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                         height: SizeScreen.height * 0.138,
                                         width: SizeScreen.width * 0.28,
                                         imageString: state.img.length > 3 &&
-                                                state.img[3]
-                                                    .contains("uploads\\")
+                                                state.img[3].contains(
+                                                    "https://dayteimages.s3.eu-north-1.amazonaws.com")
                                             ? state.img[3]
                                             : null,
                                         image: state.img.length > 3
@@ -287,8 +287,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                         height: SizeScreen.height * 0.138,
                                         width: SizeScreen.width * 0.28,
                                         imageString: state.img.length > 4 &&
-                                                state.img[4]
-                                                    .contains("uploads\\")
+                                                state.img[4].contains(
+                                                    "https://dayteimages.s3.eu-north-1.amazonaws.com")
                                             ? state.img[4]
                                             : null,
                                         image: state.img.length > 4
@@ -314,8 +314,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                         height: SizeScreen.height * 0.138,
                                         width: SizeScreen.width * 0.28,
                                         imageString: state.img.length > 5 &&
-                                                state.img[5]
-                                                    .contains("uploads\\")
+                                                state.img[5].contains(
+                                                    "https://dayteimages.s3.eu-north-1.amazonaws.com")
                                             ? state.img[5]
                                             : null,
                                         image: state.img.length > 5
