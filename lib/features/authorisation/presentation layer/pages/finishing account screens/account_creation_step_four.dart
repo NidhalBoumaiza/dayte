@@ -61,7 +61,7 @@ class _FinishingAccountStepFourState extends State<FinishingAccountStepFour> {
     "66c9f75518e6f43435d21698": "books",
     "66c9f75918e6f43435d2169a": "reading",
     "66c9f76318e6f43435d2169e": "modeling",
-    "66c9f76318e6f43435d2169e": "painting",
+    "66c9f76818e6f43435d216a0": "painting",
     "66c9f76d18e6f43435d216a2": "shopping",
     "66c9f77218e6f43435d216a4": "animals",
     "66c9f77618e6f43435d216a6": "Baking",
