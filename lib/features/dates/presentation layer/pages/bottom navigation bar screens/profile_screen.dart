@@ -40,7 +40,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.fromLTRB(8.w, 10.h, 8.w, 30.h),
+        padding: EdgeInsets.fromLTRB(8.w, 40.h, 8.w, 30.h),
         child: BlocBuilder<GetProfileBloc, GetProfileState>(
           builder: (context, state) {
             if (state is GetProfileLoading) {

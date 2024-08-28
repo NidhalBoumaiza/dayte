@@ -23,7 +23,7 @@ class PetalsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.only(top: 10.0.h, left: 15.w, right: 15.w),
+        padding: EdgeInsets.only(top: 40.0.h, left: 15.w, right: 15.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -44,7 +44,7 @@ class PetalsScreen extends StatelessWidget {
               textColor: Color(0xff717171),
             ),
             SvgPicture.string(today),
-            SizedBox(height: 10.h),
+
             BlocConsumer<DateBloc, DateState>(
               listener: (context, state) {
                 if (state is GetRecommendationError) {

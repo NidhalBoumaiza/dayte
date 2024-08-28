@@ -35,256 +35,255 @@ class FinishingAccountStepThree extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Stack(
-      children: [
-        SvgPicture.string(
-          backgroundEmpty,
-          fit: BoxFit.cover,
-        ),
-        Scaffold(
-          appBar: appBar,
-          backgroundColor: Colors.transparent,
-          body: Padding(
-            padding: EdgeInsets.fromLTRB(15.0.w, 30.h, 15.w, 45.h),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+    return Stack(
+          children: [
+    SvgPicture.string(
+      backgroundEmpty,
+      fit: BoxFit.cover,
+    ),
+    Scaffold(
+      appBar: appBar,
+      backgroundColor: Colors.transparent,
+      body: Padding(
+        padding: EdgeInsets.fromLTRB(15.0.w, 30.h, 15.w, 45.h),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Select your photos",
+                    style: TextStyle(
+                      color: AppColor.red,
+                      fontSize: 25.sp,
+                      letterSpacing: 0.3,
+                      fontFamily: 'Times',
+                      fontWeight: FontWeight.w700,
+                      wordSpacing: 0.0,
+                    ),
+                  ),
+                  SizedBox(height: 40.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "Select your photos",
-                        style: TextStyle(
-                          color: AppColor.red,
-                          fontSize: 25.sp,
-                          letterSpacing: 0.3,
-                          fontFamily: 'Times',
-                          fontWeight: FontWeight.w700,
-                          wordSpacing: 0.0,
-                        ),
+                      BlocBuilder<FirstImageCubit, FirstImageState>(
+                        builder: (context, state) {
+                          return GestureDetector(
+                            onTap: state.img.isEmpty
+                                ? () {
+                                    showImagePicker(context);
+                                  }
+                                : null,
+                            child: AddImage(
+                                height: SizeScreen.height * 0.138,
+                                width: SizeScreen.width * 0.28,
+                                image: state.img.isNotEmpty
+                                    ? state.img[0]
+                                    : null,
+                                onPress: () {
+                                  context
+                                      .read<FirstImageCubit>()
+                                      .removeImage(0);
+                                }),
+                          );
+                        },
                       ),
-                      SizedBox(height: 40.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          BlocBuilder<FirstImageCubit, FirstImageState>(
-                            builder: (context, state) {
-                              return GestureDetector(
-                                onTap: state.img.isEmpty
-                                    ? () {
-                                        showImagePicker(context);
-                                      }
+                      BlocBuilder<FirstImageCubit, FirstImageState>(
+                        builder: (context, state) {
+                          return GestureDetector(
+                            onTap: state.img.length == 1
+                                ? () {
+                                    showImagePicker(context);
+                                  }
+                                : null,
+                            child: AddImage(
+                                height: SizeScreen.height * 0.138,
+                                width: SizeScreen.width * 0.28,
+                                image: state.img.length > 1
+                                    ? state.img[1]
                                     : null,
-                                child: AddImage(
-                                    height: SizeScreen.height * 0.138,
-                                    width: SizeScreen.width * 0.28,
-                                    image: state.img.isNotEmpty
-                                        ? state.img[0]
-                                        : null,
-                                    onPress: () {
-                                      context
-                                          .read<FirstImageCubit>()
-                                          .removeImage(0);
-                                    }),
-                              );
-                            },
-                          ),
-                          BlocBuilder<FirstImageCubit, FirstImageState>(
-                            builder: (context, state) {
-                              return GestureDetector(
-                                onTap: state.img.length == 1
-                                    ? () {
-                                        showImagePicker(context);
-                                      }
-                                    : null,
-                                child: AddImage(
-                                    height: SizeScreen.height * 0.138,
-                                    width: SizeScreen.width * 0.28,
-                                    image: state.img.length > 1
-                                        ? state.img[1]
-                                        : null,
-                                    onPress: () {
-                                      context
-                                          .read<FirstImageCubit>()
-                                          .removeImage(1);
-                                    }),
-                              );
-                            },
-                          ),
-                          BlocBuilder<FirstImageCubit, FirstImageState>(
-                            builder: (context, state) {
-                              return GestureDetector(
-                                onTap: state.img.length == 2
-                                    ? () {
-                                        showImagePicker(context);
-                                      }
-                                    : null,
-                                child: AddImage(
-                                    height: SizeScreen.height * 0.138,
-                                    width: SizeScreen.width * 0.28,
-                                    image: state.img.length > 2
-                                        ? state.img[2]
-                                        : null,
-                                    onPress: () {
-                                      context
-                                          .read<FirstImageCubit>()
-                                          .removeImage(2);
-                                    }),
-                              );
-                            },
-                          ),
-                        ],
+                                onPress: () {
+                                  context
+                                      .read<FirstImageCubit>()
+                                      .removeImage(1);
+                                }),
+                          );
+                        },
                       ),
-                      SizedBox(height: 10.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          BlocBuilder<FirstImageCubit, FirstImageState>(
-                            builder: (context, state) {
-                              return GestureDetector(
-                                onTap: state.img.length == 3
-                                    ? () {
-                                        showImagePicker(context);
-                                      }
+                      BlocBuilder<FirstImageCubit, FirstImageState>(
+                        builder: (context, state) {
+                          return GestureDetector(
+                            onTap: state.img.length == 2
+                                ? () {
+                                    showImagePicker(context);
+                                  }
+                                : null,
+                            child: AddImage(
+                                height: SizeScreen.height * 0.138,
+                                width: SizeScreen.width * 0.28,
+                                image: state.img.length > 2
+                                    ? state.img[2]
                                     : null,
-                                child: AddImage(
-                                    height: SizeScreen.height * 0.138,
-                                    width: SizeScreen.width * 0.28,
-                                    image: state.img.length > 3
-                                        ? state.img[3]
-                                        : null,
-                                    onPress: () {
-                                      context
-                                          .read<FirstImageCubit>()
-                                          .removeImage(3);
-                                    }),
-                              );
-                            },
-                          ),
-                          BlocBuilder<FirstImageCubit, FirstImageState>(
-                            builder: (context, state) {
-                              return GestureDetector(
-                                onTap: state.img.length == 4
-                                    ? () {
-                                        showImagePicker(context);
-                                      }
-                                    : null,
-                                child: AddImage(
-                                    height: SizeScreen.height * 0.138,
-                                    width: SizeScreen.width * 0.28,
-                                    image: state.img.length > 4
-                                        ? state.img[4]
-                                        : null,
-                                    onPress: () {
-                                      context
-                                          .read<FirstImageCubit>()
-                                          .removeImage(4);
-                                    }),
-                              );
-                            },
-                          ),
-                          BlocBuilder<FirstImageCubit, FirstImageState>(
-                            builder: (context, state) {
-                              return GestureDetector(
-                                onTap: state.img.length == 5
-                                    ? () {
-                                        showImagePicker(context);
-                                      }
-                                    : null,
-                                child: AddImage(
-                                    height: SizeScreen.height * 0.138,
-                                    width: SizeScreen.width * 0.28,
-                                    image: state.img.length > 5
-                                        ? state.img[5]
-                                        : null,
-                                    onPress: () {
-                                      context
-                                          .read<FirstImageCubit>()
-                                          .removeImage(5);
-                                    }),
-                              );
-                            },
-                          ),
-                        ],
+                                onPress: () {
+                                  context
+                                      .read<FirstImageCubit>()
+                                      .removeImage(2);
+                                }),
+                          );
+                        },
                       ),
-                      SizedBox(height: 10.h),
-                      ReusableText(
-                        text: "3 photos required",
-                        textColor: AppColor.grey,
-                        textSize: 10.0.sp,
-                        textFontWeight: FontWeight.w400,
-                      ),
-                      SizedBox(height: 65.h),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 4.5.w),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                              color: AppColor.grey,
-                            ),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(10.h),
-                            child: ReusableText(
-                              text:
-                                  "Your profile must contain at least 1 face photo and 2 full body photos",
-                              textColor: AppColor.grey,
-                              textSize: 11.0.sp,
-                              textFontWeight: FontWeight.w400,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                      )
                     ],
                   ),
-                ),
-                Center(
-                  child: ContinueButton(
-                    onpress: () {
-                      if (context.read<FirstImageCubit>().state.img.length <
-                          3) {
-                        snackbar(
-                            context,
-                            1,
-                            "Your profile must have at least 3 photos",
-                            Colors.redAccent);
-                      } else {
-                        navigateToAnotherScreenWithSlideTransitionFromRightToLeft(
-                          context,
-                          FinishingAccountStepFour(
-                            birthday: birthday,
-                            name: name,
-                            gender: gender,
-                            pictures: context
-                                    .read<FirstImageCubit>()
-                                    .state
-                                    .croppedImage ??
-                                [],
-                            phoneNumber: phoneNumber,
-                          ),
-                        );
-                      }
-                    },
-                    width: SizeScreen.width * 0.63,
-                    height: SizeScreen.height * 0.062,
-                    borderColor: AppColor.red,
-                    textColor: AppColor.red,
-                    textButton: 'Continue',
-                    widget: SvgPicture.string(continueArrow),
+                  SizedBox(height: 10.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      BlocBuilder<FirstImageCubit, FirstImageState>(
+                        builder: (context, state) {
+                          return GestureDetector(
+                            onTap: state.img.length == 3
+                                ? () {
+                                    showImagePicker(context);
+                                  }
+                                : null,
+                            child: AddImage(
+                                height: SizeScreen.height * 0.138,
+                                width: SizeScreen.width * 0.28,
+                                image: state.img.length > 3
+                                    ? state.img[3]
+                                    : null,
+                                onPress: () {
+                                  context
+                                      .read<FirstImageCubit>()
+                                      .removeImage(3);
+                                }),
+                          );
+                        },
+                      ),
+                      BlocBuilder<FirstImageCubit, FirstImageState>(
+                        builder: (context, state) {
+                          return GestureDetector(
+                            onTap: state.img.length == 4
+                                ? () {
+                                    showImagePicker(context);
+                                  }
+                                : null,
+                            child: AddImage(
+                                height: SizeScreen.height * 0.138,
+                                width: SizeScreen.width * 0.28,
+                                image: state.img.length > 4
+                                    ? state.img[4]
+                                    : null,
+                                onPress: () {
+                                  context
+                                      .read<FirstImageCubit>()
+                                      .removeImage(4);
+                                }),
+                          );
+                        },
+                      ),
+                      BlocBuilder<FirstImageCubit, FirstImageState>(
+                        builder: (context, state) {
+                          return GestureDetector(
+                            onTap: state.img.length == 5
+                                ? () {
+                                    showImagePicker(context);
+                                  }
+                                : null,
+                            child: AddImage(
+                                height: SizeScreen.height * 0.138,
+                                width: SizeScreen.width * 0.28,
+                                image: state.img.length > 5
+                                    ? state.img[5]
+                                    : null,
+                                onPress: () {
+                                  context
+                                      .read<FirstImageCubit>()
+                                      .removeImage(5);
+                                }),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                )
-              ],
+                  SizedBox(height: 10.h),
+                  ReusableText(
+                    text: "3 photos required",
+                    textColor: AppColor.grey,
+                    textSize: 10.0.sp,
+                    textFontWeight: FontWeight.w400,
+                  ),
+                  SizedBox(height: 65.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 4.5.w),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(
+                          color: AppColor.grey,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(10.h),
+                        child: ReusableText(
+                          text:
+                              "Your profile must contain at least 1 face photo and 2 full body photos",
+                          textColor: AppColor.grey,
+                          textSize: 11.0.sp,
+                          textFontWeight: FontWeight.w400,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-        )
-      ],
-    ));
+            Center(
+              child: ContinueButton(
+                onpress: () {
+                  if (context.read<FirstImageCubit>().state.img.length <
+                      3) {
+                    snackbar(
+                        context,
+                        1,
+                        "Your profile must have at least 3 photos",
+                        Colors.redAccent);
+                  } else {
+                    navigateToAnotherScreenWithSlideTransitionFromRightToLeft(
+                      context,
+                      FinishingAccountStepFour(
+                        birthday: birthday,
+                        name: name,
+                        gender: gender,
+                        pictures: context
+                                .read<FirstImageCubit>()
+                                .state
+                                .croppedImage ??
+                            [],
+                        phoneNumber: phoneNumber,
+                      ),
+                    );
+                  }
+                },
+                width: SizeScreen.width * 0.63,
+                height: SizeScreen.height * 0.062,
+                borderColor: AppColor.red,
+                textColor: AppColor.red,
+                textButton: 'Continue',
+                widget: SvgPicture.string(continueArrow),
+              ),
+            )
+          ],
+        ),
+      ),
+    )
+          ],
+        );
   }
 
   final picker = ImagePicker();

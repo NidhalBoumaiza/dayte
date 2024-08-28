@@ -119,372 +119,371 @@ class _AvailabilityScreenState extends State<AvailabilityScreen> {
   @override
   Widget build(BuildContext context) {
     var arguments = Get.arguments;
-    return SafeArea(
-        child: Stack(
-      children: [
-        SvgPicture.string(
-          backgroundEmpty,
-          fit: BoxFit.cover,
-        ),
-        Scaffold(
-          backgroundColor: Colors.transparent,
-          body: Padding(
-            padding: EdgeInsets.fromLTRB(15.0.w, 30.h, 15.w, 30.h),
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Center(
-                          child: Text(
-                            "Availability",
-                            style: TextStyle(
-                              color: AppColor.red,
-                              fontSize: 25.sp,
-                              letterSpacing: 0.3,
-                              fontFamily: 'Times',
-                              fontWeight: FontWeight.w700,
-                              wordSpacing: 0.0,
-                            ),
-                          ),
+    return Stack(
+          children: [
+    SvgPicture.string(
+      backgroundEmpty,
+      fit: BoxFit.cover,
+    ),
+    Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Padding(
+        padding: EdgeInsets.fromLTRB(15.0.w, 30.h, 15.w, 30.h),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Text(
+                        "Availability",
+                        style: TextStyle(
+                          color: AppColor.red,
+                          fontSize: 25.sp,
+                          letterSpacing: 0.3,
+                          fontFamily: 'Times',
+                          fontWeight: FontWeight.w700,
+                          wordSpacing: 0.0,
                         ),
-                        SizedBox(height: 5.h),
-                        ReusableText(
-                          text:
-                              "Pick your Availability. when you want to have the dayte",
-                          textColor: AppColor.grey,
-                          textSize: 12.sp,
-                          textFontWeight: FontWeight.w400,
-                          textAlign: TextAlign.center,
-                        ),
-                        SizedBox(height: 30.h),
-                        CheckboxWidget(
-                          text: 'Monday',
-                          d: d1,
-                          onChange: (val) {
-                            if (d1) {
-                              setState(() {
-                                d1 = false;
-                                availabilityScreenController
-                                    .deleteDay('Monday');
-                              });
-                            } else {
-                              _showDialog(
-                                () async {
-                                  setState(() {
-                                    d1 = !d1;
-                                    DateTime date =
-                                        findFirstDayInMonth('Monday');
-                                    timeToAdd = DateTime(
-                                        date.year,
-                                        date.month,
-                                        date.day,
-                                        time.hour,
-                                        time.minute,
-                                        time.second);
-                                    String formattedTime =
-                                        DateFormat.Hm().format(timeToAdd);
-
-                                    availabilityScreenController.addDay(
-                                        'Monday', formattedTime);
-                                  });
-                                  Get.back();
-                                },
-                              );
-                            }
-                          },
-                        ),
-                        CheckboxWidget(
-                          text: 'Tuesday',
-                          d: d2,
-                          onChange: (val) {
-                            if (d2) {
-                              setState(() {
-                                d2 = false;
-                                availabilityScreenController
-                                    .deleteDay('Tuesday');
-                              });
-                            } else {
-                              _showDialog(
-                                () async {
-                                  setState(() {
-                                    d2 = !d2;
-                                    DateTime date =
-                                        findFirstDayInMonth('Tuesday');
-                                    timeToAdd = DateTime(
-                                        date.year,
-                                        date.month,
-                                        date.day,
-                                        time.hour,
-                                        time.minute,
-                                        time.second);
-                                    String formattedTime =
-                                        DateFormat.Hm().format(timeToAdd);
-                                    availabilityScreenController.addDay(
-                                        'Tuesday', formattedTime);
-                                  });
-                                  Get.back();
-                                },
-                              );
-                            }
-                          },
-                        ),
-                        CheckboxWidget(
-                          text: 'Wednesday',
-                          d: d3,
-                          onChange: (val) {
-                            if (d3) {
-                              setState(() {
-                                d3 = false;
-                                availabilityScreenController
-                                    .deleteDay("Wednesday");
-                              });
-                            } else {
-                              _showDialog(
-                                () async {
-                                  setState(() {
-                                    d3 = !d3;
-                                    DateTime date =
-                                        findFirstDayInMonth('Wednesday');
-                                    timeToAdd = DateTime(
-                                        date.year,
-                                        date.month,
-                                        date.day,
-                                        time.hour,
-                                        time.minute,
-                                        time.second);
-                                    String formattedTime =
-                                        DateFormat.Hm().format(timeToAdd);
-                                    availabilityScreenController.addDay(
-                                        "Wednesday", formattedTime);
-                                  });
-                                  Get.back();
-                                },
-                              );
-                            }
-                          },
-                        ),
-                        CheckboxWidget(
-                          text: 'Thursday',
-                          d: d4,
-                          onChange: (val) {
-                            if (d4) {
-                              setState(() {
-                                d4 = false;
-                                availabilityScreenController
-                                    .deleteDay('Thursday');
-                              });
-                            } else {
-                              _showDialog(
-                                () async {
-                                  setState(() {
-                                    d4 = !d4;
-                                    DateTime date =
-                                        findFirstDayInMonth('Thursday');
-                                    timeToAdd = DateTime(
-                                        date.year,
-                                        date.month,
-                                        date.day,
-                                        time.hour,
-                                        time.minute,
-                                        time.second);
-                                    String formattedTime =
-                                        DateFormat.Hm().format(timeToAdd);
-                                    availabilityScreenController.addDay(
-                                        'Thursday', formattedTime);
-                                  });
-                                  Get.back();
-                                },
-                              );
-                            }
-                          },
-                        ),
-                        CheckboxWidget(
-                          text: 'Friday',
-                          d: d5,
-                          onChange: (val) {
-                            if (d5) {
-                              setState(() {
-                                d5 = false;
-                                availabilityScreenController
-                                    .deleteDay('Friday');
-                              });
-                            } else {
-                              _showDialog(
-                                () async {
-                                  setState(() {
-                                    d5 = !d5;
-                                    DateTime date =
-                                        findFirstDayInMonth('Friday');
-                                    timeToAdd = DateTime(
-                                        date.year,
-                                        date.month,
-                                        date.day,
-                                        time.hour,
-                                        time.minute,
-                                        time.second);
-                                    String formattedTime =
-                                        DateFormat.Hm().format(timeToAdd);
-                                    availabilityScreenController.addDay(
-                                        'Friday', formattedTime);
-                                  });
-                                  Get.back();
-                                },
-                              );
-                            }
-                          },
-                        ),
-                        CheckboxWidget(
-                          text: 'Saturday',
-                          d: d6,
-                          onChange: (val) {
-                            if (d6) {
-                              setState(() {
-                                d6 = false;
-                                availabilityScreenController
-                                    .deleteDay('Saturday');
-                              });
-                            } else {
-                              _showDialog(
-                                () async {
-                                  setState(() {
-                                    d6 = !d6;
-                                    DateTime date =
-                                        findFirstDayInMonth('Saturday');
-                                    timeToAdd = DateTime(
-                                        date.year,
-                                        date.month,
-                                        date.day,
-                                        time.hour,
-                                        time.minute,
-                                        time.second);
-                                    String formattedTime =
-                                        DateFormat.Hm().format(timeToAdd);
-                                    availabilityScreenController.addDay(
-                                        'Saturday', formattedTime);
-                                  });
-                                  Get.back();
-                                },
-                              );
-                            }
-                          },
-                        ),
-                        CheckboxWidget(
-                          text: 'Sunday',
-                          d: d7,
-                          onChange: (val) {
-                            if (d7) {
-                              setState(() {
-                                d7 = false;
-                                availabilityScreenController
-                                    .deleteDay('Sunday');
-                              });
-                            } else {
-                              _showDialog(
-                                () async {
-                                  setState(() {
-                                    d7 = !d7;
-                                    DateTime date =
-                                        findFirstDayInMonth('Sunday');
-
-                                    timeToAdd = DateTime(
-                                        date.year,
-                                        date.month,
-                                        date.day,
-                                        time.hour,
-                                        time.minute,
-                                        time.second);
-                                    String formattedTime =
-                                        DateFormat.Hm().format(timeToAdd);
-
-                                    availabilityScreenController.addDay(
-                                        'Sunday', formattedTime);
-                                  });
-                                  Get.back();
-                                },
-                              );
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  Obx(
-                    () => Center(
-                      child: MyCustomButton(
-                        width: double.infinity,
-                        height: 45.h,
-                        function:
-                            availabilityScreenController.isLoaded.value == false
-                                ? () async {
-                                    if (availabilityScreenController
-                                        .myMap.isEmpty) {
-                                      snackbar(
-                                          context,
-                                          1,
-                                          "You have to select at least a day for the date",
-                                          Colors.redAccent);
-                                    } else {
-                                      var body = {
-                                        "dateId": widget.id,
-                                        "proposedTime":
-                                            availabilityScreenController.myMap,
-                                      };
-                                      var data = jsonEncode(body);
-                                      SharedPreferences prefs =
-                                          await SharedPreferences.getInstance();
-                                      var token = prefs.getString('token');
-                                      var res = await http.post(
-                                        Uri.parse(
-                                            "${dotenv.env['URL']}/date/setProposedDate"),
-                                        headers: <String, String>{
-                                          'Content-Type':
-                                              'application/json; charset=UTF-8',
-                                          "Authorization": "Bearer $token",
-                                        },
-                                        body: data,
-                                      );
-                                      final resBody = json.decode(res.body);
-                                      if (res.statusCode == 200) {
-                                        snackbar(
-                                            context,
-                                            1,
-                                            'Your date time has been saved successfully',
-                                            Colors.green);
-                                        navigateToAnotherScreenWithSlideTransitionFromBottomToTop(
-                                            context, SqueletteHomeScreen());
-                                      } else {
-                                        snackbar(context, 1, resBody['message'],
-                                            Colors.redAccent);
-                                      }
-                                    }
-
-                                    print(availabilityScreenController.myMap);
-                                  }
-                                : () {},
-                        buttonColor: AppColor.red,
-                        text: "Submit",
-                        fontWeight: FontWeight.w700,
-                        widget:
-                            availabilityScreenController.isLoaded.value == true
-                                ? ReusablecircularProgressIndicator(
-                                    indicatorColor: Colors.white,
-                                    height: 15,
-                                    width: 15,
-                                  )
-                                : null,
                       ),
                     ),
-                  )
-                ]),
-          ),
-        )
-      ],
-    ));
+                    SizedBox(height: 5.h),
+                    ReusableText(
+                      text:
+                          "Pick your Availability. when you want to have the dayte",
+                      textColor: AppColor.grey,
+                      textSize: 12.sp,
+                      textFontWeight: FontWeight.w400,
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 30.h),
+                    CheckboxWidget(
+                      text: 'Monday',
+                      d: d1,
+                      onChange: (val) {
+                        if (d1) {
+                          setState(() {
+                            d1 = false;
+                            availabilityScreenController
+                                .deleteDay('Monday');
+                          });
+                        } else {
+                          _showDialog(
+                            () async {
+                              setState(() {
+                                d1 = !d1;
+                                DateTime date =
+                                    findFirstDayInMonth('Monday');
+                                timeToAdd = DateTime(
+                                    date.year,
+                                    date.month,
+                                    date.day,
+                                    time.hour,
+                                    time.minute,
+                                    time.second);
+                                String formattedTime =
+                                    DateFormat.Hm().format(timeToAdd);
+
+                                availabilityScreenController.addDay(
+                                    'Monday', formattedTime);
+                              });
+                              Get.back();
+                            },
+                          );
+                        }
+                      },
+                    ),
+                    CheckboxWidget(
+                      text: 'Tuesday',
+                      d: d2,
+                      onChange: (val) {
+                        if (d2) {
+                          setState(() {
+                            d2 = false;
+                            availabilityScreenController
+                                .deleteDay('Tuesday');
+                          });
+                        } else {
+                          _showDialog(
+                            () async {
+                              setState(() {
+                                d2 = !d2;
+                                DateTime date =
+                                    findFirstDayInMonth('Tuesday');
+                                timeToAdd = DateTime(
+                                    date.year,
+                                    date.month,
+                                    date.day,
+                                    time.hour,
+                                    time.minute,
+                                    time.second);
+                                String formattedTime =
+                                    DateFormat.Hm().format(timeToAdd);
+                                availabilityScreenController.addDay(
+                                    'Tuesday', formattedTime);
+                              });
+                              Get.back();
+                            },
+                          );
+                        }
+                      },
+                    ),
+                    CheckboxWidget(
+                      text: 'Wednesday',
+                      d: d3,
+                      onChange: (val) {
+                        if (d3) {
+                          setState(() {
+                            d3 = false;
+                            availabilityScreenController
+                                .deleteDay("Wednesday");
+                          });
+                        } else {
+                          _showDialog(
+                            () async {
+                              setState(() {
+                                d3 = !d3;
+                                DateTime date =
+                                    findFirstDayInMonth('Wednesday');
+                                timeToAdd = DateTime(
+                                    date.year,
+                                    date.month,
+                                    date.day,
+                                    time.hour,
+                                    time.minute,
+                                    time.second);
+                                String formattedTime =
+                                    DateFormat.Hm().format(timeToAdd);
+                                availabilityScreenController.addDay(
+                                    "Wednesday", formattedTime);
+                              });
+                              Get.back();
+                            },
+                          );
+                        }
+                      },
+                    ),
+                    CheckboxWidget(
+                      text: 'Thursday',
+                      d: d4,
+                      onChange: (val) {
+                        if (d4) {
+                          setState(() {
+                            d4 = false;
+                            availabilityScreenController
+                                .deleteDay('Thursday');
+                          });
+                        } else {
+                          _showDialog(
+                            () async {
+                              setState(() {
+                                d4 = !d4;
+                                DateTime date =
+                                    findFirstDayInMonth('Thursday');
+                                timeToAdd = DateTime(
+                                    date.year,
+                                    date.month,
+                                    date.day,
+                                    time.hour,
+                                    time.minute,
+                                    time.second);
+                                String formattedTime =
+                                    DateFormat.Hm().format(timeToAdd);
+                                availabilityScreenController.addDay(
+                                    'Thursday', formattedTime);
+                              });
+                              Get.back();
+                            },
+                          );
+                        }
+                      },
+                    ),
+                    CheckboxWidget(
+                      text: 'Friday',
+                      d: d5,
+                      onChange: (val) {
+                        if (d5) {
+                          setState(() {
+                            d5 = false;
+                            availabilityScreenController
+                                .deleteDay('Friday');
+                          });
+                        } else {
+                          _showDialog(
+                            () async {
+                              setState(() {
+                                d5 = !d5;
+                                DateTime date =
+                                    findFirstDayInMonth('Friday');
+                                timeToAdd = DateTime(
+                                    date.year,
+                                    date.month,
+                                    date.day,
+                                    time.hour,
+                                    time.minute,
+                                    time.second);
+                                String formattedTime =
+                                    DateFormat.Hm().format(timeToAdd);
+                                availabilityScreenController.addDay(
+                                    'Friday', formattedTime);
+                              });
+                              Get.back();
+                            },
+                          );
+                        }
+                      },
+                    ),
+                    CheckboxWidget(
+                      text: 'Saturday',
+                      d: d6,
+                      onChange: (val) {
+                        if (d6) {
+                          setState(() {
+                            d6 = false;
+                            availabilityScreenController
+                                .deleteDay('Saturday');
+                          });
+                        } else {
+                          _showDialog(
+                            () async {
+                              setState(() {
+                                d6 = !d6;
+                                DateTime date =
+                                    findFirstDayInMonth('Saturday');
+                                timeToAdd = DateTime(
+                                    date.year,
+                                    date.month,
+                                    date.day,
+                                    time.hour,
+                                    time.minute,
+                                    time.second);
+                                String formattedTime =
+                                    DateFormat.Hm().format(timeToAdd);
+                                availabilityScreenController.addDay(
+                                    'Saturday', formattedTime);
+                              });
+                              Get.back();
+                            },
+                          );
+                        }
+                      },
+                    ),
+                    CheckboxWidget(
+                      text: 'Sunday',
+                      d: d7,
+                      onChange: (val) {
+                        if (d7) {
+                          setState(() {
+                            d7 = false;
+                            availabilityScreenController
+                                .deleteDay('Sunday');
+                          });
+                        } else {
+                          _showDialog(
+                            () async {
+                              setState(() {
+                                d7 = !d7;
+                                DateTime date =
+                                    findFirstDayInMonth('Sunday');
+
+                                timeToAdd = DateTime(
+                                    date.year,
+                                    date.month,
+                                    date.day,
+                                    time.hour,
+                                    time.minute,
+                                    time.second);
+                                String formattedTime =
+                                    DateFormat.Hm().format(timeToAdd);
+
+                                availabilityScreenController.addDay(
+                                    'Sunday', formattedTime);
+                              });
+                              Get.back();
+                            },
+                          );
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              Obx(
+                () => Center(
+                  child: MyCustomButton(
+                    width: double.infinity,
+                    height: 45.h,
+                    function:
+                        availabilityScreenController.isLoaded.value == false
+                            ? () async {
+                                if (availabilityScreenController
+                                    .myMap.isEmpty) {
+                                  snackbar(
+                                      context,
+                                      1,
+                                      "You have to select at least a day for the date",
+                                      Colors.redAccent);
+                                } else {
+                                  var body = {
+                                    "dateId": widget.id,
+                                    "proposedTime":
+                                        availabilityScreenController.myMap,
+                                  };
+                                  var data = jsonEncode(body);
+                                  SharedPreferences prefs =
+                                      await SharedPreferences.getInstance();
+                                  var token = prefs.getString('token');
+                                  var res = await http.post(
+                                    Uri.parse(
+                                        "${dotenv.env['URL']}/date/setProposedDate"),
+                                    headers: <String, String>{
+                                      'Content-Type':
+                                          'application/json; charset=UTF-8',
+                                      "Authorization": "Bearer $token",
+                                    },
+                                    body: data,
+                                  );
+                                  final resBody = json.decode(res.body);
+                                  if (res.statusCode == 200) {
+                                    snackbar(
+                                        context,
+                                        1,
+                                        'Your date time has been saved successfully',
+                                        Colors.green);
+                                    navigateToAnotherScreenWithSlideTransitionFromBottomToTop(
+                                        context, SqueletteHomeScreen());
+                                  } else {
+                                    snackbar(context, 1, resBody['message'],
+                                        Colors.redAccent);
+                                  }
+                                }
+
+                                print(availabilityScreenController.myMap);
+                              }
+                            : () {},
+                    buttonColor: AppColor.red,
+                    text: "Submit",
+                    fontWeight: FontWeight.w700,
+                    widget:
+                        availabilityScreenController.isLoaded.value == true
+                            ? ReusablecircularProgressIndicator(
+                                indicatorColor: Colors.white,
+                                height: 15,
+                                width: 15,
+                              )
+                            : null,
+                  ),
+                ),
+              )
+            ]),
+      ),
+    )
+          ],
+        );
   }
 }
 

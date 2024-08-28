@@ -56,126 +56,124 @@ class _ItsADateScreenState extends State<ItsADateScreen>
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Stack(
-        children: [
-          SvgPicture.string(
-            backgroundEmpty,
-            fit: BoxFit.cover,
-          ),
-          Scaffold(
-            backgroundColor: Colors.transparent,
-            body: Padding(
-              padding: EdgeInsets.fromLTRB(2.0, 0.h, 2, 25.h),
-              child: SizedBox(
-                width: double.infinity,
-                height: double.infinity,
-                child: Stack(
-                  children: [
-                    Positioned(
-                      top: 80.h,
-                      right: 35.w,
-                      child: Transform(
-                        alignment: FractionalOffset.center,
-                        transform: Matrix4.identity()
-                          ..rotateZ(15 * 3.1415927 / 180),
-                        child: Container(
-                          height: 270.h,
-                          width: 200.w,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.w),
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                  '${widget.likingUser.images?[0].image}'),
-                              fit: BoxFit.cover,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.2),
-                                spreadRadius: 0,
-                                blurRadius: 50,
-                                offset: Offset(5, 15),
-                              ),
-                            ],
+    return Stack(
+      children: [
+        SvgPicture.string(
+          backgroundEmpty,
+          fit: BoxFit.cover,
+        ),
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          body: Padding(
+            padding: EdgeInsets.fromLTRB(2.0, 0.h, 2, 25.h),
+            child: SizedBox(
+              width: double.infinity,
+              height: double.infinity,
+              child: Stack(
+                children: [
+                  Positioned(
+                    top: 80.h,
+                    right: 35.w,
+                    child: Transform(
+                      alignment: FractionalOffset.center,
+                      transform: Matrix4.identity()
+                        ..rotateZ(15 * 3.1415927 / 180),
+                      child: Container(
+                        height: 270.h,
+                        width: 200.w,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.w),
+                          image: DecorationImage(
+                            image: NetworkImage(
+                                '${widget.likingUser.images?[0].image}'),
+                            fit: BoxFit.cover,
                           ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      top: 5,
-                      left: 100.w,
-                      child: Image.asset('images/like.png'),
-                    ),
-                    Positioned(
-                      top: 230.h,
-                      left: 30.w,
-                      child: Transform(
-                        alignment: FractionalOffset.center,
-                        transform: Matrix4.identity()
-                          ..rotateZ(-15 * 2.2815927 / 180),
-                        child: Container(
-                          height: 270.h,
-                          width: 200.w,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.w),
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                  '${widget.likedUser.images?[0].image}'),
-                              fit: BoxFit.cover,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 0,
+                              blurRadius: 50,
+                              offset: Offset(5, 15),
                             ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.2),
-                                spreadRadius: 0,
-                                blurRadius: 50,
-                                offset: Offset(5, 15),
-                              ),
-                            ],
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 5,
+                    left: 100.w,
+                    child: Image.asset('images/like.png'),
+                  ),
+                  Positioned(
+                    top: 230.h,
+                    left: 30.w,
+                    child: Transform(
+                      alignment: FractionalOffset.center,
+                      transform: Matrix4.identity()
+                        ..rotateZ(-15 * 2.2815927 / 180),
+                      child: Container(
+                        height: 270.h,
+                        width: 200.w,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.w),
+                          image: DecorationImage(
+                            image: NetworkImage(
+                                '${widget.likedUser.images?[0].image}'),
+                            fit: BoxFit.cover,
                           ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 0,
+                              blurRadius: 50,
+                              offset: Offset(5, 15),
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                    Positioned(
-                      bottom: 20.h,
-                      left: -5.h,
-                      child: Image.asset('images/like.png'),
-                    ),
-                    Positioned(
-                      bottom: 80.h,
-                      right: 20.w,
-                      child: Text(
-                        "It's a Dayte!",
-                        style: TextStyle(
-                          color: AppColor.red,
-                          fontSize: 35.sp,
-                          letterSpacing: 0.3,
-                          fontFamily: 'Times',
-                          fontWeight: FontWeight.bold,
-                          wordSpacing: 0.0,
-                        ),
+                  ),
+                  Positioned(
+                    bottom: 20.h,
+                    left: -5.h,
+                    child: Image.asset('images/like.png'),
+                  ),
+                  Positioned(
+                    bottom: 80.h,
+                    right: 20.w,
+                    child: Text(
+                      "It's a Dayte!",
+                      style: TextStyle(
+                        color: AppColor.red,
+                        fontSize: 35.sp,
+                        letterSpacing: 0.3,
+                        fontFamily: 'Times',
+                        fontWeight: FontWeight.bold,
+                        wordSpacing: 0.0,
                       ),
                     ),
-                    Positioned(
-                      bottom: 30.h,
-                      right: 20.w,
-                      child: GestureDetector(
-                        onTap: () {
-                          navigateToAnotherScreenWithSlideTransitionFromRightToLeft(
-                              context, AvailabilityScreen(id: widget.id));
-                        },
-                        child: SlideTransition(
-                          position: _animation,
-                          child: SvgPicture.string(arrow),
-                        ),
+                  ),
+                  Positioned(
+                    bottom: 30.h,
+                    right: 20.w,
+                    child: GestureDetector(
+                      onTap: () {
+                        navigateToAnotherScreenWithSlideTransitionFromRightToLeft(
+                            context, AvailabilityScreen(id: widget.id));
+                      },
+                      child: SlideTransition(
+                        position: _animation,
+                        child: SvgPicture.string(arrow),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 }

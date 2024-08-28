@@ -51,7 +51,7 @@ class _DayteScreenState extends State<DayteScreen> {
             return handleUnauthorizedAccessLogic(context);
           } else {
             return Padding(
-              padding: EdgeInsets.fromLTRB(2.w, 7.h, 2.w, 27.h),
+              padding: EdgeInsets.fromLTRB(2.w, 40.h, 2.w, 27.h),
               child: Stack(
                 children: [
                   Column(

@@ -26,35 +26,33 @@ class _SqueletteHomeScreenState extends State<SqueletteHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          height: double.infinity,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('images/background.jpg'), fit: BoxFit.cover),
-          ),
-          child: Column(children: [
-            BlocBuilder<BottomNavigationCubit, int>(
-              builder: (context, state) {
-                return checkPlatform(
-                    iphoneWidget: SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.82,
-                      child: bottomNavigationBarScreens[state],
-                    ),
-                    androidWidget: SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.88,
-                      child: bottomNavigationBarScreens[state],
-                    ));
-              },
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 5.0.h),
-              child: ReusableBottomNavigationBar(),
-            ),
-          ]),
+    return Scaffold(
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('images/background.jpg'), fit: BoxFit.cover),
         ),
+        child: Column(children: [
+          BlocBuilder<BottomNavigationCubit, int>(
+            builder: (context, state) {
+              return checkPlatform(
+                  iphoneWidget: SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.90,
+                    child: bottomNavigationBarScreens[state],
+                  ),
+                  androidWidget: SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.88,
+                    child: bottomNavigationBarScreens[state],
+                  ));
+            },
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 5.0.h),
+            child: ReusableBottomNavigationBar(),
+          ),
+        ]),
       ),
     );
   }

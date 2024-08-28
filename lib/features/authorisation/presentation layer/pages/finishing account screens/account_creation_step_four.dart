@@ -88,109 +88,107 @@ class _FinishingAccountStepFourState extends State<FinishingAccountStepFour> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Stack(
-        children: [
-          SvgPicture.string(
-            backgroundEmpty,
-            fit: BoxFit.cover,
-          ),
-          Scaffold(
-            appBar: appBar,
-            backgroundColor: Colors.transparent,
-            body: Padding(
-              padding: EdgeInsets.fromLTRB(15.w, 15.h, 15.w, 40.h),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Select your interests",
-                          style: TextStyle(
-                            color: AppColor.red,
-                            fontSize: 25.sp,
-                            letterSpacing: 0.3,
-                            fontFamily: 'Times',
-                            fontWeight: FontWeight.w700,
-                            wordSpacing: 0.0,
-                          ),
+    return Stack(
+      children: [
+        SvgPicture.string(
+          backgroundEmpty,
+          fit: BoxFit.cover,
+        ),
+        Scaffold(
+          appBar: appBar,
+          backgroundColor: Colors.transparent,
+          body: Padding(
+            padding: EdgeInsets.fromLTRB(15.w, 15.h, 15.w, 40.h),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Select your interests",
+                        style: TextStyle(
+                          color: AppColor.red,
+                          fontSize: 25.sp,
+                          letterSpacing: 0.3,
+                          fontFamily: 'Times',
+                          fontWeight: FontWeight.w700,
+                          wordSpacing: 0.0,
                         ),
-                        SizedBox(height: 8.h),
-                        ReusableText(
-                          text:
-                              "Select a few of your interests and let everyone know what you’re passionate about.",
-                          textSize: 11.sp,
-                          textFontWeight: FontWeight.w400,
-                          textColor: AppColor.grey,
+                      ),
+                      SizedBox(height: 8.h),
+                      ReusableText(
+                        text:
+                            "Select a few of your interests and let everyone know what you’re passionate about.",
+                        textSize: 11.sp,
+                        textFontWeight: FontWeight.w400,
+                        textColor: AppColor.grey,
+                      ),
+                      SizedBox(height: 30.h),
+                      for (int i = 0; i < interestOptions.length; i += 3)
+                        Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceAround,
+                              children: [
+                                for (int j = 0; j < 3; j++)
+                                  if (i + j < interestOptions.length)
+                                    _buildInterestButton(
+                                        interestOptions[i + j]),
+                              ],
+                            ),
+                            SizedBox(height: 40.h),
+                          ],
                         ),
-                        SizedBox(height: 30.h),
-                        for (int i = 0; i < interestOptions.length; i += 3)
-                          Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  for (int j = 0; j < 3; j++)
-                                    if (i + j < interestOptions.length)
-                                      _buildInterestButton(
-                                          interestOptions[i + j]),
-                                ],
-                              ),
-                              SizedBox(height: 40.h),
-                            ],
-                          ),
-                        GestureDetector(
-                          onTap: () {
-                            /// TODO LATER
-                          },
-                          child: SvgPicture.string(more),
-                        ),
-                      ],
-                    ),
+                      GestureDetector(
+                        onTap: () {
+                          /// TODO LATER
+                        },
+                        child: SvgPicture.string(more),
+                      ),
+                    ],
                   ),
-                  Center(
-                    child: ContinueButton(
-                      onpress: () {
-                        if (_selectedInterestIds.isEmpty) {
-                          snackbar(
+                ),
+                Center(
+                  child: ContinueButton(
+                    onpress: () {
+                      if (_selectedInterestIds.isEmpty) {
+                        snackbar(
+                          context,
+                          1,
+                          "You have to select at least one interest",
+                          Colors.redAccent,
+                        );
+                      } else {
+                        navigateToAnotherScreenWithSlideTransitionFromRightToLeft(
                             context,
-                            1,
-                            "You have to select at least one interest",
-                            Colors.redAccent,
-                          );
-                        } else {
-                          navigateToAnotherScreenWithSlideTransitionFromRightToLeft(
-                              context,
-                              FinishingAccountStepFive(
-                                name: widget.name,
-                                birthday: widget.birthday,
-                                gender: widget.gender,
-                                pictures: widget.pictures,
-                                interests: _selectedInterestIds,
-                                phoneNumber: widget.phoneNumber,
-                              ));
-                        }
-                      },
-                      width: 0.63.sw,
-                      height: 0.062.sh,
-                      borderColor: AppColor.red,
-                      textColor: AppColor.red,
-                      textButton: 'Continue',
-                      widget: SvgPicture.string(continueArrow),
-                    ),
+                            FinishingAccountStepFive(
+                              name: widget.name,
+                              birthday: widget.birthday,
+                              gender: widget.gender,
+                              pictures: widget.pictures,
+                              interests: _selectedInterestIds,
+                              phoneNumber: widget.phoneNumber,
+                            ));
+                      }
+                    },
+                    width: 0.63.sw,
+                    height: 0.062.sh,
+                    borderColor: AppColor.red,
+                    textColor: AppColor.red,
+                    textButton: 'Continue',
+                    widget: SvgPicture.string(continueArrow),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
