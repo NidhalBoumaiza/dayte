@@ -3,7 +3,6 @@ import 'package:client/core/widgets/reusable_text.dart';
 import 'package:client/features/dates/presentation%20layer/pages/its_date!!!_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -77,7 +76,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                           image: DecorationImage(
                             image: NetworkImage(
                                 "${widget.profile.images![0].image!}"),
-                            fit: BoxFit.fill,
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),

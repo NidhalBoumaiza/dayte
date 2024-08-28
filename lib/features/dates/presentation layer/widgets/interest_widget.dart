@@ -46,64 +46,64 @@ class InterestWidget extends StatelessWidget {
 String interestImage(interest) {
   String image = '';
   switch (interest) {
-    case 'music':
+    case 'music' || 'Music' || 'musical' || 'Musical':
       image = 'images/music.png';
       break;
-    case 'sports':
+    case 'sports' || 'Sports' || 'sport' || 'Sport':
       image = 'images/sport.png';
       break;
     case 'travelling' || 'Travelling' || "traveling" || "Traveling":
       image = 'images/travel.png';
       break;
-    case 'Food':
+    case 'Food' || 'food' || 'foods' || 'Foods':
       image = 'images/food.png';
       break;
-    case 'modeling':
+    case 'modeling' || 'Modeling' || 'model' || 'Model':
       image = 'images/model.png';
       break;
-    case 'Art':
+    case 'Art' || 'art' || 'arts' || 'Arts':
       image = 'images/art.png';
       break;
-    case 'dancing':
+    case 'dancing' || 'Dancing' || 'dance' || 'Dance':
       image = 'images/dancin.png';
       break;
-    case 'photography':
+    case 'photography' || 'Photography' || 'photo' || 'Photo':
       image = 'images/photography.png';
       break;
-    case 'books':
+    case 'books' || 'Books' || 'book' || 'Book':
       image = 'images/books.png';
       break;
-    case 'reading' || 'Reading':
+    case 'reading' || 'Reading' || 'read' || 'Read':
       image = 'images/books.png';
       break;
-    case 'baking':
+    case 'baking' || 'Baking' || 'bake' || 'Bake':
       image = 'images/baking.png';
       break;
-    case 'painting':
+    case 'painting' || 'Painting' || 'paint' || 'Paint':
       image = 'images/painting.png';
       break;
-    case 'cooking':
+    case 'cooking' || 'Cooking' || 'cook' || 'Cook':
       image = 'images/baking.png';
       break;
-    case 'gym':
+    case 'gym' || 'Gym':
       image = 'images/sport.png';
       break;
-    case 'animals':
+    case 'animals' || 'Animals' || 'animal' || 'Animal':
       image = 'images/animal.png';
       break;
-    case 'shopping':
+    case 'shopping' || 'Shopping' || 'shop' || 'Shop':
       image = 'images/shopping.png';
       break;
-    case 'writing':
+    case 'writing' || 'Writing' || 'write' || 'Write':
       image = 'images/writing.png';
       break;
-    case 'Animals':
+    case 'Animals' || 'animals' || 'animal' || 'Animal':
       image = 'images/animals.png';
       break;
-    case 'drawing':
+    case 'drawing' || 'Drawing' || 'draw' || 'Draw':
       image = 'images/drawing.png';
       break;
-    case 'Cars':
+    case 'Cars' || 'cars' || 'car' || 'Car':
       image = 'images/cars';
       break;
     default:

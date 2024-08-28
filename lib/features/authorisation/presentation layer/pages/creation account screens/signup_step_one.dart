@@ -182,8 +182,9 @@ class SignupStepOne extends StatelessWidget {
                               child: ReusableText(
                                 text: "Or connect with social",
                                 textSize: 17.0.sp,
-                                textFontWeight: FontWeight.w700,
+                                textFontWeight: FontWeight.w400,
                                 textColor: AppColor.red,
+                                textDecoration: TextDecoration.underline,
                               ),
                             ),
                             SizedBox(height: 160.h),
