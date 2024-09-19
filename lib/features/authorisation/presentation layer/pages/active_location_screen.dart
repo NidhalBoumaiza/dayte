@@ -24,107 +24,107 @@ class ActiveLocationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
-          children: [
-    SvgPicture.string(
-      backgroundEmpty,
-      fit: BoxFit.cover,
-    ),
-    Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Padding(
-        padding: EdgeInsets.fromLTRB(20.0.w, 0, 20.0.w, 50.h),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Center(
-                      child: AnimationTop(
-                          child: SvgPicture.string(positionImage))),
-                  SizedBox(height: 25.h),
-                  ReusableText(
-                    text: "Enable Location",
-                    textSize: 18.sp,
-                    textColor: Color(0xff2B2627),
-                    textFontWeight: FontWeight.w500,
-                  ),
-                  SizedBox(height: 15.h),
-                  ReusableText(
-                    text:
-                        "Allow Dayte to access your location? You must allow access for Dayte to work. We will only track your location while on duty.",
-                    textSize: 12.sp,
-                    textColor: Color(0xff2B2627),
-                    textFontWeight: FontWeight.w500,
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 100.h)
-                ],
-              ),
-            ),
-            BlocConsumer<UpdateCoordinateBloc, UpdateCoordinateState>(
-                listener: (context, state) {
-              if (state is UpdateCoordinateSuccess) {
-                context.read<BottomNavigationCubit>().changePage(1);
-                context.read<GetProfileBloc>().add(GetProfile());
-                navigateToAnotherScreenWithSlideTransitionFromRightToLeftPushReplacement(
-                    context, SqueletteHomeScreen());
-              } else if (state is UpdateCoordinateError) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.message),
-                    backgroundColor: Colors.red,
-                  ),
-                );
-              } else if (state is EndOfPlanErreur) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.message),
-                    backgroundColor: Colors.red,
-                  ),
-                );
-                navigateToAnotherScreenWithSlideTransitionFromRightToLeftPushReplacement(
-                    context,
-                    SignupStepFour(
-                      isBillingScreen: true,
-                    ));
-              }
-            }, builder: (context, state) {
-              if (state is UpdateCoordinateUnauthorized) {
-                return handleUnauthorizedAccessLogic(context);
-              } else {
-                return MyCustomButton(
-                  width: double.infinity,
-                  height: 50.h,
-                  function: state is UpdateCoordinateLoading
-                      ? () {}
-                      : () {
-                          context
-                              .read<UpdateCoordinateBloc>()
-                              .add(UpdateCoordinate());
-                        },
-                  buttonColor: AppColor.red,
-                  text: 'Activer localisation',
-                  circularRadious: 15.sp,
-                  textButtonColor: Colors.white,
-                  fontSize: 19.sp,
-                  fontWeight: FontWeight.w800,
-                  widget: state is UpdateCoordinateLoading
-                      ? ReusablecircularProgressIndicator(
-                          indicatorColor: Colors.white,
-                        )
-                      : null,
-                );
-              }
-            }),
-          ],
+      children: [
+        SvgPicture.string(
+          backgroundEmpty,
+          fit: BoxFit.cover,
         ),
-      ),
-    )
-          ],
-        );
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          body: Padding(
+            padding: EdgeInsets.fromLTRB(20.0.w, 0, 20.0.w, 50.h),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Center(
+                          child: AnimationTop(
+                              child: SvgPicture.string(positionImage))),
+                      SizedBox(height: 25.h),
+                      ReusableText(
+                        text: "Enable Location",
+                        textSize: 18.sp,
+                        textColor: Color(0xff2B2627),
+                        textFontWeight: FontWeight.w500,
+                      ),
+                      SizedBox(height: 15.h),
+                      ReusableText(
+                        text:
+                            "Allow Dayte to access your location? You must allow access for Dayte to work. We will only track your location while on duty.",
+                        textSize: 12.sp,
+                        textColor: Color(0xff2B2627),
+                        textFontWeight: FontWeight.w500,
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: 100.h)
+                    ],
+                  ),
+                ),
+                BlocConsumer<UpdateCoordinateBloc, UpdateCoordinateState>(
+                    listener: (context, state) {
+                  if (state is UpdateCoordinateSuccess) {
+                    context.read<BottomNavigationCubit>().changePage(1);
+                    context.read<GetProfileBloc>().add(GetProfile());
+                    navigateToAnotherScreenWithSlideTransitionFromRightToLeftPushReplacement(
+                        context, SqueletteHomeScreen());
+                  } else if (state is UpdateCoordinateError) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(state.message),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  } else if (state is EndOfPlanErreur) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(state.message),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                    navigateToAnotherScreenWithSlideTransitionFromRightToLeftPushReplacement(
+                        context,
+                        SignupStepFour(
+                          isBillingScreen: true,
+                        ));
+                  }
+                }, builder: (context, state) {
+                  if (state is UpdateCoordinateUnauthorized) {
+                    return handleUnauthorizedAccessLogic(context);
+                  } else {
+                    return MyCustomButton(
+                      width: double.infinity,
+                      height: 50.h,
+                      function: state is UpdateCoordinateLoading
+                          ? () {}
+                          : () {
+                              context
+                                  .read<UpdateCoordinateBloc>()
+                                  .add(UpdateCoordinate());
+                            },
+                      buttonColor: AppColor.red,
+                      text: 'Enable Location',
+                      circularRadious: 15.sp,
+                      textButtonColor: Colors.white,
+                      fontSize: 19.sp,
+                      fontWeight: FontWeight.w800,
+                      widget: state is UpdateCoordinateLoading
+                          ? ReusablecircularProgressIndicator(
+                              indicatorColor: Colors.white,
+                            )
+                          : null,
+                    );
+                  }
+                }),
+              ],
+            ),
+          ),
+        )
+      ],
+    );
   }
 }
